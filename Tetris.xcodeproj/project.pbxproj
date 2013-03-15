@@ -9,11 +9,46 @@
 /* Begin PBXBuildFile section */
 		C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A37D7616F24F1B00ED5820 /* Cocoa.framework */; };
 		C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */; };
-		C2A37D8316F24F1B00ED5820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A37D8216F24F1B00ED5820 /* main.m */; };
 		C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D8516F24F1B00ED5820 /* Credits.rtf */; };
-		C2A37D8A16F24F1B00ED5820 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A37D8916F24F1B00ED5820 /* AppDelegate.m */; };
-		C2A37D8D16F24F1C00ED5820 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D8B16F24F1C00ED5820 /* MainMenu.xib */; };
+		C2DD4CF816F25067005F36B3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4CF716F25067005F36B3 /* main.cpp */; };
+		C2DD4CFB16F2507F005F36B3 /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
+		C2DD4CFC16F2507F005F36B3 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
+		C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
+		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
+		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
+		C2DD4D0516F2D022005F36B3 /* greensquare.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D0416F2D022005F36B3 /* greensquare.png */; };
+		C2DD4D0616F2D033005F36B3 /* greensquare.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0416F2D022005F36B3 /* greensquare.png */; };
+		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C2DD4D1516F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D1616F2E5DF005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C2DD4CFD16F2508C005F36B3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */,
+				C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */,
+				C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2DD4D0316F2D013005F36B3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				C2DD4D0616F2D033005F36B3 /* greensquare.png in CopyFiles */,
+				C2DD4D1616F2E5DF005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C2A37D7316F24F1B00ED5820 /* Tetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -23,12 +58,16 @@
 		C2A37D7B16F24F1B00ED5820 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tetris-Info.plist"; sourceTree = "<group>"; };
 		C2A37D8016F24F1B00ED5820 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C2A37D8216F24F1B00ED5820 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C2A37D8416F24F1B00ED5820 /* Tetris-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tetris-Prefix.pch"; sourceTree = "<group>"; };
 		C2A37D8616F24F1B00ED5820 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		C2A37D8816F24F1B00ED5820 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C2A37D8916F24F1B00ED5820 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C2A37D8C16F24F1C00ED5820 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C2DD4CF716F25067005F36B3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C2DD4CF916F2507F005F36B3 /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = /Library/Frameworks/SDL_image.framework; sourceTree = "<absolute>"; };
+		C2DD4CFA16F2507F005F36B3 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		C2DD4D0016F250E1005F36B3 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.h"; sourceTree = "<absolute>"; };
+		C2DD4D0116F250E1005F36B3 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.m"; sourceTree = "<absolute>"; };
+		C2DD4D0416F2D022005F36B3 /* greensquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greensquare.png; sourceTree = "<group>"; };
+		C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_ttf-2.0.0.dylib"; path = "/usr/local/Cellar/sdl_ttf/2.0.11/lib/libSDL_ttf-2.0.0.dylib"; sourceTree = "<absolute>"; };
+		C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */,
+				C2DD4CFB16F2507F005F36B3 /* SDL_image.framework in Frameworks */,
+				C2DD4CFC16F2507F005F36B3 /* SDL.framework in Frameworks */,
 				C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,6 +105,9 @@
 		C2A37D7516F24F1B00ED5820 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */,
+				C2DD4CF916F2507F005F36B3 /* SDL_image.framework */,
+				C2DD4CFA16F2507F005F36B3 /* SDL.framework */,
 				C2A37D7616F24F1B00ED5820 /* Cocoa.framework */,
 				C2A37D7816F24F1B00ED5820 /* Other Frameworks */,
 			);
@@ -82,9 +127,7 @@
 		C2A37D7C16F24F1B00ED5820 /* Tetris */ = {
 			isa = PBXGroup;
 			children = (
-				C2A37D8816F24F1B00ED5820 /* AppDelegate.h */,
-				C2A37D8916F24F1B00ED5820 /* AppDelegate.m */,
-				C2A37D8B16F24F1C00ED5820 /* MainMenu.xib */,
+				C2DD4CF716F25067005F36B3 /* main.cpp */,
 				C2A37D7D16F24F1B00ED5820 /* Supporting Files */,
 			);
 			path = Tetris;
@@ -93,9 +136,12 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */,
+				C2DD4D0416F2D022005F36B3 /* greensquare.png */,
+				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
+				C2DD4D0116F250E1005F36B3 /* SDLMain.m */,
 				C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */,
 				C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */,
-				C2A37D8216F24F1B00ED5820 /* main.m */,
 				C2A37D8416F24F1B00ED5820 /* Tetris-Prefix.pch */,
 				C2A37D8516F24F1B00ED5820 /* Credits.rtf */,
 			);
@@ -112,6 +158,8 @@
 				C2A37D6F16F24F1B00ED5820 /* Sources */,
 				C2A37D7016F24F1B00ED5820 /* Frameworks */,
 				C2A37D7116F24F1B00ED5820 /* Resources */,
+				C2DD4CFD16F2508C005F36B3 /* CopyFiles */,
+				C2DD4D0316F2D013005F36B3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -155,7 +203,8 @@
 			files = (
 				C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */,
 				C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */,
-				C2A37D8D16F24F1C00ED5820 /* MainMenu.xib in Resources */,
+				C2DD4D0516F2D022005F36B3 /* greensquare.png in Resources */,
+				C2DD4D1516F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,8 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A37D8316F24F1B00ED5820 /* main.m in Sources */,
-				C2A37D8A16F24F1B00ED5820 /* AppDelegate.m in Sources */,
+				C2DD4CF816F25067005F36B3 /* main.cpp in Sources */,
+				C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,14 +237,6 @@
 				C2A37D8616F24F1B00ED5820 /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		C2A37D8B16F24F1C00ED5820 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C2A37D8C16F24F1C00ED5820 /* en */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -262,9 +303,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tetris/Tetris-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL_image.framework/Headers,
+					/Library/Frameworks/SDL.framework/Headers,
+					/usr/local/include/SDL,
+				);
 				INFOPLIST_FILE = "Tetris/Tetris-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/sdl_ttf/2.0.11/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -274,9 +325,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tetris/Tetris-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL_image.framework/Headers,
+					/Library/Frameworks/SDL.framework/Headers,
+					/usr/local/include/SDL,
+				);
 				INFOPLIST_FILE = "Tetris/Tetris-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/sdl_ttf/2.0.11/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -301,6 +362,7 @@
 				C2A37D9216F24F1C00ED5820 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
