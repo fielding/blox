@@ -18,13 +18,17 @@
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
 		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
-		C2DD4D1A16F3188C005F36B3 /* greensquare.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1916F3188C005F36B3 /* greensquare.png */; };
-		C2DD4D1C16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
-		C2DD4D1D16F318BA005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
-		C2DD4D2016F318DA005F36B3 /* greensquare.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1916F3188C005F36B3 /* greensquare.png */; };
-		C2DD4D2216F34083005F36B3 /* boardTile.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D2116F34083005F36B3 /* boardTile.png */; };
-		C2DD4D2316F34095005F36B3 /* boardTile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D2116F34083005F36B3 /* boardTile.png */; };
 		C2DD4D2616F3570B005F36B3 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D2416F3570A005F36B3 /* Timer.cpp */; };
+		C2DD4D4116F62107005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D4216F62107005F36B3 /* blueblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
+		C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
+		C2DD4D4416F62107005F36B3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
+		C2DD4D4516F62107005F36B3 /* purpleblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
+		C2DD4D4616F6212D005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
+		C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
+		C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
+		C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +50,7 @@
 			dstPath = font;
 			dstSubfolderSpec = 7;
 			files = (
-				C2DD4D1D16F318BA005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
+				C2DD4D4616F6212D005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +60,10 @@
 			dstPath = img;
 			dstSubfolderSpec = 7;
 			files = (
-				C2DD4D2016F318DA005F36B3 /* greensquare.png in CopyFiles */,
-				C2DD4D2316F34095005F36B3 /* boardTile.png in CopyFiles */,
+				C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */,
+				C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */,
+				C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */,
+				C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,11 +85,13 @@
 		C2DD4D0016F250E1005F36B3 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.h"; sourceTree = "<absolute>"; };
 		C2DD4D0116F250E1005F36B3 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.m"; sourceTree = "<absolute>"; };
 		C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_ttf-2.0.0.dylib"; path = "/usr/local/Cellar/sdl_ttf/2.0.11/lib/libSDL_ttf-2.0.0.dylib"; sourceTree = "<absolute>"; };
-		C2DD4D1916F3188C005F36B3 /* greensquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greensquare.png; path = resources/img/greensquare.png; sourceTree = "<group>"; };
-		C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaNeueCondensedBold.ttf; path = resources/font/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
-		C2DD4D2116F34083005F36B3 /* boardTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardTile.png; path = resources/img/boardTile.png; sourceTree = "<group>"; };
 		C2DD4D2416F3570A005F36B3 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		C2DD4D2516F3570A005F36B3 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaNeueCondensedBold.ttf; path = assets/font/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
+		C2DD4D3D16F62107005F36B3 /* blueblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueblock.png; path = assets/img/blueblock.png; sourceTree = "<group>"; };
+		C2DD4D3E16F62107005F36B3 /* boardTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardTile.png; path = assets/img/boardTile.png; sourceTree = "<group>"; };
+		C2DD4D3F16F62107005F36B3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenblock.png; path = assets/img/greenblock.png; sourceTree = "<group>"; };
+		C2DD4D4016F62107005F36B3 /* purpleblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purpleblock.png; path = assets/img/purpleblock.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,9 +162,11 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C2DD4D2116F34083005F36B3 /* boardTile.png */,
-				C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */,
-				C2DD4D1916F3188C005F36B3 /* greensquare.png */,
+				C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */,
+				C2DD4D3D16F62107005F36B3 /* blueblock.png */,
+				C2DD4D3E16F62107005F36B3 /* boardTile.png */,
+				C2DD4D3F16F62107005F36B3 /* greenblock.png */,
+				C2DD4D4016F62107005F36B3 /* purpleblock.png */,
 				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
 				C2DD4D0116F250E1005F36B3 /* SDLMain.m */,
 				C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */,
@@ -223,9 +233,11 @@
 			files = (
 				C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */,
 				C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */,
-				C2DD4D1A16F3188C005F36B3 /* greensquare.png in Resources */,
-				C2DD4D1C16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
-				C2DD4D2216F34083005F36B3 /* boardTile.png in Resources */,
+				C2DD4D4116F62107005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
+				C2DD4D4216F62107005F36B3 /* blueblock.png in Resources */,
+				C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */,
+				C2DD4D4416F62107005F36B3 /* greenblock.png in Resources */,
+				C2DD4D4516F62107005F36B3 /* purpleblock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

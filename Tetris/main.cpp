@@ -23,21 +23,29 @@ const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 20;
 
 // Tetris Board Attributes
-const int BLOCK_SIZE = 16;
-const int BOARD_BLOCK_WIDTH = 10;
-const int BOARD_BLOCK_HEIGHT = 20;
-const int BOARD_WIDTH = BOARD_BLOCK_WIDTH * BLOCK_SIZE;
-const int BOARD_HEIGHT = BOARD_BLOCK_HEIGHT * BLOCK_SIZE;
+const int BLOCK_SIZE = 16;    // Block size in pixels
+const int BOARD_BLOCK_WIDTH = 10;   // Board width in blocks
+const int BOARD_BLOCK_HEIGHT = 20;  // Board height in blocks
+const int BOARD_WIDTH = BOARD_BLOCK_WIDTH * BLOCK_SIZE;   // Board width in pixels    
+const int BOARD_HEIGHT = BOARD_BLOCK_HEIGHT * BLOCK_SIZE;   // Board height in pixels
 
-const int BOARD_ORIGIN_X = 560;
-const int BOARD_ORIGIN_Y = 224;
+const int BOARD_ORIGIN_X = 560;   // X- origin position the board appears on the screen
+const int BOARD_ORIGIN_Y = 224;   // Y-origin position the board appears on the screen
 
 // Surfaces
 SDL_Surface *screen = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *board = NULL;
 SDL_Surface *boardTile = NULL;
-SDL_Surface *green = NULL;
+
+// Surfaces for block images
+SDL_Surface *cyanBlock = NULL;
+SDL_Surface *blueBlock = NULL;
+SDL_Surface *orangeBlock = NULL;
+SDL_Surface *yellowBlock = NULL;
+SDL_Surface *greenBlock = NULL;
+SDL_Surface *purpleBlock = NULL;
+SDL_Surface *redBlock = NULL;
 
 // Message Surfaces
 SDL_Surface *seconds = NULL;
@@ -93,7 +101,7 @@ public:
   
   // Functions
   void draw();
-  void update(int x, int y, int status);
+  void updateBlock(int x, int y, int status);
   
 private:
   int mBoard[BOARD_BLOCK_WIDTH][BOARD_BLOCK_HEIGHT];
@@ -108,8 +116,11 @@ public:
   // Constructor
   Tetrimino();
   
+  // public classes
   void spawn( Board &myBoard );
+
 private:
+  
 };
 
 // Function definitions
@@ -405,25 +416,25 @@ void Block::show()
   switch ( blockType )
   {
     case 1:
-      // apply_surface( box.x, box.y, cyan, screen );
+      apply_surface( box.x, box.y, greenBlock, screen );
       break;
     case 2:
-      // apply_surface( box.x, box.y, yellow, screen );
+      apply_surface( box.x, box.y, blueBlock, screen );
       break;
     case 3:
-      // apply_surface( box.x, box.y, purple, screen );
+      apply_surface( box.x, box.y, greenBlock, screen );
       break;
     case 4:
-      // apply_surface( box.x, box.y, blue, screen );
+      apply_surface( box.x, box.y, greenBlock, screen );
       break;
     case 5:
-      // apply_surface( box.x, box.y, orange, screen );
+      apply_surface( box.x, box.y, greenBlock, screen );
       break;
     case 6:
-      apply_surface( box.x, box.y, green, screen );
+      apply_surface( box.x, box.y, purpleBlock, screen );
       break;
     case 7:
-      // apply_surface( box.x, box.y, red, screen );
+      apply_surface( box.x, box.y, greenBlock, screen );
     default:
       break;
   }
@@ -471,7 +482,7 @@ void Board::draw(){
   }
 }
 
-void Board::update( int x, int y, int status )
+void Board::updateBlock( int x, int y, int status )
 {
   mBoard[x][y] = status;
 }
@@ -481,11 +492,59 @@ Tetrimino::Tetrimino() {
 }
 
 void Tetrimino::spawn( Board &myBoard ){
-  // randomize the shape
-  myBoard.update(5, 0, 6);
-  myBoard.update(6, 0, 6);
-  myBoard.update(4, 1, 6);
-  myBoard.update(5, 1, 6);
+  // randomize the Tetrimino chosen
+  int rando = 0;
+  srandom((unsigned)time(NULL));
+  rando = (random() % 6 + 1);
+  
+  cout<<"Tetrimino spawn type: "<<rando<<"\n";
+  cout<<((unsigned)time(NULL))<<endl;
+  
+  switch ( rando ) {
+    case 1:   // I piece, blockType = 1 (cyan)
+      myBoard.updateBlock(3, 0, 1);
+      myBoard.updateBlock(4, 0, 1);
+      myBoard.updateBlock(5, 0, 1);
+      myBoard.updateBlock(6, 0, 1);
+      break;
+    case 2:   // J piece, blockType = 2 (blue)
+      myBoard.updateBlock(3, 0, 2);
+      myBoard.updateBlock(4, 0, 2);
+      myBoard.updateBlock(5, 0, 2);
+      myBoard.updateBlock(5, 1, 2);
+      break;
+    case 3:   // L piece, blockType = 3 (orange)
+      myBoard.updateBlock(3, 0, 3);
+      myBoard.updateBlock(4, 0, 3);
+      myBoard.updateBlock(5, 0, 3);
+      myBoard.updateBlock(3, 1, 3);
+      break;
+    case 4:   // O piece, blockType = 4 (yellow)
+      myBoard.updateBlock(4, 0, 4);
+      myBoard.updateBlock(5, 0, 4);
+      myBoard.updateBlock(4, 1, 4);
+      myBoard.updateBlock(5, 1, 4);
+      break;
+    case 5:   // S piece, blockType = 5 (green)
+      // update the blocks
+      myBoard.updateBlock(4, 0, 5);
+      myBoard.updateBlock(5, 0, 5);
+      myBoard.updateBlock(3, 1, 5);
+      myBoard.updateBlock(4, 1, 5);
+      break;
+    case 6:   // T piece, blockType = 6 (purple)
+      myBoard.updateBlock(4, 0, 6);
+      myBoard.updateBlock(3, 1, 6);
+      myBoard.updateBlock(4, 1, 6);
+      myBoard.updateBlock(5, 1, 6);
+      break;
+    case 7:   // Z piece, blockType = 7 (red)
+      myBoard.updateBlock(3, 0, 7);
+      myBoard.updateBlock(4, 0, 7);
+      myBoard.updateBlock(4, 1, 7);
+      myBoard.updateBlock(5, 1, 7);
+      break;
+  }
 }
 
 
@@ -550,7 +609,14 @@ bool check_collision( SDL_Rect A, SDL_Rect B )
 void clean_up()
 {
   // Free the surface
-  SDL_FreeSurface(green);
+  // SDL_FreeSurface(cyanBlock);
+  SDL_FreeSurface(blueBlock);
+  // SDL_FreeSurface(orangeBlock);
+  // SDL_FreeSurface(yellowBlock);
+  SDL_FreeSurface(greenBlock);
+  SDL_FreeSurface(purpleBlock);
+  // SDL_FreeSurface(redBlock);
+
   
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
@@ -566,14 +632,21 @@ bool load_files()
   // placeholder for when I decide on a background image
   
   // Load images
-  green = load_image("Tetris.app/Contents/Resources/img/greensquare.png");
+  // cyan = load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
+  blueBlock = load_image("Tetris.app/Contents/Resources/img/blueblock.png");
+  // orangeBlock = = load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
+  // yellowBlock = load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
+  greenBlock = load_image("Tetris.app/Contents/Resources/img/greenblock.png");
+  purpleBlock = load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
+  // redBlock = load_image("Tetris.app/Contents/Resources/img/redblock.png");
+  
   boardTile = load_image("Tetris.app/Contents/Resources/img/boardTile.png");
   
   // Load font
   font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/HelveticaNeueCondensedBold.ttf", 28);
 
   // Check if images loaded properly
-  if ( green == NULL ) {
+  if ( greenBlock == NULL || blueBlock == NULL || purpleBlock == NULL) {
     return false;
   }
   
