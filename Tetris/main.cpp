@@ -12,6 +12,8 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 
+#include "Timer.h"
+
 using namespace std;
 
 // Screen Attributes
@@ -20,14 +22,22 @@ const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 20;
 
-// Square Attributes
-const int SQUARE_HEIGHT = 16;
-const int SQUARE_WIDTH = 16;
+// Tetris Board Attributes
+const int BLOCK_SIZE = 16;
+const int BOARD_BLOCK_WIDTH = 10;
+const int BOARD_BLOCK_HEIGHT = 20;
+const int BOARD_WIDTH = BOARD_BLOCK_WIDTH * BLOCK_SIZE;
+const int BOARD_HEIGHT = BOARD_BLOCK_HEIGHT * BLOCK_SIZE;
+
+const int BOARD_ORIGIN_X = 560;
+const int BOARD_ORIGIN_Y = 224;
 
 // Surfaces
 SDL_Surface *screen = NULL;
 SDL_Surface *background = NULL;
-SDL_Surface *square = NULL;
+SDL_Surface *board = NULL;
+SDL_Surface *boardTile = NULL;
+SDL_Surface *green = NULL;
 
 // Message Surfaces
 SDL_Surface *seconds = NULL;
@@ -37,9 +47,6 @@ SDL_Surface *mainMessage = NULL;
 
 SDL_Surface *load_image( string filename );
 
-// Wall objct
-SDL_Rect wall;
-
 // Event Structure
 SDL_Event event;
 
@@ -48,12 +55,12 @@ TTF_Font *font = NULL;
 SDL_Color fontFgColor = { 0, 0, 0 };
 SDL_Color fontBgColor = { 255, 255, 255 };
 
-// Square Class 
-class Square
+// Block Class
+class Block
 {
   
 public:
-  Square();
+  Block( int x, int y, int bType );
   
   // Watch key events and adjsut velocity
   void handle_input();
@@ -68,43 +75,41 @@ private:
   // The collision box of the square; object's x/y coordinates and dimensions are held inside a SDL_Rect
   SDL_Rect box;
   
-  //The velocity
+  // Velocity
   int xVel, yVel;
+  
+  // Define type (mainly used to determine the block color
+  int blockType;
+
   
 };
 
-// Timer Class
-class Timer
+class Board
 {
-  
 public:
-  // Constructor, Initializes variables
-  Timer();
   
-  // Various clock functions
-  void start();
-  void stop();
-  void pause();
-  void unpause();
+  // Constructor
+  Board( int blockWidth, int blockHeight );
   
-  // Get timer's time in milliseconds
-  int get_ticks();
-  
-  // Check timer's status, returns true or false
-  bool is_started();
-  bool is_paused();
+  // Functions
+  void draw();
+  void update(int x, int y, int status);
   
 private:
-  // The clock when the timer started
-  int startTicks;
+  int mBoard[BOARD_BLOCK_WIDTH][BOARD_BLOCK_HEIGHT];
   
-  // The ticks stored when the timer was paused
-  int pausedTicks;
+};
+
+// Tetromino Class
+class Tetrimino
+{
+public:
   
-  // Timer status
-  bool paused;
-  bool started;
+  // Constructor
+  Tetrimino();
   
+  void spawn( Board &myBoard );
+private:
 };
 
 // Function definitions
@@ -114,21 +119,14 @@ void clean_up();
 bool init();
 bool load_files();
 
-
-
 int main ( int argc, char **argv )
 {
   // Exit flag
   bool exit = false;
   
-  // Create a square object
-  Square mySquare;
-
-  // Create timer objects
-  Timer globalTimer;  // global timer
-  Timer playTimer;   // Time game has been in play
-  Timer fps;      // Timer used to calculate the frames per second
-  Timer update;   // Timer to update fps caption
+  // framerate variables
+  int frame = 0;
+  bool cap = true;
   
   // Initialize
   if ( init() == false )
@@ -142,25 +140,25 @@ int main ( int argc, char **argv )
     return 1;
   }
   
-  // framerate variables
-  int frame = 0;
-  bool cap = true;
+  // Creat Game Board Object
+  Board myBoard( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
   
-  // Generate timer messages
-  startStop = TTF_RenderText_Shaded( font, "Press T to start or stop the timer", fontFgColor, fontBgColor);
-  pauseMessage = TTF_RenderText_Shaded( font, "Press P to start or stop the timer", fontFgColor, fontBgColor);
-  //mainMessage = TTF_RenderText_Shaded( font, "", fontFgColor, fontBgColor);
+  // Create Tetrimino
+  Tetrimino tetrimino;
+  // spawn a tetrimino
+  tetrimino.spawn( myBoard );
+  
+  
+  // Create timer objects
+  Timer::Timer globalTimer;  // global timer
+  Timer::Timer playTimer;   // Time game has been in play
+  Timer::Timer fps;      // Timer used to calculate the frames per second
+  Timer::Timer update;   // Timer to update fps caption
   
   // Start overall timers
   globalTimer.start();
   playTimer.start();
   update.start();
-  
-  // Set the wall attributes
-  wall.x = 616;
-  wall.y = 48;
-  wall.w = 48;
-  wall.h = 400;
   
   // Game Loop
   while ( exit == false )
@@ -172,7 +170,7 @@ int main ( int argc, char **argv )
     while ( SDL_PollEvent( &event ) )
     {
       // Watch for keybord events
-      mySquare.handle_input();
+      //square.handle_input();
       
       // If a key was pressed
       if( event.type == SDL_KEYDOWN )
@@ -228,20 +226,12 @@ int main ( int argc, char **argv )
     
     // Game Loop: Logic
     // Move the square
-    mySquare.move();
+    // mySquare.move();
     
     // Game Loop: Rendering
     // Fill the screen white
     SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
-    
-    // Apply the background if I'm using a background image
-    // apply_surface( 0, 0, background, screen );
-    
-    // Apply the messages
-    apply_surface( ( SCREEN_WIDTH - startStop->w ) / 2, 500, startStop, screen );
-    apply_surface( ( SCREEN_WIDTH - pauseMessage->w) / 2, 550, pauseMessage, screen);
-    //apply_surface( (SCREEN_WIDTH - mainMessage->w) / 2, ( (SCREEN_HEIGHT + mainMessage->h * 2 ) / FRAMES_PER_SECOND ) * ( frame % FRAMES_PER_SECOND ) - mainMessage->h, mainMessage, screen );
-    
+  
     // Timer's time as string
     stringstream time;
       
@@ -256,12 +246,12 @@ int main ( int argc, char **argv )
     
     // Free the time surface
     SDL_FreeSurface ( seconds );
-  
-    // Draw the wall
-    SDL_FillRect( screen, &wall, SDL_MapRGB( screen-> format, 255, 122, 0 ) );
+
+    // Draw the board
+    myBoard.draw();
     
     // Draw the square to the screen
-    mySquare.show();
+    // mySquare.show();
   
     // Update the screen
     if ( SDL_Flip( screen ) == -1 )
@@ -326,17 +316,20 @@ SDL_Surface *load_image( string filename )
   return optimizedImage;
 }
 
-// Square class function definitons
+// Block class function definitons
 
-Square::Square()
+Block::Block(int x, int y, int bType)
 {
   // Initialize offsets
-  box.x = 0;
-  box.y = 0;
+  box.x = x * BLOCK_SIZE + BOARD_ORIGIN_X;
+  box.y = y * BLOCK_SIZE + BOARD_ORIGIN_Y;
   
   // Set the square's dimensions
-  box.w = SQUARE_WIDTH;
-  box.h = SQUARE_HEIGHT;
+  box.w = BLOCK_SIZE;
+  box.h = BLOCK_SIZE;
+  
+  // Type (used for color)
+  blockType = bType;
   
   // Initialize velocity
   xVel = 0;
@@ -344,23 +337,23 @@ Square::Square()
   
 }
 
-void Square::handle_input()
+void Block::handle_input()
 {
   if ( event.type == SDL_KEYDOWN )      // If a key was presed
   {
     switch ( event.key.keysym.sym )
     {
       case SDLK_UP:
-        yVel -= SQUARE_HEIGHT / 2;
+        yVel -= BLOCK_SIZE / 2;
         break;
       case SDLK_DOWN:
-        yVel += SQUARE_HEIGHT / 2;
+        yVel += BLOCK_SIZE / 2;
         break;
       case SDLK_LEFT:
-        xVel -= SQUARE_WIDTH / 2;
+        xVel -= BLOCK_SIZE / 2;
         break;
       case SDLK_RIGHT:
-        xVel += SQUARE_WIDTH / 2;
+        xVel += BLOCK_SIZE / 2;
         break;
       default:
         break;
@@ -371,16 +364,16 @@ void Square::handle_input()
     switch ( event.key.keysym.sym )
     {
       case SDLK_UP:
-        yVel += SQUARE_HEIGHT / 2;
+        yVel += BLOCK_SIZE / 2;
         break;
       case SDLK_DOWN:
-        yVel -= SQUARE_HEIGHT / 2;
+        yVel -= BLOCK_SIZE / 2;
         break;
       case SDLK_LEFT:
-        xVel += SQUARE_WIDTH / 2;
+        xVel += BLOCK_SIZE / 2;
         break;
       case SDLK_RIGHT:
-        xVel -= SQUARE_WIDTH / 2;
+        xVel -= BLOCK_SIZE / 2;
         break;
       default:
         break;
@@ -388,123 +381,112 @@ void Square::handle_input()
   }
 }
 
-void Square::move()
+void Block::move()
 {
 
   box.x += xVel;      // Move left or right
   
-  if ( ( box.x < 0 ) || ( box.x + SQUARE_WIDTH > SCREEN_WIDTH ) || (check_collision( box, wall ) ) )     // Check x-axis screen bounds and collision with wall
+  if ( ( box.x < 0 ) || ( box.x + BLOCK_SIZE > SCREEN_WIDTH ) )     // Check x-axis screen bounds
   {
     box.x -= xVel;    // Move back
   }
 
   box.y += yVel;      // Move the square up or down
   
-  if ( ( box.y < 0 ) || (box.y + SQUARE_HEIGHT > SCREEN_HEIGHT) || (check_collision( box, wall ) ) )     // Check y-axis screen bounds and collision with wall
+  if ( ( box.y < 0 ) || (box.y + BLOCK_SIZE > SCREEN_HEIGHT) )     // Check y-axis screen bounds
   {
     box.y -= yVel;    // Move Back
   }
   
 }
 
-void Square::show()
+void Block::show()
 {
-  // Draw object on the screen
-  apply_surface( box.x, box.y, square, screen );
+  switch ( blockType )
+  {
+    case 1:
+      // apply_surface( box.x, box.y, cyan, screen );
+      break;
+    case 2:
+      // apply_surface( box.x, box.y, yellow, screen );
+      break;
+    case 3:
+      // apply_surface( box.x, box.y, purple, screen );
+      break;
+    case 4:
+      // apply_surface( box.x, box.y, blue, screen );
+      break;
+    case 5:
+      // apply_surface( box.x, box.y, orange, screen );
+      break;
+    case 6:
+      apply_surface( box.x, box.y, green, screen );
+      break;
+    case 7:
+      // apply_surface( box.x, box.y, red, screen );
+    default:
+      break;
+  }
 }
 
 // Timer class function definitions
 
-Timer::Timer()
-{
-  // Constructor function, initalizes the variables
-  startTicks = 0;
-  pausedTicks = 0;
-  paused = false;
-  started = false;
-}
 
-void Timer::start()
-{
-  // Start the timer
-  started = true;
-  
-  // Unpause the timer
-  paused = false;
-  
-  // Get the current clock time
-  startTicks = SDL_GetTicks();
-}
 
-void Timer::stop()
+// Board class function definitions
+Board::Board( int blockWidth, int blockHeight )
 {
-  // Stop the timer
-  started = false;
-  // Unpause the timer
-  paused = false;
-}
-
-void Timer::pause()
-{
-  // If the timer is already running and isn't already paused
-  if ( (started == true ) && ( paused == false ) )
+  // populate the board grid with empty blocks
+  for ( int x = 0; x < blockWidth; x++ )
   {
-    // Pause the timer
-    paused = true;
-    
-    // Calculate the paused ticks
-    pausedTicks = SDL_GetTicks() - startTicks;
-  }
-}
-
-void Timer::unpause()
-{
-  // If the timer is paused
-  if ( paused == true )
-  {
-    // Unpause
-    paused = false;
-    
-    // Reset the starting ticks
-    startTicks = SDL_GetTicks() - pausedTicks;
-    
-    // Reset the paused ticks
-    pausedTicks = 0;
-  }
-}
-
-int Timer::get_ticks()
-{
-  // If the timer is running
-  if( started == true )
-  {
-    // If the timer is paused
-    if ( paused == true )
+    for ( int y = 0; y < blockHeight; y++)
     {
-      // Return the number of ticks when the timer was paused
-      return pausedTicks;
-    }
-    else
-    {
-      // Return current time minus the start time
-      return SDL_GetTicks() - startTicks;
+      mBoard[x][y] = 0;
     }
   }
+}
+
+void Board::draw(){
+  for ( int x = 0; x < BOARD_WIDTH / BLOCK_SIZE; x++ )
+  {
+    for ( int y = 0; y < BOARD_HEIGHT / BLOCK_SIZE; y++ )
+    {
+      // If block is empty then use a board tile
+      if ( mBoard[x][y] == 0 )
+      {
+        SDL_Rect offset;
+        offset.x = x * BLOCK_SIZE;
+        offset.y = y * BLOCK_SIZE;
+        apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, boardTile, screen );
+      } else {
+        int blockType = mBoard[x][y];
+        Block block( x, y, blockType);
+        block.show();
+        //SDL_Rect offset;
+        //offset.x = x * BLOCK_SIZE;
+        //offset.y = y * BLOCK_SIZE;
+        //apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, square, screen );
+      }
+    }
+  }
+}
+
+void Board::update( int x, int y, int status )
+{
+  mBoard[x][y] = status;
+}
+
+Tetrimino::Tetrimino() {
   
-  // If the timer isn't running
-  return 0;
 }
 
-bool Timer::is_started()
-{
-  return started;
+void Tetrimino::spawn( Board &myBoard ){
+  // randomize the shape
+  myBoard.update(5, 0, 6);
+  myBoard.update(6, 0, 6);
+  myBoard.update(4, 1, 6);
+  myBoard.update(5, 1, 6);
 }
-
-bool Timer::is_paused()
-{
-  return paused;
-}
-
 
 
 // Functions
@@ -568,7 +550,7 @@ bool check_collision( SDL_Rect A, SDL_Rect B )
 void clean_up()
 {
   // Free the surface
-  SDL_FreeSurface(square);
+  SDL_FreeSurface(green);
   
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
@@ -583,14 +565,15 @@ bool load_files()
   // background image load
   // placeholder for when I decide on a background image
   
-  // Load the square's image
-  square = load_image("Tetris.app/Contents/Resources/greensquare.png");
+  // Load images
+  green = load_image("Tetris.app/Contents/Resources/img/greensquare.png");
+  boardTile = load_image("Tetris.app/Contents/Resources/img/boardTile.png");
   
   // Load font
-  font = TTF_OpenFont( "Tetris.app/Contents/Resources/HelveticaNeueCondensedBold.ttf", 28);
+  font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/HelveticaNeueCondensedBold.ttf", 28);
 
   // Check if images loaded properly
-  if ( square == NULL ) {
+  if ( green == NULL ) {
     return false;
   }
   

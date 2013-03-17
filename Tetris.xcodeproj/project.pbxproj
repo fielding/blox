@@ -16,12 +16,15 @@
 		C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
 		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
-		C2DD4D0516F2D022005F36B3 /* greensquare.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D0416F2D022005F36B3 /* greensquare.png */; };
-		C2DD4D0616F2D033005F36B3 /* greensquare.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0416F2D022005F36B3 /* greensquare.png */; };
 		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
-		C2DD4D1516F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
-		C2DD4D1616F2E5DF005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D1A16F3188C005F36B3 /* greensquare.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1916F3188C005F36B3 /* greensquare.png */; };
+		C2DD4D1C16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D1D16F318BA005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
+		C2DD4D2016F318DA005F36B3 /* greensquare.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D1916F3188C005F36B3 /* greensquare.png */; };
+		C2DD4D2216F34083005F36B3 /* boardTile.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D2116F34083005F36B3 /* boardTile.png */; };
+		C2DD4D2316F34095005F36B3 /* boardTile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D2116F34083005F36B3 /* boardTile.png */; };
+		C2DD4D2616F3570B005F36B3 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D2416F3570A005F36B3 /* Timer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,11 +43,21 @@
 		C2DD4D0316F2D013005F36B3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
+			dstPath = font;
 			dstSubfolderSpec = 7;
 			files = (
-				C2DD4D0616F2D033005F36B3 /* greensquare.png in CopyFiles */,
-				C2DD4D1616F2E5DF005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
+				C2DD4D1D16F318BA005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2DD4D1F16F318C8005F36B3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = img;
+			dstSubfolderSpec = 7;
+			files = (
+				C2DD4D2016F318DA005F36B3 /* greensquare.png in CopyFiles */,
+				C2DD4D2316F34095005F36B3 /* boardTile.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,9 +78,12 @@
 		C2DD4CFA16F2507F005F36B3 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		C2DD4D0016F250E1005F36B3 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.h"; sourceTree = "<absolute>"; };
 		C2DD4D0116F250E1005F36B3 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.m"; sourceTree = "<absolute>"; };
-		C2DD4D0416F2D022005F36B3 /* greensquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greensquare.png; sourceTree = "<group>"; };
 		C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_ttf-2.0.0.dylib"; path = "/usr/local/Cellar/sdl_ttf/2.0.11/lib/libSDL_ttf-2.0.0.dylib"; sourceTree = "<absolute>"; };
-		C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
+		C2DD4D1916F3188C005F36B3 /* greensquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greensquare.png; path = resources/img/greensquare.png; sourceTree = "<group>"; };
+		C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaNeueCondensedBold.ttf; path = resources/font/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
+		C2DD4D2116F34083005F36B3 /* boardTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardTile.png; path = resources/img/boardTile.png; sourceTree = "<group>"; };
+		C2DD4D2416F3570A005F36B3 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		C2DD4D2516F3570A005F36B3 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +143,8 @@
 		C2A37D7C16F24F1B00ED5820 /* Tetris */ = {
 			isa = PBXGroup;
 			children = (
+				C2DD4D2516F3570A005F36B3 /* Timer.h */,
+				C2DD4D2416F3570A005F36B3 /* Timer.cpp */,
 				C2DD4CF716F25067005F36B3 /* main.cpp */,
 				C2A37D7D16F24F1B00ED5820 /* Supporting Files */,
 			);
@@ -136,8 +154,9 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C2DD4D1216F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf */,
-				C2DD4D0416F2D022005F36B3 /* greensquare.png */,
+				C2DD4D2116F34083005F36B3 /* boardTile.png */,
+				C2DD4D1B16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf */,
+				C2DD4D1916F3188C005F36B3 /* greensquare.png */,
 				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
 				C2DD4D0116F250E1005F36B3 /* SDLMain.m */,
 				C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */,
@@ -160,6 +179,7 @@
 				C2A37D7116F24F1B00ED5820 /* Resources */,
 				C2DD4CFD16F2508C005F36B3 /* CopyFiles */,
 				C2DD4D0316F2D013005F36B3 /* CopyFiles */,
+				C2DD4D1F16F318C8005F36B3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -203,8 +223,9 @@
 			files = (
 				C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */,
 				C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */,
-				C2DD4D0516F2D022005F36B3 /* greensquare.png in Resources */,
-				C2DD4D1516F2E5C9005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
+				C2DD4D1A16F3188C005F36B3 /* greensquare.png in Resources */,
+				C2DD4D1C16F31899005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
+				C2DD4D2216F34083005F36B3 /* boardTile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +238,7 @@
 			files = (
 				C2DD4CF816F25067005F36B3 /* main.cpp in Sources */,
 				C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */,
+				C2DD4D2616F3570B005F36B3 /* Timer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
