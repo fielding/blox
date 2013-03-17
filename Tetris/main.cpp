@@ -416,16 +416,16 @@ void Block::show()
   switch ( blockType )
   {
     case 1:
-      apply_surface( box.x, box.y, greenBlock, screen );
+      apply_surface( box.x, box.y, cyanBlock, screen );
       break;
     case 2:
       apply_surface( box.x, box.y, blueBlock, screen );
       break;
     case 3:
-      apply_surface( box.x, box.y, greenBlock, screen );
+      apply_surface( box.x, box.y, orangeBlock, screen );
       break;
     case 4:
-      apply_surface( box.x, box.y, greenBlock, screen );
+      apply_surface( box.x, box.y, yellowBlock, screen );
       break;
     case 5:
       apply_surface( box.x, box.y, greenBlock, screen );
@@ -434,7 +434,7 @@ void Block::show()
       apply_surface( box.x, box.y, purpleBlock, screen );
       break;
     case 7:
-      apply_surface( box.x, box.y, greenBlock, screen );
+      apply_surface( box.x, box.y, redBlock, screen );
     default:
       break;
   }
@@ -495,7 +495,7 @@ void Tetrimino::spawn( Board &myBoard ){
   // randomize the Tetrimino chosen
   int rando = 0;
   srandom((unsigned)time(NULL));
-  rando = (random() % 6 + 1);
+  rando = (random() % 7 + 1);
   
   cout<<"Tetrimino spawn type: "<<rando<<"\n";
   cout<<((unsigned)time(NULL))<<endl;
@@ -609,13 +609,13 @@ bool check_collision( SDL_Rect A, SDL_Rect B )
 void clean_up()
 {
   // Free the surface
-  // SDL_FreeSurface(cyanBlock);
+  SDL_FreeSurface(cyanBlock);
   SDL_FreeSurface(blueBlock);
-  // SDL_FreeSurface(orangeBlock);
-  // SDL_FreeSurface(yellowBlock);
+  SDL_FreeSurface(orangeBlock);
+  SDL_FreeSurface(yellowBlock);
   SDL_FreeSurface(greenBlock);
   SDL_FreeSurface(purpleBlock);
-  // SDL_FreeSurface(redBlock);
+  SDL_FreeSurface(redBlock);
 
   
   // Close the font and quit SDL_ttf
@@ -632,13 +632,13 @@ bool load_files()
   // placeholder for when I decide on a background image
   
   // Load images
-  // cyan = load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
+  cyanBlock = load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
   blueBlock = load_image("Tetris.app/Contents/Resources/img/blueblock.png");
-  // orangeBlock = = load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
-  // yellowBlock = load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
+  orangeBlock = load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
+  yellowBlock = load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
   greenBlock = load_image("Tetris.app/Contents/Resources/img/greenblock.png");
   purpleBlock = load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
-  // redBlock = load_image("Tetris.app/Contents/Resources/img/redblock.png");
+  redBlock = load_image("Tetris.app/Contents/Resources/img/redblock.png");
   
   boardTile = load_image("Tetris.app/Contents/Resources/img/boardTile.png");
   

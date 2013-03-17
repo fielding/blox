@@ -29,6 +29,14 @@
 		C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
 		C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
 		C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
+		C2DD4D4F16F63A4A005F36B3 /* cyanblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */; };
+		C2DD4D5016F63A4A005F36B3 /* orangeblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */; };
+		C2DD4D5116F63A4A005F36B3 /* redblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4D16F63A4A005F36B3 /* redblock.png */; };
+		C2DD4D5216F63A4A005F36B3 /* yellowblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */; };
+		C2DD4D5316F63A5E005F36B3 /* cyanblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */; };
+		C2DD4D5416F63A60005F36B3 /* orangeblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */; };
+		C2DD4D5516F63A61005F36B3 /* redblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4D16F63A4A005F36B3 /* redblock.png */; };
+		C2DD4D5616F63A63005F36B3 /* yellowblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +70,10 @@
 			files = (
 				C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */,
 				C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */,
+				C2DD4D5516F63A61005F36B3 /* redblock.png in CopyFiles */,
+				C2DD4D5616F63A63005F36B3 /* yellowblock.png in CopyFiles */,
+				C2DD4D5416F63A60005F36B3 /* orangeblock.png in CopyFiles */,
+				C2DD4D5316F63A5E005F36B3 /* cyanblock.png in CopyFiles */,
 				C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */,
 				C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */,
 			);
@@ -92,6 +104,10 @@
 		C2DD4D3E16F62107005F36B3 /* boardTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardTile.png; path = assets/img/boardTile.png; sourceTree = "<group>"; };
 		C2DD4D3F16F62107005F36B3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenblock.png; path = assets/img/greenblock.png; sourceTree = "<group>"; };
 		C2DD4D4016F62107005F36B3 /* purpleblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purpleblock.png; path = assets/img/purpleblock.png; sourceTree = "<group>"; };
+		C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cyanblock.png; path = assets/img/cyanblock.png; sourceTree = "<group>"; };
+		C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orangeblock.png; path = assets/img/orangeblock.png; sourceTree = "<group>"; };
+		C2DD4D4D16F63A4A005F36B3 /* redblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redblock.png; path = assets/img/redblock.png; sourceTree = "<group>"; };
+		C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowblock.png; path = assets/img/yellowblock.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +178,10 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */,
+				C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */,
+				C2DD4D4D16F63A4A005F36B3 /* redblock.png */,
+				C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */,
 				C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */,
 				C2DD4D3D16F62107005F36B3 /* blueblock.png */,
 				C2DD4D3E16F62107005F36B3 /* boardTile.png */,
@@ -238,6 +258,10 @@
 				C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */,
 				C2DD4D4416F62107005F36B3 /* greenblock.png in Resources */,
 				C2DD4D4516F62107005F36B3 /* purpleblock.png in Resources */,
+				C2DD4D4F16F63A4A005F36B3 /* cyanblock.png in Resources */,
+				C2DD4D5016F63A4A005F36B3 /* orangeblock.png in Resources */,
+				C2DD4D5116F63A4A005F36B3 /* redblock.png in Resources */,
+				C2DD4D5216F63A4A005F36B3 /* yellowblock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
