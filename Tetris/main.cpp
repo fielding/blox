@@ -101,6 +101,7 @@ public:
   
   // Functions
   void draw();
+  void drawNextContainer();
   void updateBlock(int x, int y, int status);
   
 private:
@@ -153,7 +154,6 @@ int main ( int argc, char **argv )
   
   // Creat Game Board Object
   Board myBoard( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
-  
   // Create Tetrimino
   Tetrimino tetrimino;
   // spawn a tetrimino
@@ -260,6 +260,7 @@ int main ( int argc, char **argv )
 
     // Draw the board
     myBoard.draw();
+    myBoard.drawNextContainer();
     
     // Draw the square to the screen
     // mySquare.show();
@@ -480,6 +481,22 @@ void Board::draw(){
       }
     }
   }
+}
+
+void Board::drawNextContainer(){
+  // dirty place to put UI building element, but unsure of where else to put it for now
+  int xOffset = BOARD_ORIGIN_X + BOARD_WIDTH + (BLOCK_SIZE * 2);  // place the container 4 blocks over from our main game board
+  int yOffset = BOARD_ORIGIN_Y + (BLOCK_SIZE * 2); // place the container down from where our main board starts by n number of blocks
+
+  
+  for (int x = 0; x < 4; x++ )
+  {
+    for ( int y = 0; y < 4; y++ )
+    {
+      apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, screen );
+    }
+  }
+
 }
 
 void Board::updateBlock( int x, int y, int status )
