@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -77,7 +78,7 @@ public:
   void move();
   
   // Shows the oject on the screen
-  void show();
+  void draw();
   
 private:
   // The collision box of the square; object's x/y coordinates and dimensions are held inside a SDL_Rect
@@ -92,6 +93,7 @@ private:
   
 };
 
+// Board Class
 class Board
 {
 public:
@@ -118,10 +120,11 @@ public:
   Tetrimino();
   
   // public classes
-  void spawn( Board &myBoard );
+  void spawn();
+  void draw();
 
 private:
-  
+  std::vector<Block*> blocks;
 };
 
 // Function definitions
@@ -157,7 +160,7 @@ int main ( int argc, char **argv )
   // Create Tetrimino
   Tetrimino tetrimino;
   // spawn a tetrimino
-  tetrimino.spawn( myBoard );
+  tetrimino.spawn();
   
   
   // Create timer objects
@@ -258,12 +261,12 @@ int main ( int argc, char **argv )
     // Free the time surface
     SDL_FreeSurface ( seconds );
 
-    // Draw the board
+    // Draw the board and next container
     myBoard.draw();
     myBoard.drawNextContainer();
     
-    // Draw the square to the screen
-    // mySquare.show();
+    // Draw the active and next tetrimino
+    tetrimino.draw();
   
     // Update the screen
     if ( SDL_Flip( screen ) == -1 )
@@ -412,7 +415,7 @@ void Block::move()
   
 }
 
-void Block::show()
+void Block::draw()
 {
   switch ( blockType )
   {
@@ -473,11 +476,7 @@ void Board::draw(){
       } else {
         int blockType = mBoard[x][y];
         Block block( x, y, blockType);
-        block.show();
-        //SDL_Rect offset;
-        //offset.x = x * BLOCK_SIZE;
-        //offset.y = y * BLOCK_SIZE;
-        //apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, square, screen );
+        block.draw();
       }
     }
   }
@@ -508,58 +507,65 @@ Tetrimino::Tetrimino() {
   
 }
 
-void Tetrimino::spawn( Board &myBoard ){
+void Tetrimino::draw(){
+  for ( int i = 0; i < 4; i++)
+  {
+    blocks[i]->draw();
+  }
+}
+
+void Tetrimino::spawn(){
   // randomize the Tetrimino chosen
   int rando = 0;
   srandom((unsigned)time(NULL));
   rando = (random() % 7 + 1);
-  
+
   cout<<"Tetrimino spawn type: "<<rando<<"\n";
   cout<<((unsigned)time(NULL))<<endl;
+
   
   switch ( rando ) {
     case 1:   // I piece, blockType = 1 (cyan)
-      myBoard.updateBlock(3, 0, 1);
-      myBoard.updateBlock(4, 0, 1);
-      myBoard.updateBlock(5, 0, 1);
-      myBoard.updateBlock(6, 0, 1);
+      blocks.push_back(new Block(3, 0, 1));
+      blocks.push_back(new Block(4, 0, 1));
+      blocks.push_back(new Block(5, 0, 1));
+      blocks.push_back(new Block(6, 0, 1));
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      myBoard.updateBlock(3, 0, 2);
-      myBoard.updateBlock(4, 0, 2);
-      myBoard.updateBlock(5, 0, 2);
-      myBoard.updateBlock(5, 1, 2);
+      blocks.push_back(new Block(3, 0, 2));
+      blocks.push_back(new Block(4, 0, 2));
+      blocks.push_back(new Block(5, 0, 2));
+      blocks.push_back(new Block(5, 1, 2));
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      myBoard.updateBlock(3, 0, 3);
-      myBoard.updateBlock(4, 0, 3);
-      myBoard.updateBlock(5, 0, 3);
-      myBoard.updateBlock(3, 1, 3);
+      blocks.push_back(new Block(3, 0, 3));
+      blocks.push_back(new Block(4, 0, 3));
+      blocks.push_back(new Block(5, 0, 3));
+      blocks.push_back(new Block(3, 1, 3));
       break;
     case 4:   // O piece, blockType = 4 (yellow)
-      myBoard.updateBlock(4, 0, 4);
-      myBoard.updateBlock(5, 0, 4);
-      myBoard.updateBlock(4, 1, 4);
-      myBoard.updateBlock(5, 1, 4);
+      blocks.push_back(new Block(4, 0, 4));
+      blocks.push_back(new Block(5, 0, 4));
+      blocks.push_back(new Block(4, 1, 4));
+      blocks.push_back(new Block(5, 1, 4));
       break;
     case 5:   // S piece, blockType = 5 (green)
-      // update the blocks
-      myBoard.updateBlock(4, 0, 5);
-      myBoard.updateBlock(5, 0, 5);
-      myBoard.updateBlock(3, 1, 5);
-      myBoard.updateBlock(4, 1, 5);
+      blocks.push_back(new Block(4, 0, 5));
+      blocks.push_back(new Block(5, 0, 5));
+      blocks.push_back(new Block(3, 1, 5));
+      blocks.push_back(new Block(4, 1, 5));
       break;
     case 6:   // T piece, blockType = 6 (purple)
-      myBoard.updateBlock(4, 0, 6);
-      myBoard.updateBlock(3, 1, 6);
-      myBoard.updateBlock(4, 1, 6);
-      myBoard.updateBlock(5, 1, 6);
+      blocks.push_back(new Block(4, 0, 6));
+      blocks.push_back(new Block(3, 1, 6));
+      blocks.push_back(new Block(4, 1, 6));
+      blocks.push_back(new Block(5, 1, 6));
       break;
     case 7:   // Z piece, blockType = 7 (red)
-      myBoard.updateBlock(3, 0, 7);
-      myBoard.updateBlock(4, 0, 7);
-      myBoard.updateBlock(4, 1, 7);
-      myBoard.updateBlock(5, 1, 7);
+      blocks.push_back(new Block(3, 0, 7));
+      blocks.push_back(new Block(4, 0, 7));
+      blocks.push_back(new Block(4, 1, 7));
+      blocks.push_back(new Block(5, 1, 7));
       break;
   }
 }
