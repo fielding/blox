@@ -12,8 +12,6 @@
 #include <iostream>
 #include "SDL.h"
 
-#endif /* defined(__Tetris__Timer__) */
-
 class Timer
 {
   
@@ -46,3 +44,6 @@ private:
   bool started;
   
 };
+
+#endif /* defined(__Tetris__Timer__) */
+
