@@ -28,7 +28,7 @@ Block::Block(int x, int y, int bType)
 }
 
 Block::~Block(){
-  cout<<"Destructor Called!"<<endl;
+  //cout<<"Destructor Called!"<<endl;
 }
 void Block::handle_input()
 {

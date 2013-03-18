@@ -25,8 +25,7 @@ public:
   Board( int blockWidth, int blockHeight );
   
   // Functions
-  void updateBlock(int x, int y, int status);
-  
+  void updateBlock(int x, int y, int status);  
   int mBoard[10][20];
 
 private:

@@ -169,10 +169,15 @@ int Game::start()
   end_time = playTimer.get_ticks();
   if ( end_time - start_time > force_time )
   {
-    tetrimino->move(0, 1);
-    start_time = playTimer.get_ticks();
+    if ( isMovePossible(0, 1) == 0)
+    {
+      tetrimino->move(0, 1);
+      start_time = playTimer.get_ticks();
+    } else {
+      cout<<"Collision Detected"<<endl;
+      cout<<isMovePossible(0,1);
+    }
   }
-    
 }
   
   return 0;
@@ -422,6 +427,21 @@ bool Game::init()
   
   // everything initialized
   return true;
+}
+
+int Game::isMovePossible( int x, int y )
+{
+  for ( int b = 0; b < 4; b++ )
+  {
+    int xPos = tetrimino->activeTetrimino[b].box.x / 16 + x;
+    int yPos = tetrimino->activeTetrimino[b].box.y / 16 + y;
+    if( xPos < 0 || xPos >= 9 || yPos < 0 || yPos >= 19 ) {
+      return 1;
+    } else {
+    return myBoard->mBoard[xPos][yPos];
+    }
+  }
+  
 }
 
 void Game::drawNextContainer()
