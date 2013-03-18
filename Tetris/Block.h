@@ -21,8 +21,6 @@ class Block
 public:
   Block( int x, int y, int bType );
   ~Block();
-  // Watch key events and adjsut velocity
-  void handle_input();
   
   // move the object
   void move();

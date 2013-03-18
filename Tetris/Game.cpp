@@ -40,14 +40,14 @@ Game::~Game()
 
 int Game::start()
 {
-  bool playing = true;
   int frame = 0;
   int start_time = 0;
   int end_time = 0;
-  int force_time = 100;
+  int force_time = 1000;
   
   // Game Loop
   cout<<"Starting the game"<<endl;
+  playing = true;
   playTimer.start();
   
   while ( playing )
@@ -58,49 +58,8 @@ int Game::start()
     while ( SDL_PollEvent( &event ) )
     {
       // Watch for keybord events
-      
-      // If a key was pressed
-      if( event.type == SDL_KEYDOWN )
-      {
-        
-        // If T was pressed
-        if ( event.key.keysym.sym  == SDLK_t )
-        {
-          // If playTimer is running
-          if (playTimer.is_started() == true)
-          {
-            // stop playTimer
-            playTimer.stop();
-          }
-          else
-          {
-            // Start playTimer
-            playTimer.start();
-          }
-        }
-        
-        // If P was pressed
-        if ( event.key.keysym.sym == SDLK_p )
-        {
-          // If playTimer is paused
-          if ( playTimer.is_paused() == true )
-          {
-            // unpause playTimer
-            playTimer.unpause();
-          } else
-          {
-            // pause playTimer
-            playTimer.pause();
-          }
-        }
-      }
-      
-      // Check if the user x's out of the window
-      if ( event.type == SDL_QUIT )
-      {
-        // Quit the progam
-        playing = false;
-      }
+      movementInput();
+      interfaceInput();
     }
   
   // Game Loop: Logic
@@ -175,6 +134,14 @@ int Game::start()
       start_time = playTimer.get_ticks();
     } else {
       cout<<"Collision Detected"<<endl;
+      
+      // check for game over
+      if ( isGameOver() )
+      {
+        playing = false;
+        cout<<"GAME OVER BITCHES!"<<endl;
+        break;
+      }
       
       // add tetrimino to grid
       storeTetrimino();
@@ -418,6 +385,59 @@ bool Game::init()
   return true;
 }
 
+void Game::interfaceInput()
+{
+  if( event.type == SDL_KEYDOWN )
+  {
+    
+    // If T was pressed
+    if ( event.key.keysym.sym  == SDLK_t )
+    {
+      // If playTimer is running
+      if (playTimer.is_started() == true)
+      {
+        // stop playTimer
+        playTimer.stop();
+      }
+      else
+      {
+        // Start playTimer
+        playTimer.start();
+      }
+    }
+    
+    // If P was pressed
+    if ( event.key.keysym.sym == SDLK_p )
+    {
+      // If playTimer is paused
+      if ( playTimer.is_paused() == true )
+      {
+        // unpause playTimer
+        playTimer.unpause();
+      } else
+      {
+        // pause playTimer
+        playTimer.pause();
+      }
+    }
+  }
+  
+  if ( event.type == SDL_QUIT )
+  {
+    // Quit the progam
+    playing = false;
+  }
+}
+
+bool Game::isGameOver(){
+  for ( int w = 0; w < BOARD_BLOCK_WIDTH; w++ )
+  {
+    if (myBoard->mBoard[w][0] != 0) { return true; }
+  }
+  
+  return false;
+}
+
 int Game::isMovePossible( int x, int y )
 {
   int status = 0;
@@ -489,6 +509,44 @@ SDL_Surface *Game::load_image( string filename )
   }
   // Return the optmized version
   return optimizedImage;
+}
+
+void Game::movementInput()
+{
+  if ( event.type == SDL_KEYDOWN )      // If a key was presed
+  {
+    switch ( event.key.keysym.sym )
+    {
+      case SDLK_DOWN:
+        if ( !isMovePossible( 0, 1 ) ) { tetrimino->move( 0, 1 ); }
+        break;
+      case SDLK_LEFT:
+        if ( !isMovePossible( -1, 0 ) ) { tetrimino->move( -1, 0 ); }
+        break;
+      case SDLK_RIGHT:
+        if ( !isMovePossible( 1, 0 ) ) { tetrimino->move( 1, 0 ); }
+        break;
+      case SDLK_LSHIFT || SDLK_RSHIFT:
+        // Drop tetrimino
+      default:
+        break;
+    }
+  }
+  // FUTURE USE: I plan to allow holding down keys for movement
+  else if ( event.type == SDL_KEYUP )   // If a key was released
+  {
+    switch ( event.key.keysym.sym )
+    {
+      case SDLK_DOWN:
+        break;
+      case SDLK_LEFT:
+        break;
+      case SDLK_RIGHT:
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 void Game::storeTetrimino()

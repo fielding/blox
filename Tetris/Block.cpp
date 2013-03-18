@@ -30,51 +30,6 @@ Block::Block(int x, int y, int bType)
 Block::~Block(){
   //cout<<"Destructor Called!"<<endl;
 }
-void Block::handle_input()
-{
-  /*
-  if ( event.type == SDL_KEYDOWN )      // If a key was presed
-  {
-    switch ( event.key.keysym.sym )
-    {
-      case SDLK_UP:
-        yVel -= BLOCK_SIZE / 2;
-        break;
-      case SDLK_DOWN:
-        yVel += BLOCK_SIZE / 2;
-        break;
-      case SDLK_LEFT:
-        xVel -= BLOCK_SIZE / 2;
-        break;
-      case SDLK_RIGHT:
-        xVel += BLOCK_SIZE / 2;
-        break;
-      default:
-        break;
-    }
-  }
-  else if ( event.type == SDL_KEYUP )   // If a key was released
-  {
-    switch ( event.key.keysym.sym )
-    {
-      case SDLK_UP:
-        yVel += BLOCK_SIZE / 2;
-        break;
-      case SDLK_DOWN:
-        yVel -= BLOCK_SIZE / 2;
-        break;
-      case SDLK_LEFT:
-        xVel += BLOCK_SIZE / 2;
-        break;
-      case SDLK_RIGHT:
-        xVel -= BLOCK_SIZE / 2;
-        break;
-      default:
-        break;
-    }
-  }
-   */
-}
 
 void Block::move()
 {

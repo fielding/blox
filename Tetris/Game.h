@@ -38,13 +38,6 @@ public:
   
   // public functions
   int start();
-  void drawBlock( Block block, string type );
-  void drawBoard();
-  void drawNextContainer();
-  void drawActiveTetrimino();
-  void drawNextTetrimino();
-  int  isMovePossible(int x, int y);
-  void storeTetrimino();
 
 private:
   Board *myBoard;
@@ -53,12 +46,25 @@ private:
   Timer playTimer;
   Timer fps;
   Timer update;
+  bool playing;
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   bool check_collision( SDL_Rect A, SDL_Rect B );
   void clean_up();
+  void drawBlock( Block block, string type );
+  void drawBoard();
+  void drawNextContainer();
+  void drawActiveTetrimino();
+  void drawNextTetrimino();  
   bool init();
+  void interfaceInput();
+  int  isMovePossible(int x, int y);
   bool load_files();
+  void movementInput();
+  void storeTetrimino();
+  bool isGameOver();
+  
+  
   SDL_Surface *load_image( string filename );
   
   // Surfaces
