@@ -27,6 +27,18 @@ Tetrimino::~Tetrimino()
   activeTetrimino.clear();
 }
 
+void Tetrimino::move( int xOffset, int yOffset )
+{
+  xOffset *= BLOCK_SIZE;
+  yOffset *= BLOCK_SIZE;
+  
+  for ( int b = 0; b < 4; b++ )
+  {
+    activeTetrimino[b].box.x += xOffset;
+    activeTetrimino[b].box.y += yOffset;
+  }
+}
+
 void Tetrimino::spawn(std::vector<Block>* target){
   // randomize the Tetrimino chosen
   int rando = (random() % 7 + 1);

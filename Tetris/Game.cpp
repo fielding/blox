@@ -42,16 +42,18 @@ int Game::start()
 {
   bool quit = false;
   int frame = 0;
+  int start_time = 0;
+  int end_time = 0;
+  int force_time = 1000;
   
   // Game Loop
   cout<<"Starting the game"<<endl;
+  playTimer.start();
   
   while ( quit == false )
   {
     // Start frame timer and play timer
     fps.start();
-    playTimer.start();
-    
     // Game Loop: Events
     while ( SDL_PollEvent( &event ) )
     {
@@ -131,8 +133,7 @@ int Game::start()
   // Draw the active and next tetrimino
   drawActiveTetrimino();
   drawNextTetrimino();
-  
-    
+        
   // Update the screen
   if ( SDL_Flip( screen ) == -1 )
   {
@@ -164,6 +165,14 @@ int Game::start()
     // Sleep the remaining time
     SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
   }
+    
+  end_time = playTimer.get_ticks();
+  if ( end_time - start_time > force_time )
+  {
+    tetrimino->move(0, 1);
+    start_time = playTimer.get_ticks();
+  }
+    
 }
   
   return 0;
