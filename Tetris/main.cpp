@@ -70,7 +70,7 @@ class Block
   
 public:
   Block( int x, int y, int bType );
-  
+  ~Block();
   // Watch key events and adjsut velocity
   void handle_input();
   
@@ -118,13 +118,14 @@ public:
   
   // Constructor
   Tetrimino();
+  ~Tetrimino();
   
   // public classes
   void spawn();
   void draw();
 
 private:
-  std::vector<Block*> blocks;
+  std::vector<Block> blocks;
 };
 
 // Function definitions
@@ -352,6 +353,9 @@ Block::Block(int x, int y, int bType)
   
 }
 
+Block::~Block(){
+  cout<<"Destructor Called!"<<endl;
+}
 void Block::handle_input()
 {
   if ( event.type == SDL_KEYDOWN )      // If a key was presed
@@ -503,14 +507,20 @@ void Board::updateBlock( int x, int y, int status )
   mBoard[x][y] = status;
 }
 
-Tetrimino::Tetrimino() {
+Tetrimino::Tetrimino()
+{
   
+}
+
+Tetrimino::~Tetrimino()
+{
+  blocks.clear();
 }
 
 void Tetrimino::draw(){
   for ( int i = 0; i < 4; i++)
   {
-    blocks[i]->draw();
+    blocks[i].draw();
   }
 }
 
@@ -526,46 +536,46 @@ void Tetrimino::spawn(){
   
   switch ( rando ) {
     case 1:   // I piece, blockType = 1 (cyan)
-      blocks.push_back(new Block(3, 0, 1));
-      blocks.push_back(new Block(4, 0, 1));
-      blocks.push_back(new Block(5, 0, 1));
-      blocks.push_back(new Block(6, 0, 1));
+      blocks.push_back(Block(3, 0, 1));
+      blocks.push_back(Block(4, 0, 1));
+      blocks.push_back(Block(5, 0, 1));
+      blocks.push_back(Block(6, 0, 1));
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      blocks.push_back(new Block(3, 0, 2));
-      blocks.push_back(new Block(4, 0, 2));
-      blocks.push_back(new Block(5, 0, 2));
-      blocks.push_back(new Block(5, 1, 2));
+      blocks.push_back(Block(3, 0, 2));
+      blocks.push_back(Block(4, 0, 2));
+      blocks.push_back(Block(5, 0, 2));
+      blocks.push_back(Block(5, 1, 2));
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      blocks.push_back(new Block(3, 0, 3));
-      blocks.push_back(new Block(4, 0, 3));
-      blocks.push_back(new Block(5, 0, 3));
-      blocks.push_back(new Block(3, 1, 3));
+      blocks.push_back(Block(3, 0, 3));
+      blocks.push_back(Block(4, 0, 3));
+      blocks.push_back(Block(5, 0, 3));
+      blocks.push_back(Block(3, 1, 3));
       break;
     case 4:   // O piece, blockType = 4 (yellow)
-      blocks.push_back(new Block(4, 0, 4));
-      blocks.push_back(new Block(5, 0, 4));
-      blocks.push_back(new Block(4, 1, 4));
-      blocks.push_back(new Block(5, 1, 4));
+      blocks.push_back(Block(4, 0, 4));
+      blocks.push_back(Block(5, 0, 4));
+      blocks.push_back(Block(4, 1, 4));
+      blocks.push_back(Block(5, 1, 4));
       break;
     case 5:   // S piece, blockType = 5 (green)
-      blocks.push_back(new Block(4, 0, 5));
-      blocks.push_back(new Block(5, 0, 5));
-      blocks.push_back(new Block(3, 1, 5));
-      blocks.push_back(new Block(4, 1, 5));
+      blocks.push_back(Block(4, 0, 5));
+      blocks.push_back(Block(5, 0, 5));
+      blocks.push_back(Block(3, 1, 5));
+      blocks.push_back(Block(4, 1, 5));
       break;
     case 6:   // T piece, blockType = 6 (purple)
-      blocks.push_back(new Block(4, 0, 6));
-      blocks.push_back(new Block(3, 1, 6));
-      blocks.push_back(new Block(4, 1, 6));
-      blocks.push_back(new Block(5, 1, 6));
+      blocks.push_back(Block(4, 0, 6));
+      blocks.push_back(Block(3, 1, 6));
+      blocks.push_back(Block(4, 1, 6));
+      blocks.push_back(Block(5, 1, 6));
       break;
     case 7:   // Z piece, blockType = 7 (red)
-      blocks.push_back(new Block(3, 0, 7));
-      blocks.push_back(new Block(4, 0, 7));
-      blocks.push_back(new Block(4, 1, 7));
-      blocks.push_back(new Block(5, 1, 7));
+      blocks.push_back(Block(3, 0, 7));
+      blocks.push_back(Block(4, 0, 7));
+      blocks.push_back(Block(4, 1, 7));
+      blocks.push_back(Block(5, 1, 7));
       break;
   }
 }
