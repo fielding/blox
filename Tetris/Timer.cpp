@@ -10,6 +10,7 @@
 
 Timer::Timer()
 {
+  std::cout<<"Timer Constructor Called!"<<std::endl;
   // Constructor function, initalizes the variables
   startTicks = 0;
   pausedTicks = 0;

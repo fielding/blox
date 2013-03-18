@@ -10,5 +10,28 @@
 #define __Tetris__Tetrimino__
 
 #include <iostream>
+#include <vector>
+#include "Block.h"
+
+using namespace std;
+
+class Tetrimino
+{
+public:
+  
+  // Constructor
+  Tetrimino();
+  ~Tetrimino();
+  
+  // public functions
+  void spawn(std::vector<Block>* target);
+  
+  std::vector<Block> nextTetrimino;
+  std::vector<Block> activeTetrimino;
+
+private:
+  // can I make nextTetrimino and activeTetrimino private?
+  
+};
 
 #endif /* defined(__Tetris__Tetrimino__) */
