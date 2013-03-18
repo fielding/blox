@@ -39,6 +39,13 @@ void Tetrimino::move( int xOffset, int yOffset )
   }
 }
 
+void Tetrimino::next(){
+  activeTetrimino.clear();
+  activeTetrimino = nextTetrimino;
+  nextTetrimino.clear();
+  spawn( &nextTetrimino);
+}
+
 void Tetrimino::spawn(std::vector<Block>* target){
   // randomize the Tetrimino chosen
   int rando = (random() % 7 + 1);
@@ -46,46 +53,46 @@ void Tetrimino::spawn(std::vector<Block>* target){
   cout<<"Tetrimino spawn type: "<<rando<<"\n";
   switch ( rando ) {
     case 1:   // I piece, blockType = 1 (cyan)
-      target->push_back(Block(0, 0, 1));
-      target->push_back(Block(1, 0, 1));
-      target->push_back(Block(2, 0, 1));
       target->push_back(Block(3, 0, 1));
+      target->push_back(Block(4, 0, 1));
+      target->push_back(Block(5, 0, 1));
+      target->push_back(Block(6, 0, 1));
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      target->push_back(Block(0, 0, 2));
-      target->push_back(Block(1, 0, 2));
-      target->push_back(Block(2, 0, 2));
-      target->push_back(Block(2, 1, 2));
+      target->push_back(Block(3, 0, 2));
+      target->push_back(Block(4, 0, 2));
+      target->push_back(Block(5, 0, 2));
+      target->push_back(Block(5, 1, 2));
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      target->push_back(Block(0, 0, 3));
-      target->push_back(Block(1, 0, 3));
-      target->push_back(Block(2, 0, 3));
-      target->push_back(Block(0, 1, 3));
+      target->push_back(Block(3, 0, 3));
+      target->push_back(Block(4, 0, 3));
+      target->push_back(Block(5, 0, 3));
+      target->push_back(Block(3, 1, 3));
       break;
     case 4:   // O piece, blockType = 4 (yellow)
-      target->push_back(Block(1, 0, 4));
-      target->push_back(Block(2, 0, 4));
-      target->push_back(Block(1, 1, 4));
-      target->push_back(Block(2, 1, 4));
+      target->push_back(Block(4, 0, 4));
+      target->push_back(Block(5, 0, 4));
+      target->push_back(Block(4, 1, 4));
+      target->push_back(Block(5, 1, 4));
       break;
     case 5:   // S piece, blockType = 5 (green)
-      target->push_back(Block(1, 0, 5));
-      target->push_back(Block(2, 0, 5));
-      target->push_back(Block(0, 1, 5));
-      target->push_back(Block(1, 1, 5));
+      target->push_back(Block(4, 0, 5));
+      target->push_back(Block(5, 0, 5));
+      target->push_back(Block(3, 1, 5));
+      target->push_back(Block(4, 1, 5));
       break;
     case 6:   // T piece, blockType = 6 (purple)
-      target->push_back(Block(1, 0, 6));
-      target->push_back(Block(0, 1, 6));
-      target->push_back(Block(1, 1, 6));
-      target->push_back(Block(2, 1, 6));
+      target->push_back(Block(4, 0, 6));
+      target->push_back(Block(3, 1, 6));
+      target->push_back(Block(4, 1, 6));
+      target->push_back(Block(5, 1, 6));
       break;
     case 7:   // Z piece, blockType = 7 (red)
-      target->push_back(Block(0, 0, 7));
-      target->push_back(Block(1, 0, 7));
-      target->push_back(Block(1, 1, 7));
-      target->push_back(Block(2, 1, 7));
+      target->push_back(Block(3, 0, 7));
+      target->push_back(Block(4, 0, 7));
+      target->push_back(Block(4, 1, 7));
+      target->push_back(Block(5, 1, 7));
       break;
   }
 }

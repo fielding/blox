@@ -40,17 +40,17 @@ Game::~Game()
 
 int Game::start()
 {
-  bool quit = false;
+  bool playing = true;
   int frame = 0;
   int start_time = 0;
   int end_time = 0;
-  int force_time = 1000;
+  int force_time = 100;
   
   // Game Loop
   cout<<"Starting the game"<<endl;
   playTimer.start();
   
-  while ( quit == false )
+  while ( playing )
   {
     // Start frame timer and play timer
     fps.start();
@@ -99,7 +99,7 @@ int Game::start()
       if ( event.type == SDL_QUIT )
       {
         // Quit the progam
-        quit = true;
+        playing = false;
       }
     }
   
@@ -175,7 +175,11 @@ int Game::start()
       start_time = playTimer.get_ticks();
     } else {
       cout<<"Collision Detected"<<endl;
-      cout<<isMovePossible(0,1);
+      
+      // add tetrimino to grid
+      storeTetrimino();
+      tetrimino->next();
+      start_time = playTimer.get_ticks();
     }
   }
 }
@@ -261,24 +265,27 @@ void Game::clean_up()
 
 void Game::drawActiveTetrimino()
 {
-  cout<<"Drawing Active Tetrimino"<<endl;
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( tetrimino->activeTetrimino[i], true );
+    drawBlock( tetrimino->activeTetrimino[i], "active");
   }
 }
 
-void Game::drawBlock( Block block, bool currentTetrimino )
+void Game::drawBlock( Block block, string type )
 {
   
-  if ( currentTetrimino )
+  if ( type == "active")
   {
-    block.box.x += ( BOARD_ORIGIN_X + (BLOCK_SIZE * 3) );
+    block.box.x += BOARD_ORIGIN_X;
     block.box.y += BOARD_ORIGIN_Y;
-  } else
+  } else if ( type == "next")
   {
-    block.box.x += NC_ORIGIN_X;
+    block.box.x += NC_ORIGIN_X - (BLOCK_SIZE * 3);
     block.box.y += NC_ORIGIN_Y;
+  } else if (type == "static")
+  {
+    block.box.x += BOARD_ORIGIN_X;
+    block.box.y += BOARD_ORIGIN_Y;
   }
   
   switch ( block.blockType )
@@ -323,21 +330,108 @@ void Game::drawBoard()
         offset.y = y * BLOCK_SIZE;
         apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, boardTile, screen );
       } else {
-        //int blockType = myBoard->mBoard[x][y];
-        //Block block( x, y, blockType);
-        //block.draw();
+        int blockType = myBoard->mBoard[x][y];
+        int xPos = x * BLOCK_SIZE + BOARD_ORIGIN_X;
+        int yPos = y * BLOCK_SIZE + BOARD_ORIGIN_Y;
+        
+        switch ( blockType )
+        {
+          case 1:
+            apply_surface( xPos, yPos, cyanBlock, screen );
+            break;
+          case 2:
+            apply_surface( xPos, yPos, blueBlock, screen );
+            break;
+          case 3:
+            apply_surface( xPos, yPos, orangeBlock, screen );
+            break;
+          case 4:
+            apply_surface( xPos, yPos, yellowBlock, screen );
+            break;
+          case 5:
+            apply_surface( xPos, yPos, greenBlock, screen );
+            break;
+          case 6:
+            apply_surface( xPos, yPos, purpleBlock, screen );
+            break;
+          case 7:
+            apply_surface( xPos, yPos, redBlock, screen );
+          default:
+            break;
+        }
       }
+    }
+  }
+}
+
+void Game::drawNextContainer()
+{
+  int xOffset = BOARD_ORIGIN_X + BOARD_WIDTH + (BLOCK_SIZE * 2);  // place the container 4 blocks over from our main game board
+  int yOffset = BOARD_ORIGIN_Y + (BLOCK_SIZE * 2); // place the container down from where our main board starts by n number of blocks
+  
+  for (int x = 0; x < 4; x++ )
+  {
+    for ( int y = 0; y < 4; y++ )
+    {
+      apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, screen );
     }
   }
 }
 
 void Game::drawNextTetrimino()
 {
-  cout<<"Drawing Active Tetrimino"<<endl;
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( tetrimino->nextTetrimino[i], false );
+    drawBlock( tetrimino->nextTetrimino[i], "next" );
   }
+}
+
+bool Game::init()
+{
+  // seed for random();
+  srandom((unsigned)time(NULL));
+  
+  // Initialize all SDL subsystems
+  if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ){
+    return false;
+  }
+  
+  // Set up the screen
+  screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+  
+  // Check for error while starting screen
+  if ( screen == NULL )
+  {
+    return false;
+  }
+  
+  // Initialize SDL font library
+  if( TTF_Init() == -1 )
+  {
+    return false;
+  }
+  
+  // Set the window caption
+  SDL_WM_SetCaption( "Fielding's Tetris", NULL );
+  
+  // everything initialized
+  return true;
+}
+
+int Game::isMovePossible( int x, int y )
+{
+  int status = 0;
+  for ( int b = 0; b < 4; b++ )
+  {
+    int xPos = tetrimino->activeTetrimino[b].box.x / 16 + x;
+    int yPos = tetrimino->activeTetrimino[b].box.y / 16 + y;
+    if( xPos < 0 || xPos > 9 || yPos < 0 || yPos > 19 ) {
+      status++;
+    } else {
+      status += myBoard->mBoard[xPos][yPos];
+    }
+  }
+  return status;
 }
 
 bool Game::load_files()
@@ -397,66 +491,19 @@ SDL_Surface *Game::load_image( string filename )
   return optimizedImage;
 }
 
-bool Game::init()
+void Game::storeTetrimino()
 {
-  // seed for random();
-  srandom((unsigned)time(NULL));
-  
-  // Initialize all SDL subsystems
-  if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ){
-    return false;
-  }
-  
-  // Set up the screen
-  screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
-  
-  // Check for error while starting screen
-  if ( screen == NULL )
+  for( int b = 0; b < 4; b++ )
   {
-    return false;
+    int xPos = tetrimino->activeTetrimino[b].box.x / 16;
+    int yPos = tetrimino->activeTetrimino[b].box.y / 16;
+    int blockType = tetrimino->activeTetrimino[b].blockType;
+    
+    cout<<"Storing blocktype "<< blockType <<" at ("<< xPos <<", "<<yPos<<")\n";
+    myBoard->updateBlock(xPos, yPos, blockType);
   }
-  
-  // Initialize SDL font library
-  if( TTF_Init() == -1 )
-  {
-    return false;
-  }
-  
-  // Set the window caption
-  SDL_WM_SetCaption( "Fielding's Tetris", NULL );
-  
-  // everything initialized
-  return true;
 }
 
-int Game::isMovePossible( int x, int y )
-{
-  for ( int b = 0; b < 4; b++ )
-  {
-    int xPos = tetrimino->activeTetrimino[b].box.x / 16 + x;
-    int yPos = tetrimino->activeTetrimino[b].box.y / 16 + y;
-    if( xPos < 0 || xPos >= 9 || yPos < 0 || yPos >= 19 ) {
-      return 1;
-    } else {
-    return myBoard->mBoard[xPos][yPos];
-    }
-  }
-  
-}
-
-void Game::drawNextContainer()
-{
-  int xOffset = BOARD_ORIGIN_X + BOARD_WIDTH + (BLOCK_SIZE * 2);  // place the container 4 blocks over from our main game board
-  int yOffset = BOARD_ORIGIN_Y + (BLOCK_SIZE * 2); // place the container down from where our main board starts by n number of blocks
-  
-  for (int x = 0; x < 4; x++ )
-  {
-    for ( int y = 0; y < 4; y++ )
-    {
-      apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, screen );
-    }
-  }
-}
 
 
 

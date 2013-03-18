@@ -38,12 +38,13 @@ public:
   
   // public functions
   int start();
-  void drawBlock( Block block, bool activeTetrimino);
+  void drawBlock( Block block, string type );
   void drawBoard();
   void drawNextContainer();
   void drawActiveTetrimino();
   void drawNextTetrimino();
-  int isMovePossible(int x, int y);
+  int  isMovePossible(int x, int y);
+  void storeTetrimino();
 
 private:
   Board *myBoard;

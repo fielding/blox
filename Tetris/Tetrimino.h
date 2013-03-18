@@ -26,6 +26,7 @@ public:
   // public functions
   void spawn(std::vector<Block>* target);
   void move( int xOffset, int yOffset );
+  void next();
   
   std::vector<Block> nextTetrimino;
   std::vector<Block> activeTetrimino;
