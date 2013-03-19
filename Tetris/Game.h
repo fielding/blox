@@ -46,7 +46,9 @@ private:
   Timer playTimer;
   Timer fps;
   Timer update;
-  bool playing;
+  enum GameState { Menu, Playing, GameOver, Paused };
+  int gameState;
+  
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   bool check_collision( SDL_Rect A, SDL_Rect B );
@@ -67,6 +69,7 @@ private:
   bool lineIsFull( int y );
   void deleteLine( int y );
   void dropLines( int y );
+  void hardDropTetrimino();
   
   
   SDL_Surface *load_image( string filename );

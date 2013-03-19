@@ -43,15 +43,15 @@ int Game::start()
   int frame = 0;
   int start_time = 0;
   int end_time = 0;
-  int force_time = 1000;
+  int force_time = 500;
   int linesCleared = 0;
   
   // Game Loop
   cout<<"Starting the game"<<endl;
-  playing = true;
+  gameState = Playing;
   playTimer.start();
   
-  while ( playing )
+  while ( gameState == Playing || gameState == Paused )
   {
     // Start frame timer and play timer
     fps.start();
@@ -59,7 +59,7 @@ int Game::start()
     while ( SDL_PollEvent( &event ) )
     {
       // Watch for keybord events
-      movementInput();
+      if ( gameState == Playing ) { movementInput();}
       interfaceInput();
     }
   
@@ -75,7 +75,7 @@ int Game::start()
   stringstream time;
   
   // Convert the timer's time to a string
-  time << "Timer: " << playTimer.get_ticks() / 1000.f;
+  time << "Timer: " << playTimer.get_ticks() / 1000;
   
   // Render the time surface
   seconds = TTF_RenderText_Shaded( font, time.str().c_str(), fontFgColor, fontBgColor );
@@ -139,7 +139,7 @@ int Game::start()
       // check for game over
       if ( isGameOver() )
       {
-        playing = false;
+        gameState = GameOver;
         cout<<"GAME OVER BITCHES!"<<endl;
         break;
       }
@@ -417,10 +417,12 @@ void Game::interfaceInput()
       {
         // unpause playTimer
         playTimer.unpause();
+        gameState = Playing;
       } else
       {
         // pause playTimer
         playTimer.pause();
+        gameState = Paused;
       }
     }
   }
@@ -428,11 +430,12 @@ void Game::interfaceInput()
   if ( event.type == SDL_QUIT )
   {
     // Quit the progam
-    playing = false;
+    gameState = GameOver;
   }
 }
 
-bool Game::isGameOver(){
+bool Game::isGameOver()
+{
   for ( int w = 0; w < BOARD_BLOCK_WIDTH; w++ )
   {
     if (myBoard->mBoard[w][0] != 0) { return true; }
@@ -541,7 +544,8 @@ void Game::movementInput()
       case SDLK_x:  // Rotate Right
         tetrimino->rotate("right");
         break;
-        
+      case SDLK_SPACE:
+        hardDropTetrimino();
       default:
         break;
     }
@@ -622,5 +626,16 @@ void Game::dropLines( int y )
       myBoard->mBoard[x][h] = myBoard->mBoard[x][h-1];
     }
   }
+}
+
+void Game::hardDropTetrimino()
+{
+
+  
+  // calculate final pos
+  
+  // calculate offset
+  
+  // move Tetrimino
 }
 
