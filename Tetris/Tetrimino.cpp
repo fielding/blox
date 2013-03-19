@@ -7,6 +7,8 @@
 //
 
 #include "Tetrimino.h"
+#include "Board.h"
+#include "Block.h"
 
 
 Tetrimino::Tetrimino()
@@ -27,16 +29,49 @@ Tetrimino::~Tetrimino()
   activeTetrimino.clear();
 }
 
-void Tetrimino::move( int xOffset, int yOffset )
+bool Tetrimino::moveLeft(Board* myBoard)
 {
-  xOffset *= BLOCK_SIZE;
-  yOffset *= BLOCK_SIZE;
-  
-  for ( int b = 0; b < 4; b++ )
+  if ( getDimension( xMin, blocks ) > 0 && !myBoard->checkBlockCollision( this, left ) )
   {
-    activeTetrimino[b].box.x += xOffset;
-    activeTetrimino[b].box.y += yOffset;
+    for ( int b = 0; b < 4; b++ )
+    {
+      activeTetrimino[b].box.x -= 1 * BLOCK_SIZE;
+    }
+    return true;
   }
+  return false;
+}
+
+bool Tetrimino::moveRight(Board* myBoard)
+{
+  if ( getDimension( xMax, blocks ) < 9 && !myBoard->checkBlockCollision( this, right ) )
+  {
+    for ( int b = 0; b < 4; b++ )
+    {
+      activeTetrimino[b].box.x += 1 * BLOCK_SIZE;;
+    }
+    return true;
+  }
+  return false;
+}
+
+bool Tetrimino::moveDown(Board* myBoard)
+{
+  if ( getDimension( yMax, blocks ) < 19 && !myBoard->checkBlockCollision( this, down ) )
+  {
+    for ( int b = 0; b < 4; b++ )
+    {
+      activeTetrimino[b].box.y += 1 * BLOCK_SIZE;
+    }
+    return true;
+  }
+  return false;
+}
+
+void Tetrimino::hardDrop(Board* myBoard)
+{
+  // Move down until it can't anymore
+  while(moveDown(myBoard));
 }
 
 void Tetrimino::next()
@@ -217,36 +252,42 @@ int Tetrimino::calcPixelHeight()
   return ((yValues[3] + 16) - yValues[0]);
 }
 
-int Tetrimino::calcPixelOriginX()
+int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest position to the left on our board
 {
+  // store our values in vectors
   vector <int> xValues;
-  // get x values
-  for ( int b = 0; b < 4; b++ )
+  vector <int> yValues;
+  int returnValue = 0;
+
+  for ( int b = 0; b < 4; b++ )   // for each block in the tetrimino, store the x and y in their respective vectors
   {
     xValues.push_back(activeTetrimino[b].box.x);
-  }
-  
-  // sort in Descending Order
-  bubbleSort( xValues );
-  
-  cout<<"Smallest X value: " << xValues[0]<<endl;
-  return (xValues[0]);
-  
-}
-
-int Tetrimino::calcPixelOriginY()
-{
-  vector <int> yValues;
-  // get x values
-  for ( int b = 0; b < 4; b++ )
-  {
     yValues.push_back(activeTetrimino[b].box.y);
   }
+
+  bubbleSort( xValues );
+  bubbleSort( yValues );
   
-  // sort in Descending Order
-  bubbleSort(yValues);
+  switch ( dimension )
+  {
+    case xMin:
+      returnValue = xValues[0];
+      break;
+    case xMax:
+      returnValue = xValues[3];
+      break;
+    case yMin:
+      returnValue = yValues[0];
+      break;
+    case yMax:
+      returnValue = yValues[3];
+      break;
+  }
   
-  return (yValues[0]);
+  if ( unit == blocks ) { returnValue /= BLOCK_SIZE; }
+  
+  return (returnValue);
+  
 }
 
 double Tetrimino::round( double number )

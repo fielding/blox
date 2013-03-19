@@ -17,10 +17,11 @@
 #include "SDL_ttf.h"
 
 #include "Constants.h"
+#include "Board.h"
 #include "Timer.h"
 #include "Block.h"
 #include "Tetrimino.h"
-#include "Board.h"
+
 
 using namespace std;
 
@@ -51,7 +52,6 @@ private:
   
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
-  bool check_collision( SDL_Rect A, SDL_Rect B );
   void clean_up();
   void drawBlock( Block block, string type );
   void drawBoard();
@@ -60,7 +60,6 @@ private:
   void drawNextTetrimino();  
   bool init();
   void interfaceInput();
-  int  isMovePossible(int x, int y);
   bool load_files();
   void movementInput();
   void storeTetrimino();
@@ -69,7 +68,6 @@ private:
   bool lineIsFull( int y );
   void deleteLine( int y );
   void dropLines( int y );
-  void hardDropTetrimino();
   
   
   SDL_Surface *load_image( string filename );

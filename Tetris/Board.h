@@ -13,6 +13,7 @@
 #include <SDL.h>
 #include "Constants.h"
 #include "Block.h"
+#include "Tetrimino.h"
 
 
 using namespace std;
@@ -23,15 +24,18 @@ public:
   
   // Constructor
   Board( int blockWidth, int blockHeight );
-  
-  // Functions
-  void updateBlock(int x, int y, int status);  
-  int mBoard[10][20];
 
+  // Functions
+  void updateBlock(int x, int y, int status);
+  bool checkBlockCollision(Tetrimino* tetrimino, int direction);
+  int mBoard[10][20];
+  int getBlockStatus(int x, int y);
+  
 private:
   // TODO: Fix this, either make it a vector or whatever is needed to make it scalable
   //int mBoard[BOARD_BLOCK_WIDTH][BOARD_BLOCK_HEIGHT];
   // bring mBoard back to being private
+  enum direction_t {left, right, down};
 };
 
 

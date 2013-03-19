@@ -28,7 +28,6 @@ Game::Game()
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
   tetrimino = new Tetrimino;
   
-  
   globalTimer.start();
   update.start();
 }
@@ -129,11 +128,12 @@ int Game::start()
   end_time = playTimer.get_ticks();
   if ( end_time - start_time > force_time )
   {
-    if ( isMovePossible(0, 1) == 0)
+    if (tetrimino->moveDown(myBoard))
     {
-      tetrimino->move(0, 1);
       start_time = playTimer.get_ticks();
-    } else {
+    }
+    else
+    {
       cout<<"Collision Detected"<<endl;
       
       // check for game over
@@ -150,6 +150,7 @@ int Game::start()
       linesCleared = checkLines();
       cout<<"Lines Cleared: "<<linesCleared<<endl;
       start_time = playTimer.get_ticks();
+      cout<<myBoard->getBlockStatus(0,0)<<endl;
     }
   }
 }
@@ -166,52 +167,6 @@ void Game::apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destin
   
   // Blit
   SDL_BlitSurface( source, clip, destination, &offset );
-}
-
-bool Game::check_collision( SDL_Rect A, SDL_Rect B )
-{
-  // The sides of the rectangles
-  int leftA, leftB;
-  int rightA, rightB;
-  int topA, topB;
-  int bottomA, bottomB;
-  
-  // Calculate sides of rect A
-  leftA = A.x;
-  rightA = A.x + A.w;
-  topA = A.y;
-  bottomA = A.y + A.h;
-  
-  // Calculate sides of rect B
-  leftB = B.x;
-  rightB = B.x + B.w;
-  topB = B.y;
-  bottomB = B.y + B.h;
-  
-  // If any of the sides from A are outside of B
-  if ( bottomA <= topB )
-  {
-    return false;
-  }
-  
-  if ( topA >= bottomB )
-  {
-    return false;
-  }
-  
-  if ( rightA <= leftB )
-  {
-    return false;
-  }
-  
-  if ( leftA >= rightB )
-  {
-    return false;
-  }
-  
-  // If none of the sides from A are outside of B
-  clean_up();
-  return true;
 }
 
 void Game::clean_up()
@@ -444,21 +399,6 @@ bool Game::isGameOver()
   return false;
 }
 
-int Game::isMovePossible( int x, int y )
-{
-  int status = 0;
-  for ( int b = 0; b < 4; b++ )
-  {
-    int xPos = tetrimino->activeTetrimino[b].box.x / 16 + x;
-    int yPos = tetrimino->activeTetrimino[b].box.y / 16 + y;
-    if( xPos < 0 || xPos > 9 || yPos > 19 ) {
-      status++;
-    } else {
-      status += myBoard->mBoard[xPos][yPos];
-    }
-  }
-  return status;
-}
 
 bool Game::load_files()
 {
@@ -524,13 +464,13 @@ void Game::movementInput()
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:   // Soft Drop
-        if ( !isMovePossible( 0, 1 ) ) { tetrimino->move( 0, 1 ); }
+        tetrimino->moveDown(myBoard);
         break;
       case SDLK_LEFT:   // Move Left
-        if ( !isMovePossible( -1, 0 ) ) { tetrimino->move( -1, 0 ); }
+        tetrimino->moveLeft(myBoard);
         break;
       case SDLK_RIGHT:  // Move Right
-        if ( !isMovePossible( 1, 0 ) ) { tetrimino->move( 1, 0 ); }
+        tetrimino->moveRight(myBoard);
         break;
       case SDLK_LSHIFT:
       case SDLK_c:    // Hold ( future implementation )
@@ -545,7 +485,7 @@ void Game::movementInput()
         tetrimino->rotate("right");
         break;
       case SDLK_SPACE:
-        hardDropTetrimino();
+        tetrimino->hardDrop(myBoard);
       default:
         break;
     }
@@ -628,6 +568,8 @@ void Game::dropLines( int y )
   }
 }
 
+
+/*
 void Game::hardDropTetrimino()
 {
   int yChange = 19;
@@ -650,7 +592,7 @@ void Game::hardDropTetrimino()
     flag = true;
   }
   cout<<"Final yChange: " << yChange << endl;
-  tetrimino->move(0, yChange );
+  //tetrimino->move(0, yChange );
   
   // calculate final pos
   
@@ -658,4 +600,6 @@ void Game::hardDropTetrimino()
   
   // move Tetrimino
 }
+ 
+*/
 

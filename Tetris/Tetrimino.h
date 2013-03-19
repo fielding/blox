@@ -11,13 +11,17 @@
 
 #include <iostream>
 #include <vector>
-#include "Block.h"
 #include <cmath>
 
 using namespace std;
 
+class Board;
+class Block;
+
 class Tetrimino
 {
+
+
 public:
   
   // Constructor
@@ -25,11 +29,14 @@ public:
   ~Tetrimino();
   
   // public functions
-  void move( int xOffset, int yOffset );
+  bool moveLeft(Board* myBoard);
+  bool moveRight(Board* myBoard);
+  bool moveDown(Board* myBoard);
+  void hardDrop(Board* myBoard);
   void next();
   void rotate(string dir);
   void spawn(std::vector<Block>* target);
-  
+  int getDimension( int dimension, int unit);
   std::vector<Block> nextTetrimino;
   std::vector<Block> activeTetrimino;
 
@@ -37,10 +44,10 @@ private:
   void bubbleSort(vector <int> &num);
   int calcPixelHeight();
   int calcPixelWidth();
-  int calcPixelOriginX();
-  int calcPixelOriginY();
   double round( double number );
-
+  enum direction_t { left, right, down };
+  enum dimension_t { xMin, xMax, yMin, yMax };
+  enum unit_t { blocks, pixels };
 };
 
 #endif /* defined(__Tetris__Tetrimino__) */
