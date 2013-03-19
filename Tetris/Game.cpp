@@ -44,6 +44,7 @@ int Game::start()
   int start_time = 0;
   int end_time = 0;
   int force_time = 1000;
+  int linesCleared = 0;
   
   // Game Loop
   cout<<"Starting the game"<<endl;
@@ -146,6 +147,7 @@ int Game::start()
       // add tetrimino to grid
       storeTetrimino();
       tetrimino->next();
+      checkLines();
       start_time = playTimer.get_ticks();
     }
   }
@@ -445,7 +447,7 @@ int Game::isMovePossible( int x, int y )
   {
     int xPos = tetrimino->activeTetrimino[b].box.x / 16 + x;
     int yPos = tetrimino->activeTetrimino[b].box.y / 16 + y;
-    if( xPos < 0 || xPos > 9 || yPos < 0 || yPos > 19 ) {
+    if( xPos < 0 || xPos > 9 || yPos > 19 ) {
       status++;
     } else {
       status += myBoard->mBoard[xPos][yPos];
@@ -517,17 +519,28 @@ void Game::movementInput()
   {
     switch ( event.key.keysym.sym )
     {
-      case SDLK_DOWN:
+      case SDLK_DOWN:   // Soft Drop
         if ( !isMovePossible( 0, 1 ) ) { tetrimino->move( 0, 1 ); }
         break;
-      case SDLK_LEFT:
+      case SDLK_LEFT:   // Move Left
         if ( !isMovePossible( -1, 0 ) ) { tetrimino->move( -1, 0 ); }
         break;
-      case SDLK_RIGHT:
+      case SDLK_RIGHT:  // Move Right
         if ( !isMovePossible( 1, 0 ) ) { tetrimino->move( 1, 0 ); }
         break;
-      case SDLK_LSHIFT || SDLK_RSHIFT:
-        // Drop tetrimino
+      case SDLK_LSHIFT:
+      case SDLK_c:    // Hold ( future implementation )
+        // Hold Tetrimino
+        break;
+      case SDLK_RCTRL: // Rotate Left
+      case SDLK_z:  // Rotate Left
+        tetrimino->rotate("left");
+        break;
+      case SDLK_UP: // Rotate Right
+      case SDLK_x:  // Rotate Right
+        tetrimino->rotate("right");
+        break;
+        
       default:
         break;
     }
@@ -562,7 +575,12 @@ void Game::storeTetrimino()
   }
 }
 
-
+int Game::checkLines()
+{
+  int linesCleared = 0;
+  
+  return linesCleared;
+}
 
 
 

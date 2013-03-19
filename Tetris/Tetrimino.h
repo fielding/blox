@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "Block.h"
+#include <cmath>
 
 using namespace std;
 
@@ -24,16 +25,22 @@ public:
   ~Tetrimino();
   
   // public functions
-  void spawn(std::vector<Block>* target);
   void move( int xOffset, int yOffset );
   void next();
+  void rotate(string dir);
+  void spawn(std::vector<Block>* target);
   
   std::vector<Block> nextTetrimino;
   std::vector<Block> activeTetrimino;
 
 private:
-  // can I make nextTetrimino and activeTetrimino private?
-  
+  void bubbleSort(vector <int> &num);
+  int calcPixelHeight();
+  int calcPixelWidth();
+  int calcPixelOriginX();
+  int calcPixelOriginY();
+  double round( double number );
+
 };
 
 #endif /* defined(__Tetris__Tetrimino__) */

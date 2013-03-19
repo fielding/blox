@@ -63,6 +63,7 @@ private:
   void movementInput();
   void storeTetrimino();
   bool isGameOver();
+  int checkLines();
   
   
   SDL_Surface *load_image( string filename );
