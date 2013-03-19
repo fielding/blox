@@ -64,6 +64,9 @@ private:
   void storeTetrimino();
   bool isGameOver();
   int checkLines();
+  bool lineIsFull( int y );
+  void deleteLine( int y );
+  void dropLines( int y );
   
   
   SDL_Surface *load_image( string filename );

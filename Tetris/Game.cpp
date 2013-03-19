@@ -147,7 +147,8 @@ int Game::start()
       // add tetrimino to grid
       storeTetrimino();
       tetrimino->next();
-      checkLines();
+      linesCleared = checkLines();
+      cout<<"Lines Cleared: "<<linesCleared<<endl;
       start_time = playTimer.get_ticks();
     }
   }
@@ -579,9 +580,47 @@ int Game::checkLines()
 {
   int linesCleared = 0;
   
+  for ( int h = 0; h < BOARD_BLOCK_HEIGHT; h++ )
+  {
+    if ( lineIsFull( h ) )
+    {
+      cout<<"Line "<<h<<" is full! Deleting it!\n";
+      deleteLine( h );
+      dropLines( h );
+      linesCleared++;
+    }
+  }
+  
   return linesCleared;
 }
 
+bool Game::lineIsFull( int y )
+{
+  for ( int x = 0; x < BOARD_BLOCK_WIDTH; x++ )
+  {
+    if ( myBoard->mBoard[x][y] == 0 )
+      return false;
+  }
+  
+  return true;
+}
 
+void Game::deleteLine( int y )
+{
+  for ( int x = 0; x < BOARD_BLOCK_WIDTH; x++ )
+  {
+    myBoard->updateBlock( x, y, 0 );
+  }
+}
 
+void Game::dropLines( int y )
+{
+  for ( int x = 0; x < BOARD_BLOCK_WIDTH; x++ )
+  {
+    for ( int h = y; h > 0; h-- )
+    {
+      myBoard->mBoard[x][h] = myBoard->mBoard[x][h-1];
+    }
+  }
+}
 
