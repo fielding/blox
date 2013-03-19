@@ -630,7 +630,27 @@ void Game::dropLines( int y )
 
 void Game::hardDropTetrimino()
 {
-
+  int yChange = 19;
+  bool flag = true;
+  // get current position of Tetrimino blocks
+  for ( int b = 0; b < 4; b++ )
+  {
+    int xPos = (tetrimino->activeTetrimino[b].box.x / BLOCK_SIZE);
+    int yPos = (tetrimino->activeTetrimino[b].box.y / BLOCK_SIZE);
+    for (int i = yPos; i < BOARD_BLOCK_HEIGHT && flag; i++ )
+    {
+      if ( myBoard->mBoard[xPos][i] != 0 || i == 19)
+      {
+        if (yChange > i - yPos) { yChange = i - yPos; }
+        cout<<"yChange for block #"<<b<<" is : "<<yChange<<endl;
+        flag = false;
+      }
+    }
+    
+    flag = true;
+  }
+  cout<<"Final yChange: " << yChange << endl;
+  tetrimino->move(0, yChange );
   
   // calculate final pos
   
