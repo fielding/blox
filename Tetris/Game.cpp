@@ -49,9 +49,10 @@ int Game::start()
   gameState = Playing;
   playTimer.start();
   
-  while ( quit == false ) {
+  while ( quit == false )
+  {
     
-    while ( ( gameState == Playing || gameState == Paused) && quit == false )
+    while ( gameState == Playing && quit == false )
     {
       // Start frame timer and play timer
       fps.start();
@@ -59,7 +60,8 @@ int Game::start()
       while ( SDL_PollEvent( &event ) )
       {
         // Watch for keybord events
-        if ( gameState == Playing ) { movementInput(); }
+        // if ( gameState == Playing ) { movementInput(); }
+        movementInput();
         interfaceInput();
       }
     
@@ -71,21 +73,9 @@ int Game::start()
     // Fill the screen white
     SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
     
-    // Timer's time as string
-    stringstream time;
-    
-    // Convert the timer's time to a string
-    time << "Timer: " << playTimer.get_ticks() / 1000;
-    
-    // Render the time surface
-    seconds = TTF_RenderText_Shaded( font, time.str().c_str(), fontFgColor, fontBgColor );
-    
-    // Apply the time surface
-    apply_surface( ( SCREEN_WIDTH - seconds->w ) / 2, 0, seconds, screen );
-    
-    // Free the time surface
-    SDL_FreeSurface ( seconds );
-    
+    // Display game timer
+    displayTimer( playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
+
     // Draw the board and next container
     drawBoard();
     drawNextContainer();
@@ -95,10 +85,7 @@ int Game::start()
     drawNextTetrimino();
           
     // Update the screen
-    if ( SDL_Flip( screen ) == -1 )
-    {
-      return 1;
-    }
+    updateScreen();
     
     // Increment the frame counter
     frame++;
@@ -142,7 +129,6 @@ int Game::start()
         if ( isGameOver() )
         {
           gameState = GameOver;
-          cout<<"GAME OVER!"<<endl;
           break;
         }
         
@@ -150,15 +136,28 @@ int Game::start()
         linesCleared = checkLines();
         cout<<"Lines Cleared: "<<linesCleared<<endl;
         start_time = playTimer.get_ticks();
-        cout<<myBoard->getBlockStatus(0,0)<<endl;
       }
     }
   }
     
-    while ( gameState == GameOver )
-    { }
+    while ( gameState != Playing && quit == false )
+    {
+      while ( SDL_PollEvent( &event ) )
+      {
+        interfaceInput();
+      }
+      
+      if ( gameState == GameOver )
+      {
+        displayText("Game Over!", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), 0, 0, 0, 255, 255, 255);
+        
+        updateScreen();
+      
+      }
+    }
     
   }
+  
   return 0;
 }
 
@@ -354,7 +353,7 @@ void Game::interfaceInput()
   if( event.type == SDL_KEYDOWN )
   {
     
-    // If T was pressed
+    // If T is pressed
     if ( event.key.keysym.sym  == SDLK_t )
     {
       // If playTimer is running
@@ -370,22 +369,45 @@ void Game::interfaceInput()
       }
     }
     
-    // If P was pressed
+    // If P is pressed
     if ( event.key.keysym.sym == SDLK_p )
     {
       // If playTimer is paused
-      if ( playTimer.is_paused() == true )
+      if ( gameState == Paused )
       {
         // unpause playTimer
         playTimer.unpause();
         gameState = Playing;
-      } else
+        cout<<"Game State: "<< gameStateNames[gameState] <<endl;
+      }
+      else if ( gameState != Paused)
       {
         // pause playTimer
         playTimer.pause();
         gameState = Paused;
+        cout<<"Game State: "<< gameStateNames[gameState] <<endl;
       }
     }
+  
+    // if ESCAPE is pressed
+    
+    if ( event.key.keysym.sym == SDLK_ESCAPE )
+    {
+      if ( gameState != Menu )
+      {
+        if ( gameState != Paused ) { playTimer.pause(); }
+        previousGameState = gameState;
+        gameState = Menu;
+        cout<<"Game State: "<< gameStateNames[gameState] <<endl;
+      }
+      else if ( gameState == Menu )
+      {
+        if ( previousGameState != Paused ) { playTimer.unpause(); }
+        gameState = previousGameState;
+        cout<<"Game State: "<< gameStateNames[gameState] <<endl;
+      }
+    }
+  
   }
   
   if ( event.type == SDL_QUIT )
@@ -573,3 +595,43 @@ void Game::dropLines( int y )
   }
 }
 
+void Game::displayTimer( int time, int x, int y )
+{
+  SDL_Surface *timer = NULL;
+  // Timer's time as string
+  stringstream timeString;
+  
+  // Convert the timer's time to a string
+  timeString << "Timer: " << time / 1000;
+  
+  // Render the time surface
+  timer = TTF_RenderText_Shaded( font, timeString.str().c_str(), fontFgColor, fontBgColor );
+  
+  // Apply the time surface
+  apply_surface( ( x - ( timer->w / 2 ) ) , ( y - ( timer->h / 2 ) ) , timer, screen );
+  
+  // Free the time surface
+  SDL_FreeSurface ( timer );
+}
+
+void Game::displayText(string text, Sint16 x, Sint16 y, Uint8 fR, Uint8 fG, Uint8 fB, Uint8 bR, Uint8 bG, Uint8 bB)
+{
+ 
+  SDL_Color foreground = { fR, fG, fB };  // Text foreground color
+  SDL_Color background = { bR, bG, bB };  // Text background color
+  
+  SDL_Surface* textSurface = TTF_RenderText_Shaded(font, text.c_str(), foreground, background); // Render our text to temporary text surface
+
+  apply_surface( ( x - ( textSurface->w / 2 ) ) , ( y - ( textSurface->h / 2 ) ), textSurface, screen);  // call apply_surface function using our newly setup text surface
+  
+  SDL_FreeSurface(textSurface); // Free dem memories!
+}
+
+bool Game::updateScreen()  // This function is kind of pointless lol
+{
+  if ( SDL_Flip( screen ) == -1 )
+  {
+    return 1;
+  }
+  return 0;
+}

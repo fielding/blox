@@ -48,7 +48,10 @@ private:
   Timer fps;
   Timer update;
   enum GameState { Menu, Playing, GameOver, Paused };
+  char *gameStateNames[4] = {
+    "Menu", "Playing", "GameOver", "Paused"};
   int gameState;
+  int previousGameState;
   bool quit;
   
 
@@ -69,7 +72,9 @@ private:
   bool lineIsFull( int y );
   void deleteLine( int y );
   void dropLines( int y );
-  
+  void displayText(string text, Sint16 x, Sint16 y, Uint8 fgR, Uint8 fgG, Uint8 fgB, Uint8 bgR, Uint8 bgG, Uint8 bgB);
+  void displayTimer(int time, int x, int y);
+  bool updateScreen();
   
   SDL_Surface *load_image( string filename );
   
@@ -89,7 +94,6 @@ private:
   SDL_Surface *redBlock = NULL;
   
   // Message Surfaces
-  SDL_Surface *seconds = NULL;
   SDL_Surface *startStop = NULL;
   SDL_Surface *pauseMessage = NULL;
   SDL_Surface *mainMessage = NULL;
@@ -97,7 +101,7 @@ private:
   // Event Structure
   SDL_Event event;
   
-  // Font, font fg color and font bg color
+  // default font, font fg color and font bg color
   TTF_Font *font = NULL;
   SDL_Color fontFgColor = { 0, 0, 0 };
   SDL_Color fontBgColor = { 255, 255, 255 };
