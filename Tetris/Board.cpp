@@ -42,7 +42,7 @@ bool Board::checkBlockCollision(Tetrimino* tetrimino, int direction)
         if ( getBlockStatus( ( x + 1 ), y ) != 0 ) { return true; }
         break;
       case down:
-        if ( getBlockStatus( x, ( y + 1 ) ) != 0 ) { return true; }
+        if ( getBlockStatus( x, ( y + 1 ) ) != 0 && y >= -1) { return true; }
         break;
     }
   }

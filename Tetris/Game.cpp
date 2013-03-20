@@ -18,7 +18,6 @@ Game::Game()
     cout<<"Failed to initialize the game"<<endl;
   }
   
-  
   cout<<"Loading Files"<<endl;
   if ( load_files() == false )
   {
@@ -30,6 +29,7 @@ Game::Game()
   
   globalTimer.start();
   update.start();
+  quit = false;
 }
 
 Game::~Game()
@@ -44,117 +44,121 @@ int Game::start()
   int end_time = 0;
   int force_time = 500;
   int linesCleared = 0;
-  
   // Game Loop
   cout<<"Starting the game"<<endl;
   gameState = Playing;
   playTimer.start();
   
-  while ( gameState == Playing || gameState == Paused )
-  {
-    // Start frame timer and play timer
-    fps.start();
-    // Game Loop: Events
-    while ( SDL_PollEvent( &event ) )
+  while ( quit == false ) {
+    
+    while ( ( gameState == Playing || gameState == Paused) && quit == false )
     {
-      // Watch for keybord events
-      if ( gameState == Playing ) { movementInput();}
-      interfaceInput();
-    }
-  
-  // Game Loop: Logic
-  
-  
-  // Game Loop: Rendering
-  
-  // Fill the screen white
-  SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
-  
-  // Timer's time as string
-  stringstream time;
-  
-  // Convert the timer's time to a string
-  time << "Timer: " << playTimer.get_ticks() / 1000;
-  
-  // Render the time surface
-  seconds = TTF_RenderText_Shaded( font, time.str().c_str(), fontFgColor, fontBgColor );
-  
-  // Apply the time surface
-  apply_surface( ( SCREEN_WIDTH - seconds->w ) / 2, 0, seconds, screen );
-  
-  // Free the time surface
-  SDL_FreeSurface ( seconds );
-  
-  // Draw the board and next container
-  drawBoard();
-  drawNextContainer();
-  
-  // Draw the active and next tetrimino
-  drawActiveTetrimino();
-  drawNextTetrimino();
-        
-  // Update the screen
-  if ( SDL_Flip( screen ) == -1 )
-  {
-    return 1;
-  }
-  
-  // Increment the frame counter
-  frame++;
-  
-  // If a second has passed since the fps caption was last updated
-  if( update.get_ticks() > 1000 )
-  {
-    // The frame rate as a string
-    stringstream caption;
-    
-    // Calculate the frame per second and create the string
-    caption << "Fielding's Tetris - Avg FPS: " << frame / ( globalTimer.get_ticks() / 1000.f );
-    
-    // Reset the caption
-    SDL_WM_SetCaption( caption.str().c_str(), NULL );
-    
-    // Restart the update timer
-    update.start();
-  }
-  
-  // If we want to cap the frame rate
-  if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
-  {
-    // Sleep the remaining time
-    SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
-  }
-    
-  end_time = playTimer.get_ticks();
-  if ( end_time - start_time > force_time )
-  {
-    if (tetrimino->moveDown(myBoard))
-    {
-      start_time = playTimer.get_ticks();
-    }
-    else
-    {
-      cout<<"Collision Detected"<<endl;
-      
-      // check for game over
-      if ( isGameOver() )
+      // Start frame timer and play timer
+      fps.start();
+      // Game Loop: Events
+      while ( SDL_PollEvent( &event ) )
       {
-        gameState = GameOver;
-        cout<<"GAME OVER BITCHES!"<<endl;
-        break;
+        // Watch for keybord events
+        if ( gameState == Playing ) { movementInput(); }
+        interfaceInput();
       }
+    
+    // Game Loop: Logic
+    
+    
+    // Game Loop: Rendering
+    
+    // Fill the screen white
+    SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+    
+    // Timer's time as string
+    stringstream time;
+    
+    // Convert the timer's time to a string
+    time << "Timer: " << playTimer.get_ticks() / 1000;
+    
+    // Render the time surface
+    seconds = TTF_RenderText_Shaded( font, time.str().c_str(), fontFgColor, fontBgColor );
+    
+    // Apply the time surface
+    apply_surface( ( SCREEN_WIDTH - seconds->w ) / 2, 0, seconds, screen );
+    
+    // Free the time surface
+    SDL_FreeSurface ( seconds );
+    
+    // Draw the board and next container
+    drawBoard();
+    drawNextContainer();
+    
+    // Draw the active and next tetrimino
+    drawActiveTetrimino();
+    drawNextTetrimino();
+          
+    // Update the screen
+    if ( SDL_Flip( screen ) == -1 )
+    {
+      return 1;
+    }
+    
+    // Increment the frame counter
+    frame++;
+    
+    // If a second has passed since the fps caption was last updated
+    if( update.get_ticks() > 1000 )
+    {
+      // The frame rate as a string
+      stringstream caption;
       
-      // add tetrimino to grid
-      storeTetrimino();
-      tetrimino->next();
-      linesCleared = checkLines();
-      cout<<"Lines Cleared: "<<linesCleared<<endl;
-      start_time = playTimer.get_ticks();
-      cout<<myBoard->getBlockStatus(0,0)<<endl;
+      // Calculate the frame per second and create the string
+      caption << "Fielding's Tetris - Avg FPS: " << frame / ( globalTimer.get_ticks() / 1000.f );
+      
+      // Reset the caption
+      SDL_WM_SetCaption( caption.str().c_str(), NULL );
+      
+      // Restart the update timer
+      update.start();
+    }
+    
+    // If we want to cap the frame rate
+    if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
+    {
+      // Sleep the remaining time
+      SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
+    }
+      
+    end_time = playTimer.get_ticks();
+    if ( end_time - start_time > force_time )
+    {
+      if (tetrimino->moveDown(myBoard))
+      {
+        start_time = playTimer.get_ticks();
+      }
+      else
+      {
+        // add tetrimino to grid
+        storeTetrimino();
+        
+        // check for game over
+        if ( isGameOver() )
+        {
+          gameState = GameOver;
+          cout<<"GAME OVER!"<<endl;
+          break;
+        }
+        
+        tetrimino->next();
+        linesCleared = checkLines();
+        cout<<"Lines Cleared: "<<linesCleared<<endl;
+        start_time = playTimer.get_ticks();
+        cout<<myBoard->getBlockStatus(0,0)<<endl;
+      }
     }
   }
-}
-  
+    
+    while ( gameState == GameOver )
+    { }
+    
+  }
   return 0;
 }
 
@@ -192,7 +196,9 @@ void Game::drawActiveTetrimino()
 {
   for ( int i = 0; i < 4; i++)
   {
+    if (tetrimino->activeTetrimino[i].box.y >= 0) {
     drawBlock( tetrimino->activeTetrimino[i], "active");
+    }
   }
 }
 
@@ -385,7 +391,7 @@ void Game::interfaceInput()
   if ( event.type == SDL_QUIT )
   {
     // Quit the progam
-    gameState = GameOver;
+    quit = true;
   }
 }
 
@@ -398,7 +404,6 @@ bool Game::isGameOver()
   
   return false;
 }
-
 
 bool Game::load_files()
 {
@@ -567,39 +572,4 @@ void Game::dropLines( int y )
     }
   }
 }
-
-
-/*
-void Game::hardDropTetrimino()
-{
-  int yChange = 19;
-  bool flag = true;
-  // get current position of Tetrimino blocks
-  for ( int b = 0; b < 4; b++ )
-  {
-    int xPos = (tetrimino->activeTetrimino[b].box.x / BLOCK_SIZE);
-    int yPos = (tetrimino->activeTetrimino[b].box.y / BLOCK_SIZE);
-    for (int i = yPos; i < BOARD_BLOCK_HEIGHT && flag; i++ )
-    {
-      if ( myBoard->mBoard[xPos][i] != 0 || i == 19)
-      {
-        if (yChange > i - yPos) { yChange = i - yPos; }
-        cout<<"yChange for block #"<<b<<" is : "<<yChange<<endl;
-        flag = false;
-      }
-    }
-    
-    flag = true;
-  }
-  cout<<"Final yChange: " << yChange << endl;
-  //tetrimino->move(0, yChange );
-  
-  // calculate final pos
-  
-  // calculate offset
-  
-  // move Tetrimino
-}
- 
-*/
 

@@ -49,6 +49,7 @@ private:
   Timer update;
   enum GameState { Menu, Playing, GameOver, Paused };
   int gameState;
+  bool quit;
   
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );

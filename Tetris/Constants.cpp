@@ -12,7 +12,7 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 20;
+const int FRAMES_PER_SECOND = 30;
 
 // Board Attributes
 
