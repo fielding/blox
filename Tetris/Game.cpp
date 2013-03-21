@@ -77,6 +77,7 @@ int Game::start()
     displayTimer( playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
 
     // Draw the board and next container
+    drawInterface();
     drawBoard();
     drawNextContainer();
     
@@ -151,17 +152,18 @@ int Game::start()
       
       if ( gameState == GameOver )
       {
-        displayText("Game Over!", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), 0, 0, 0, 255, 255, 255);
+
+        apply_surface( BOARD_ORIGIN_X + BLOCK_SIZE, BOARD_ORIGIN_Y + ( BLOCK_SIZE * 9 ), interfaceMessageGameOver, screen );
       }
       
       if ( gameState == Paused )
       {
-        displayText("Paused", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT /2), 0, 0, 0, 255, 255, 255);
+        apply_surface( BOARD_ORIGIN_X + BLOCK_SIZE, BOARD_ORIGIN_Y + ( BLOCK_SIZE * 9), interfaceMessagePaused, screen );
       }
       
       if ( gameState == Menu )
       {
-        
+        apply_surface( BOARD_ORIGIN_X + 40, BOARD_ORIGIN_Y + 32, interfaceMenu, screen);
       }
       
       updateScreen();
@@ -353,6 +355,7 @@ bool Game::init()
   
   // Set the window caption
   SDL_WM_SetCaption( "Fielding's Tetris", NULL );
+
   
   // everything initialized
   return true;
@@ -418,6 +421,15 @@ void Game::interfaceInput()
       }
     }
   
+    if ( gameState == Menu) {
+      if ( event.key.keysym.sym == SDLK_3 )
+      {
+        quit = true;
+      }
+    }
+    
+    
+    // end event.type == SDL_KEYDOWN
   }
   
   if ( event.type == SDL_QUIT )
@@ -451,15 +463,24 @@ bool Game::load_files()
   purpleBlock = load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
   redBlock = load_image("Tetris.app/Contents/Resources/img/redblock.png");
   
-  boardTile = load_image("Tetris.app/Contents/Resources/img/boardTile.png");
+  boardTile = load_image("Tetris.app/Contents/Resources/img/boardtile.png");
+  boardOutline = load_image("Tetris.app/Contents/Resources/img/boardoutline.png");
+  
+  interfaceMessageGameOver = load_image("Tetris.app/Contents/Resources/img/gameover.png");
+  interfaceMessagePaused = load_image("Tetris.app/Contents/Resources/img/paused.png");
+  
+  interfaceMenu = load_image("Tetris.app/Contents/Resources/img/menu.png");
+  /*
+  if ( boardOutline == NULL )
+  {
+    cout<<IMG_GetError()<<endl;
+  }
+  */
   
   // Load font
   font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/HelveticaNeueCondensedBold.ttf", 28);
   
-  // Check if images loaded properly
-  if ( greenBlock == NULL || blueBlock == NULL || purpleBlock == NULL) {
-    return false;
-  }
+  
   
   // Check if font loaded properly
   if ( font == NULL ) {
@@ -644,4 +665,9 @@ bool Game::updateScreen()  // This function is kind of pointless lol
     return 1;
   }
   return 0;
+}
+
+void Game::drawInterface()
+{
+  apply_surface(BOARD_ORIGIN_X - 17 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
 }

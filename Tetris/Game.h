@@ -75,6 +75,7 @@ private:
   void displayText(string text, Sint16 x, Sint16 y, Uint8 fgR, Uint8 fgG, Uint8 fgB, Uint8 bgR, Uint8 bgG, Uint8 bgB);
   void displayTimer(int time, int x, int y);
   bool updateScreen();
+  void drawInterface();
   
   SDL_Surface *load_image( string filename );
   
@@ -83,6 +84,7 @@ private:
   SDL_Surface *background = NULL;
   SDL_Surface *boardSurface = NULL;
   SDL_Surface *boardTile = NULL;
+  SDL_Surface *boardOutline = NULL;
   
   // Surfaces for block images
   SDL_Surface *cyanBlock = NULL;
@@ -97,6 +99,10 @@ private:
   SDL_Surface *startStop = NULL;
   SDL_Surface *pauseMessage = NULL;
   SDL_Surface *mainMessage = NULL;
+  SDL_Surface* interfaceMessageGameOver;
+  SDL_Surface* interfaceMessagePaused;
+  
+  SDL_Surface* interfaceMenu;
   
   // Event Structure
   SDL_Event event;

@@ -15,6 +15,16 @@
 		C2080DBF16F72A050028CF9A /* Tetrimino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DBD16F72A050028CF9A /* Tetrimino.cpp */; };
 		C2080DC216F72F690028CF9A /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DC016F72F690028CF9A /* Constants.cpp */; };
 		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
+		C276DA7916FB9CD6005A4DFC /* boardoutline.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7716FB9CD6005A4DFC /* boardoutline.png */; };
+		C276DA7A16FB9CD6005A4DFC /* boardtile.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7816FB9CD6005A4DFC /* boardtile.png */; };
+		C276DA7B16FB9CE2005A4DFC /* boardoutline.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C276DA7716FB9CD6005A4DFC /* boardoutline.png */; };
+		C276DA7C16FB9CE8005A4DFC /* boardtile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C276DA7816FB9CD6005A4DFC /* boardtile.png */; };
+		C276DA7D16FB9CEE005A4DFC /* gameover.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
+		C276DA7F16FB9D56005A4DFC /* paused.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7E16FB9D56005A4DFC /* paused.png */; };
+		C276DA8016FB9D5C005A4DFC /* paused.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C276DA7E16FB9D56005A4DFC /* paused.png */; };
+		C276DA8216FBBD1A005A4DFC /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA8116FBBD1A005A4DFC /* menu.png */; };
+		C276DA8416FBBD2B005A4DFC /* menu.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C276DA8116FBBD1A005A4DFC /* menu.png */; };
 		C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A37D7616F24F1B00ED5820 /* Cocoa.framework */; };
 		C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */; };
 		C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D8516F24F1B00ED5820 /* Credits.rtf */; };
@@ -24,20 +34,10 @@
 		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
 		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
-		C2DD4D4116F62107005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
-		C2DD4D4216F62107005F36B3 /* blueblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
-		C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
-		C2DD4D4416F62107005F36B3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
-		C2DD4D4516F62107005F36B3 /* purpleblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
 		C2DD4D4616F6212D005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
 		C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
-		C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
 		C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
 		C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
-		C2DD4D4F16F63A4A005F36B3 /* cyanblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */; };
-		C2DD4D5016F63A4A005F36B3 /* orangeblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */; };
-		C2DD4D5116F63A4A005F36B3 /* redblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4D16F63A4A005F36B3 /* redblock.png */; };
-		C2DD4D5216F63A4A005F36B3 /* yellowblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */; };
 		C2DD4D5316F63A5E005F36B3 /* cyanblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */; };
 		C2DD4D5416F63A60005F36B3 /* orangeblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */; };
 		C2DD4D5516F63A61005F36B3 /* redblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4D16F63A4A005F36B3 /* redblock.png */; };
@@ -85,10 +85,14 @@
 				C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */,
 				C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */,
 				C2DD4D5516F63A61005F36B3 /* redblock.png in CopyFiles */,
+				C276DA8016FB9D5C005A4DFC /* paused.png in CopyFiles */,
+				C276DA7C16FB9CE8005A4DFC /* boardtile.png in CopyFiles */,
+				C276DA7B16FB9CE2005A4DFC /* boardoutline.png in CopyFiles */,
+				C276DA8416FBBD2B005A4DFC /* menu.png in CopyFiles */,
+				C276DA7D16FB9CEE005A4DFC /* gameover.png in CopyFiles */,
 				C2DD4D5616F63A63005F36B3 /* yellowblock.png in CopyFiles */,
 				C2DD4D5416F63A60005F36B3 /* orangeblock.png in CopyFiles */,
 				C2DD4D5316F63A5E005F36B3 /* cyanblock.png in CopyFiles */,
-				C2DD4D4816F62135005F36B3 /* boardTile.png in CopyFiles */,
 				C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +108,11 @@
 		C2080DBE16F72A050028CF9A /* Tetrimino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tetrimino.h; sourceTree = "<group>"; };
 		C2080DC016F72F690028CF9A /* Constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Constants.cpp; sourceTree = "<group>"; };
 		C2080DC116F72F690028CF9A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
+		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
+		C276DA7816FB9CD6005A4DFC /* boardtile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardtile.png; path = assets/img/boardtile.png; sourceTree = "<group>"; };
+		C276DA7E16FB9D56005A4DFC /* paused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paused.png; path = assets/img/paused.png; sourceTree = "<group>"; };
+		C276DA8116FBBD1A005A4DFC /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = assets/img/menu.png; sourceTree = "<group>"; };
 		C2A37D7316F24F1B00ED5820 /* Tetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A37D7616F24F1B00ED5820 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C2A37D7916F24F1B00ED5820 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -123,7 +132,6 @@
 		C2DD4D2516F3570A005F36B3 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaNeueCondensedBold.ttf; path = assets/font/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
 		C2DD4D3D16F62107005F36B3 /* blueblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueblock.png; path = assets/img/blueblock.png; sourceTree = "<group>"; };
-		C2DD4D3E16F62107005F36B3 /* boardTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardTile.png; path = assets/img/boardTile.png; sourceTree = "<group>"; };
 		C2DD4D3F16F62107005F36B3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenblock.png; path = assets/img/greenblock.png; sourceTree = "<group>"; };
 		C2DD4D4016F62107005F36B3 /* purpleblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purpleblock.png; path = assets/img/purpleblock.png; sourceTree = "<group>"; };
 		C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cyanblock.png; path = assets/img/cyanblock.png; sourceTree = "<group>"; };
@@ -212,13 +220,17 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C276DA7E16FB9D56005A4DFC /* paused.png */,
+				C276DA8116FBBD1A005A4DFC /* menu.png */,
 				C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */,
+				C276DA7716FB9CD6005A4DFC /* boardoutline.png */,
+				C276DA7816FB9CD6005A4DFC /* boardtile.png */,
+				C276DA7516FB9CC2005A4DFC /* gameover.png */,
 				C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */,
 				C2DD4D4D16F63A4A005F36B3 /* redblock.png */,
 				C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */,
 				C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */,
 				C2DD4D3D16F62107005F36B3 /* blueblock.png */,
-				C2DD4D3E16F62107005F36B3 /* boardTile.png */,
 				C2DD4D3F16F62107005F36B3 /* greenblock.png */,
 				C2DD4D4016F62107005F36B3 /* purpleblock.png */,
 				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
@@ -288,15 +300,11 @@
 			files = (
 				C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */,
 				C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */,
-				C2DD4D4116F62107005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */,
-				C2DD4D4216F62107005F36B3 /* blueblock.png in Resources */,
-				C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */,
-				C2DD4D4416F62107005F36B3 /* greenblock.png in Resources */,
-				C2DD4D4516F62107005F36B3 /* purpleblock.png in Resources */,
-				C2DD4D4F16F63A4A005F36B3 /* cyanblock.png in Resources */,
-				C2DD4D5016F63A4A005F36B3 /* orangeblock.png in Resources */,
-				C2DD4D5116F63A4A005F36B3 /* redblock.png in Resources */,
-				C2DD4D5216F63A4A005F36B3 /* yellowblock.png in Resources */,
+				C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */,
+				C276DA7916FB9CD6005A4DFC /* boardoutline.png in Resources */,
+				C276DA7A16FB9CD6005A4DFC /* boardtile.png in Resources */,
+				C276DA7F16FB9D56005A4DFC /* paused.png in Resources */,
+				C276DA8216FBBD1A005A4DFC /* menu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
