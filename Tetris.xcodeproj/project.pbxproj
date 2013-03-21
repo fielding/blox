@@ -14,6 +14,7 @@
 		C2080DBC16F729B20028CF9A /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DBA16F729B20028CF9A /* Block.cpp */; };
 		C2080DBF16F72A050028CF9A /* Tetrimino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DBD16F72A050028CF9A /* Tetrimino.cpp */; };
 		C2080DC216F72F690028CF9A /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DC016F72F690028CF9A /* Constants.cpp */; };
+		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A37D7616F24F1B00ED5820 /* Cocoa.framework */; };
 		C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */; };
 		C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D8516F24F1B00ED5820 /* Credits.rtf */; };
@@ -22,8 +23,7 @@
 		C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
 		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
-		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
-		C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		C2DD4D4116F62107005F36B3 /* HelveticaNeueCondensedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
 		C2DD4D4216F62107005F36B3 /* blueblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
 		C2DD4D4316F62107005F36B3 /* boardTile.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DD4D3E16F62107005F36B3 /* boardTile.png */; };
@@ -45,6 +45,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C276DA7016FB7B32005A4DFC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2DD4CFD16F2508C005F36B3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,7 +63,6 @@
 			files = (
 				C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */,
 				C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */,
-				C2DD4D0916F2D31D005F36B3 /* libSDL_ttf-2.0.0.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +244,7 @@
 				C2DD4CFD16F2508C005F36B3 /* CopyFiles */,
 				C2DD4D0316F2D013005F36B3 /* CopyFiles */,
 				C2DD4D1F16F318C8005F36B3 /* CopyFiles */,
+				C276DA7016FB7B32005A4DFC /* CopyFiles */,
 			);
 			buildRules = (
 			);

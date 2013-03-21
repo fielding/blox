@@ -142,20 +142,30 @@ int Game::start()
     
     while ( gameState != Playing && quit == false )
     {
+      
       while ( SDL_PollEvent( &event ) )
       {
         interfaceInput();
       }
       
+      
       if ( gameState == GameOver )
       {
         displayText("Game Over!", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), 0, 0, 0, 255, 255, 255);
-        
-        updateScreen();
-      
       }
+      
+      if ( gameState == Paused )
+      {
+        displayText("Paused", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT /2), 0, 0, 0, 255, 255, 255);
+      }
+      
+      if ( gameState == Menu )
+      {
+        
+      }
+      
+      updateScreen();
     }
-    
   }
   
   return 0;
