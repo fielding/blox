@@ -39,6 +39,8 @@ public:
   int getDimension( int dimension, int unit);
   std::vector<Block> nextTetrimino;
   std::vector<Block> activeTetrimino;
+  std::vector<Block> heldTetrimino;
+  void hold();
 
 private:
   void bubbleSort(vector <int> &num);
@@ -48,6 +50,9 @@ private:
   enum direction_t { left, right, down };
   enum dimension_t { xMin, xMax, yMin, yMax };
   enum unit_t { blocks, pixels };
+  int distanceDown;
+  int distanceLeft;
+  int distanceRight;
 };
 
 #endif /* defined(__Tetris__Tetrimino__) */

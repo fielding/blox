@@ -27,3 +27,6 @@ const int BOARD_ORIGIN_Y = 224;   // Y-origin position the board appears on the 
 
 const int NC_ORIGIN_X = BOARD_ORIGIN_X + BOARD_WIDTH + (BLOCK_SIZE * 2);    // X-origin for the next container
 const int NC_ORIGIN_Y =  BOARD_ORIGIN_Y + (BLOCK_SIZE * 2);   // Y-origin for the next container
+
+const int HC_ORIGIN_X = BOARD_ORIGIN_X - (BLOCK_SIZE * 6); // X-origin for the held container
+const int HC_ORIGIN_Y = BOARD_ORIGIN_Y + (BLOCK_SIZE * 2); // Y-origin for the held container

@@ -30,5 +30,7 @@ extern const int BOARD_ORIGIN_X;   // X- origin position the board appears on th
 extern const int BOARD_ORIGIN_Y;   // Y-origin position the board appears on the screen
 extern const int NC_ORIGIN_X;
 extern const int NC_ORIGIN_Y;
+extern const int HC_ORIGIN_X;
+extern const int HC_ORIGIN_Y;
 
 #endif /* defined(__Tetris__Constants__) */

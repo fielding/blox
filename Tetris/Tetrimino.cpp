@@ -17,9 +17,7 @@ Tetrimino::Tetrimino()
   // Setup Initial Tetrimino and store it in Next Container (not visible yet)
   spawn( &nextTetrimino );
   spawn( &activeTetrimino );
-  
   // TODO: add system to prevent the first active tetrimino and the first next tetrimino from being the same
-
 }
 
 Tetrimino::~Tetrimino()
@@ -293,4 +291,20 @@ int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest pos
 double Tetrimino::round( double number )
 {
   return number < 0.0 ? ceil(number - 0.5) : floor(number + 0.5);
+}
+
+void Tetrimino::hold()
+{
+  vector<Block> buffer;
+  
+  if ( heldTetrimino.empty() )
+  {
+    heldTetrimino = activeTetrimino;
+    next();
+  } else {
+    buffer = activeTetrimino;
+    activeTetrimino = heldTetrimino;
+    heldTetrimino = buffer;
+    buffer.clear();
+  }
 }

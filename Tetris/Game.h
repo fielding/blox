@@ -48,8 +48,9 @@ private:
   Timer fps;
   Timer update;
   enum GameState { Menu, Playing, GameOver, Paused };
-  char *gameStateNames[4] = {
-    "Menu", "Playing", "GameOver", "Paused"};
+  char *gameStateNames[4] = { "Menu", "Playing", "GameOver", "Paused" };
+  enum type_t { active, fixed, next, held };
+
   int gameState;
   int previousGameState;
   bool quit;
@@ -57,11 +58,13 @@ private:
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   void clean_up();
-  void drawBlock( Block block, string type );
+  void drawBlock( Block block, int type );
   void drawBoard();
   void drawNextContainer();
+  void drawHeldContainer();
   void drawActiveTetrimino();
-  void drawNextTetrimino();  
+  void drawNextTetrimino();
+  void drawHeldTetrimino();
   bool init();
   void interfaceInput();
   bool load_files();

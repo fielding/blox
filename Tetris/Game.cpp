@@ -80,10 +80,12 @@ int Game::start()
     drawInterface();
     drawBoard();
     drawNextContainer();
+    drawHeldContainer();
     
     // Draw the active and next tetrimino
     drawActiveTetrimino();
     drawNextTetrimino();
+    drawHeldTetrimino();
           
     // Update the screen
     updateScreen();
@@ -208,27 +210,32 @@ void Game::drawActiveTetrimino()
   for ( int i = 0; i < 4; i++)
   {
     if (tetrimino->activeTetrimino[i].box.y >= 0) {
-    drawBlock( tetrimino->activeTetrimino[i], "active");
+    drawBlock( tetrimino->activeTetrimino[i], active);
     }
   }
 }
 
-void Game::drawBlock( Block block, string type )
+void Game::drawBlock( Block block, int type )
 {
   
-  if ( type == "active")
+  if ( type == active)
   {
     block.box.x += BOARD_ORIGIN_X;
     block.box.y += BOARD_ORIGIN_Y;
-  } else if ( type == "next")
+  } else if ( type == next )
   {
     block.box.x += NC_ORIGIN_X - (BLOCK_SIZE * 3);
     block.box.y += NC_ORIGIN_Y;
-  } else if (type == "static")
+  } else if ( type == fixed )
   {
     block.box.x += BOARD_ORIGIN_X;
     block.box.y += BOARD_ORIGIN_Y;
+  } else if ( type == held )
+  {
+    block.box.x += HC_ORIGIN_X;
+    block.box.x += HC_ORIGIN_Y;
   }
+  
   
   switch ( block.blockType )
   {
@@ -320,11 +327,84 @@ void Game::drawNextContainer()
   }
 }
 
+void Game::drawHeldContainer()
+{
+  int xOffset = BOARD_ORIGIN_X - (BLOCK_SIZE * 6);  // place the container 6 blocks over from our main game board (resulting in 2 block margin)
+  int yOffset = BOARD_ORIGIN_Y + (BLOCK_SIZE * 2); // place the container down from where our main board starts by n number of blocks
+  
+  for (int x = 0; x < 4; x++ )
+  {
+    for ( int y = 0; y < 4; y++ )
+    {
+      apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, screen );
+    }
+  }
+  
+}
+
 void Game::drawNextTetrimino()
 {
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( tetrimino->nextTetrimino[i], "next" );
+    drawBlock( tetrimino->nextTetrimino[i], next );
+  }
+}
+
+void Game::drawHeldTetrimino()
+{
+  int tetriminoType;
+  
+  if ( tetrimino->heldTetrimino.empty() == false )
+  {
+    tetriminoType = tetrimino->heldTetrimino[0].blockType;
+    for ( int i = 0; i < 4; i++ )
+    {
+      switch ( tetriminoType )
+      {
+        case 1:
+          drawBlock(Block(4, 0, 1), held);
+          drawBlock(Block(3, 0, 1), held);
+          drawBlock(Block(5, 0, 1), held);
+          drawBlock(Block(6, 0, 1), held);
+          break;
+        case 2:
+          drawBlock(Block(5, 0, 2), held);
+          drawBlock(Block(3, 0, 2), held);
+          drawBlock(Block(4, 0, 2), held);
+          drawBlock(Block(5, 1, 2), held);
+          break;
+        case 3:
+          drawBlock(Block(3, 0, 3), held);
+          drawBlock(Block(4, 0, 3), held);
+          drawBlock(Block(5, 0, 3), held);
+          drawBlock(Block(3, 1, 3), held);
+          break;
+        case 4:
+          drawBlock(Block(4, 0, 4), held);
+          drawBlock(Block(5, 0, 4), held);
+          drawBlock(Block(4, 1, 4), held);
+          drawBlock(Block(5, 1, 4), held);
+          break;
+        case 5:
+          drawBlock(Block(4, 1, 5), held);
+          drawBlock(Block(4, 0, 5), held);
+          drawBlock(Block(5, 0, 5), held);
+          drawBlock(Block(3, 1, 5), held);
+          break;
+        case 6:
+          drawBlock(Block(4, 1, 6), held);
+          drawBlock(Block(4, 0, 6), held);
+          drawBlock(Block(3, 1, 6), held);
+          drawBlock(Block(5, 1, 6), held);
+          break;
+        case 7:
+          drawBlock(Block(4, 1, 7), held);
+          drawBlock(Block(3, 0, 7), held);
+          drawBlock(Block(4, 0, 7), held);
+          drawBlock(Block(5, 1, 7), held);
+          break;
+      }
+    }
   }
 }
 
@@ -531,8 +611,8 @@ void Game::movementInput()
         tetrimino->moveRight(myBoard);
         break;
       case SDLK_LSHIFT:
-      case SDLK_c:    // Hold ( future implementation )
-        // Hold Tetrimino
+      case SDLK_c:    // Hold Tetrimino
+        tetrimino->hold();
         break;
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
