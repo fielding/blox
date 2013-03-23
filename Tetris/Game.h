@@ -63,7 +63,7 @@ private:
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   void clean_up();
-  void drawBlock( Block block, int type );
+  void drawBlock( Block block, int type, int xOffset = 0, int yOffset = 0 );
   void drawBoard();
   void drawNextContainer();
   void drawHeldContainer();

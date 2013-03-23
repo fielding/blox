@@ -32,5 +32,7 @@ extern const int NC_ORIGIN_X;
 extern const int NC_ORIGIN_Y;
 extern const int HC_ORIGIN_X;
 extern const int HC_ORIGIN_Y;
+extern const int CONTAINER_WIDTH;
+extern const int CONTAINER_HEIGHT;
 
 #endif /* defined(__Tetris__Constants__) */

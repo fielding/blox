@@ -41,11 +41,12 @@ public:
   std::vector<Block> pieces;
   std::vector<Block> pieceOrigins;
   bool held;
-
+  int getPixelHeight();
+  int getPixelWidth();
+  
+  
 private:
   void bubbleSort(vector <int> &num);
-  int calcPixelHeight();
-  int calcPixelWidth();
   double round( double number );
   enum direction_t { left, right, down };
   enum dimension_t { xMin, xMax, yMin, yMax };

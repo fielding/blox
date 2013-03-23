@@ -220,8 +220,10 @@ void Tetrimino::bubbleSort(vector <int> &num)
   }
 }
 
-int Tetrimino::calcPixelWidth()
+int Tetrimino::getPixelWidth()
 {
+  if ( pieces.size() == 0 ) return 0;
+  
   vector <int> xValues;
   // get x values
   for ( int b = 0; b < 4; b++ )
@@ -236,8 +238,10 @@ int Tetrimino::calcPixelWidth()
 
 }
 
-int Tetrimino::calcPixelHeight()
+int Tetrimino::getPixelHeight()
 {
+  if ( pieces.size() == 0 ) return 0;
+  
   vector <int> yValues;
   // get x values
   for ( int b = 0; b < 4; b++ )

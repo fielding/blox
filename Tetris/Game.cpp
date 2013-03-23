@@ -107,14 +107,14 @@ int Game::start()
       // Draw the board and next container
       drawInterface();
       drawBoard();
-      drawNextContainer();
-      drawHeldContainer();
+      //drawNextContainer();
+      //drawHeldContainer();
       
       // Draw the active and next tetrimino
       drawActiveTetrimino();
       drawNextTetrimino();
       drawHeldTetrimino();
-            
+      
       // Update the screen
       updateScreen();
       
@@ -217,7 +217,7 @@ void Game::drawActiveTetrimino()
   }
 }
 
-void Game::drawBlock( Block block, int type )
+void Game::drawBlock( Block block, int type, int xOffset, int yOffset )
 {
   
   if ( type == active)
@@ -226,16 +226,16 @@ void Game::drawBlock( Block block, int type )
     block.box.y += BOARD_ORIGIN_Y;
   } else if ( type == next )
   {
-    block.box.x += NC_ORIGIN_X - (BLOCK_SIZE * 3);
-    block.box.y += NC_ORIGIN_Y;
+    block.box.x += NC_ORIGIN_X - (BLOCK_SIZE * 3) + xOffset;
+    block.box.y += NC_ORIGIN_Y + yOffset;
   } else if ( type == fixed )
   {
     block.box.x += BOARD_ORIGIN_X;
     block.box.y += BOARD_ORIGIN_Y;
   } else if ( type == held )
   {
-    block.box.x += HC_ORIGIN_X - (BLOCK_SIZE * 3);
-    block.box.y += HC_ORIGIN_Y;
+    block.box.x += HC_ORIGIN_X - (BLOCK_SIZE * 3) + xOffset;
+    block.box.y += HC_ORIGIN_Y + yOffset;
   }
   
   
@@ -346,17 +346,24 @@ void Game::drawHeldContainer()
 
 void Game::drawNextTetrimino()
 {
+  
+  int xOffset = ( CONTAINER_WIDTH - nTetrimino->getPixelWidth() ) / 2;
+  int yOffset = ( CONTAINER_HEIGHT - nTetrimino->getPixelHeight() ) / 2;
+  
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( nTetrimino->pieceOrigins[i], next );
+    drawBlock( nTetrimino->pieceOrigins[i], next, xOffset, yOffset);
   }
 }
 
 void Game::drawHeldTetrimino()
 {
+  int xOffset = ( CONTAINER_WIDTH - hTetrimino->getPixelWidth() ) / 2;
+  int yOffset = ( CONTAINER_HEIGHT - hTetrimino->getPixelHeight() ) / 2;
+  
   for ( int i = 0; i < hTetrimino->pieceOrigins.size(); i++)
     {
-      drawBlock( hTetrimino->pieceOrigins[i], held );
+      drawBlock( hTetrimino->pieceOrigins[i], held, xOffset, yOffset );
     }
 }
 
@@ -702,7 +709,7 @@ bool Game::updateScreen()  // This function is kind of pointless lol
 
 void Game::drawInterface()
 {
-  apply_surface(BOARD_ORIGIN_X - 17 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
+  apply_surface(BOARD_ORIGIN_X - 104 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
 }
 
 void Game::holdTetrimino()
