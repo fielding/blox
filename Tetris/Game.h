@@ -12,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <deque>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -21,6 +22,7 @@
 #include "Timer.h"
 #include "Block.h"
 #include "Tetrimino.h"
+#include "Bag.h"
 
 
 using namespace std;
@@ -51,6 +53,11 @@ private:
   Timer playTimer;
   Timer fps;
   Timer update;
+  
+  Bag* bag;
+  
+  std::deque<int> queue;
+
   enum GameState { Menu, Playing, GameOver, Paused };
   char *gameStateNames[4] = { "Menu", "Playing", "GameOver", "Paused" };
   enum type_t { active, fixed, next, held };
@@ -68,7 +75,8 @@ private:
   void drawNextContainer();
   void drawHeldContainer();
   void drawActiveTetrimino();
-  void drawNextTetrimino();
+  void drawNextTetrimino(int whichTetrimino);
+  void drawTetriminoQueue();
   void drawHeldTetrimino();
   bool init();
   void interfaceInput();
@@ -86,6 +94,8 @@ private:
   void drawInterface();
   void holdTetrimino();
   void nextTetrimino();
+  void fillQueue();
+  
   
   SDL_Surface *load_image( string filename );
   

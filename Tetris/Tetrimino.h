@@ -25,7 +25,7 @@ class Tetrimino
 public:
   
   // Constructor
-  Tetrimino(bool spawn);
+  Tetrimino(bool spawn, int type);
   ~Tetrimino();
   
   // public functions
@@ -34,7 +34,7 @@ public:
   bool moveDown(Board* myBoard);
   void hardDrop(Board* myBoard);
   void rotate(string dir);
-  void spawn();
+  void spawn(int type);
   void resetPosition();
   int getDimension( int dimension, int unit);
   

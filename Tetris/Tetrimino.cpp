@@ -11,11 +11,11 @@
 #include "Block.h"
 
 
-Tetrimino::Tetrimino(bool fill)
+Tetrimino::Tetrimino(bool fill, int type)
 {
   cout<<"Tetrimino Constructor Called!"<<endl;
   // Setup Initial Tetrimino and store it in Next Container (not visible yet)
-  if (fill) spawn();    // only fill the pieces if bool fill = true
+  if (fill) spawn(type);    // only fill the pieces if bool fill = true
   // TODO: add system to prevent the first active tetrimino and the first next tetrimino from being the same
 }
 
@@ -70,13 +70,13 @@ void Tetrimino::hardDrop(Board* myBoard)
   while(moveDown(myBoard));
 }
 
-void Tetrimino::spawn()
+void Tetrimino::spawn(int type)
 {
-  // randomize the Tetrimino chosen
-  int rando = (random() % 7 + 1);
+  //randomize the Tetrimino chosen
+  //int rando = (random() % 7 + 1);
   
-  cout<<"Tetrimino spawn type: "<<rando<<"\n";
-  switch ( rando ) {
+  cout<<"Tetrimino spawn type: "<<type<<"\n";
+  switch ( type ) {
     case 1:   // I piece, blockType = 1 (cyan)
       pieces.push_back(Block(4, 0, 1));  // put the pivot block first
       pieces.push_back(Block(3, 0, 1));

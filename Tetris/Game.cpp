@@ -25,9 +25,7 @@ Game::Game()
   }
   
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
-  aTetrimino = new Tetrimino(true);
-  nTetrimino = new Tetrimino(true);
-  hTetrimino = new Tetrimino(false);
+  bag = new Bag();
   
   globalTimer.start();
   update.start();
@@ -46,6 +44,12 @@ int Game::start()
   int end_time = 0;
   int force_time = 500;
   int linesCleared = 0;
+  
+  hTetrimino = new Tetrimino(false, 0);  // create hTetrimino, but don't spawn blocks yet
+  
+  fillQueue();  // fill the tetrmino queue
+  nextTetrimino();  // callling this initially to get the first active Tetrimino
+  
   // Game Loop
   cout<<"Starting the game"<<endl;
   gameState = Playing;
@@ -107,12 +111,10 @@ int Game::start()
       // Draw the board and next container
       drawInterface();
       drawBoard();
-      //drawNextContainer();
-      //drawHeldContainer();
       
       // Draw the active and next tetrimino
       drawActiveTetrimino();
-      drawNextTetrimino();
+      drawTetriminoQueue();
       drawHeldTetrimino();
       
       // Update the screen
@@ -341,19 +343,27 @@ void Game::drawHeldContainer()
       apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, screen );
     }
   }
-  
 }
 
-void Game::drawNextTetrimino()
+void Game::drawTetriminoQueue()
 {
-  
+  for (int i = 0; i < 5; i++)
+  {
+    drawNextTetrimino(i);
+  }
+}
+
+void Game::drawNextTetrimino(int whichTetrimino)
+{
+  nTetrimino = new Tetrimino(true, queue[whichTetrimino]);
   int xOffset = ( CONTAINER_WIDTH - nTetrimino->getPixelWidth() ) / 2;
   int yOffset = ( CONTAINER_HEIGHT - nTetrimino->getPixelHeight() ) / 2;
   
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( nTetrimino->pieceOrigins[i], next, xOffset, yOffset);
+    drawBlock( nTetrimino->pieceOrigins[i], next, xOffset, yOffset + (whichTetrimino * 56));
   }
+  delete(nTetrimino);
 }
 
 void Game::drawHeldTetrimino()
@@ -737,6 +747,18 @@ void Game::holdTetrimino()
 void Game::nextTetrimino()
 {
   // move next to active and spawn a new next
-  aTetrimino = nTetrimino;
-  nTetrimino = new Tetrimino(true);
+  //aTetrimino = nTetrimino;
+  //nTetrimino = new Tetrimino(true);
+  
+  aTetrimino = new Tetrimino( true, queue.front() );
+  queue.pop_front();
+  queue.push_back( bag->getNextPiece() );
+  
+}
+
+void Game::fillQueue()
+{
+  for ( int i = 0; i < 5; i++ ){
+    queue.push_back( bag->getNextPiece() );
+  }
 }
