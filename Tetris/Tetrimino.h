@@ -25,7 +25,7 @@ class Tetrimino
 public:
   
   // Constructor
-  Tetrimino();
+  Tetrimino(bool spawn);
   ~Tetrimino();
   
   // public functions
@@ -33,14 +33,14 @@ public:
   bool moveRight(Board* myBoard);
   bool moveDown(Board* myBoard);
   void hardDrop(Board* myBoard);
-  void next();
   void rotate(string dir);
-  void spawn(std::vector<Block>* target);
+  void spawn();
+  void resetPosition();
   int getDimension( int dimension, int unit);
-  std::vector<Block> nextTetrimino;
-  std::vector<Block> activeTetrimino;
-  std::vector<Block> heldTetrimino;
-  void hold();
+  
+  std::vector<Block> pieces;
+  std::vector<Block> pieceOrigins;
+  bool held;
 
 private:
   void bubbleSort(vector <int> &num);

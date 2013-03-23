@@ -11,20 +11,18 @@
 #include "Block.h"
 
 
-Tetrimino::Tetrimino()
+Tetrimino::Tetrimino(bool fill)
 {
   cout<<"Tetrimino Constructor Called!"<<endl;
   // Setup Initial Tetrimino and store it in Next Container (not visible yet)
-  spawn( &nextTetrimino );
-  spawn( &activeTetrimino );
+  if (fill) spawn();    // only fill the pieces if bool fill = true
   // TODO: add system to prevent the first active tetrimino and the first next tetrimino from being the same
 }
 
 Tetrimino::~Tetrimino()
 {
   cout<<"Tetrimino Destructor Called!"<<endl;
-  nextTetrimino.clear();
-  activeTetrimino.clear();
+  pieces.clear();
 }
 
 bool Tetrimino::moveLeft(Board* myBoard)
@@ -33,7 +31,7 @@ bool Tetrimino::moveLeft(Board* myBoard)
   {
     for ( int b = 0; b < 4; b++ )
     {
-      activeTetrimino[b].box.x -= 1 * BLOCK_SIZE;
+      pieces[b].box.x -= 1 * BLOCK_SIZE;
     }
     return true;
   }
@@ -46,7 +44,7 @@ bool Tetrimino::moveRight(Board* myBoard)
   {
     for ( int b = 0; b < 4; b++ )
     {
-      activeTetrimino[b].box.x += 1 * BLOCK_SIZE;;
+      pieces[b].box.x += 1 * BLOCK_SIZE;;
     }
     return true;
   }
@@ -59,7 +57,7 @@ bool Tetrimino::moveDown(Board* myBoard)
   {
     for ( int b = 0; b < 4; b++ )
     {
-      activeTetrimino[b].box.y += 1 * BLOCK_SIZE;
+      pieces[b].box.y += 1 * BLOCK_SIZE;
     }
     return true;
   }
@@ -72,15 +70,7 @@ void Tetrimino::hardDrop(Board* myBoard)
   while(moveDown(myBoard));
 }
 
-void Tetrimino::next()
-{
-  activeTetrimino.clear();
-  activeTetrimino = nextTetrimino;
-  nextTetrimino.clear();
-  spawn( &nextTetrimino);
-}
-
-void Tetrimino::spawn(std::vector<Block>* target)
+void Tetrimino::spawn()
 {
   // randomize the Tetrimino chosen
   int rando = (random() % 7 + 1);
@@ -88,46 +78,53 @@ void Tetrimino::spawn(std::vector<Block>* target)
   cout<<"Tetrimino spawn type: "<<rando<<"\n";
   switch ( rando ) {
     case 1:   // I piece, blockType = 1 (cyan)
-      target->push_back(Block(4, 0, 1));  // put the pivot block first
-      target->push_back(Block(3, 0, 1));
-      target->push_back(Block(5, 0, 1));
-      target->push_back(Block(6, 0, 1));
+      pieces.push_back(Block(4, 0, 1));  // put the pivot block first
+      pieces.push_back(Block(3, 0, 1));
+      pieces.push_back(Block(5, 0, 1));
+      pieces.push_back(Block(6, 0, 1));
+      pieceOrigins = pieces;
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      target->push_back(Block(5, 0, 2));  // put the pivot block first
-      target->push_back(Block(3, 0, 2));
-      target->push_back(Block(4, 0, 2));
-      target->push_back(Block(5, 1, 2));
+      pieces.push_back(Block(5, 0, 2));  // put the pivot block first
+      pieces.push_back(Block(3, 0, 2));
+      pieces.push_back(Block(4, 0, 2));
+      pieces.push_back(Block(5, 1, 2));
+      pieceOrigins = pieces;
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      target->push_back(Block(3, 0, 3));  // put the pivot block first
-      target->push_back(Block(4, 0, 3));
-      target->push_back(Block(5, 0, 3));
-      target->push_back(Block(3, 1, 3));
+      pieces.push_back(Block(3, 0, 3));  // put the pivot block first
+      pieces.push_back(Block(4, 0, 3));
+      pieces.push_back(Block(5, 0, 3));
+      pieces.push_back(Block(3, 1, 3));
+      pieceOrigins = pieces;
       break;
     case 4:   // O piece, blockType = 4 (yellow)
-      target->push_back(Block(4, 0, 4)); 
-      target->push_back(Block(5, 0, 4));
-      target->push_back(Block(4, 1, 4));
-      target->push_back(Block(5, 1, 4));
+      pieces.push_back(Block(4, 0, 4)); 
+      pieces.push_back(Block(5, 0, 4));
+      pieces.push_back(Block(4, 1, 4));
+      pieces.push_back(Block(5, 1, 4));
+      pieceOrigins = pieces;
       break;
     case 5:   // S piece, blockType = 5 (green)
-      target->push_back(Block(4, 1, 5));
-      target->push_back(Block(4, 0, 5));
-      target->push_back(Block(5, 0, 5));
-      target->push_back(Block(3, 1, 5));
+      pieces.push_back(Block(4, 1, 5));
+      pieces.push_back(Block(4, 0, 5));
+      pieces.push_back(Block(5, 0, 5));
+      pieces.push_back(Block(3, 1, 5));
+      pieceOrigins = pieces;
       break;
     case 6:   // T piece, blockType = 6 (purple)
-      target->push_back(Block(4, 1, 6));
-      target->push_back(Block(4, 0, 6));
-      target->push_back(Block(3, 1, 6));
-      target->push_back(Block(5, 1, 6));
+      pieces.push_back(Block(4, 1, 6));
+      pieces.push_back(Block(4, 0, 6));
+      pieces.push_back(Block(3, 1, 6));
+      pieces.push_back(Block(5, 1, 6));
+      pieceOrigins = pieces;
       break;
     case 7:   // Z piece, blockType = 7 (red)
-      target->push_back(Block(4, 1, 7));
-      target->push_back(Block(3, 0, 7));
-      target->push_back(Block(4, 0, 7));
-      target->push_back(Block(5, 1, 7));
+      pieces.push_back(Block(4, 1, 7));
+      pieces.push_back(Block(3, 0, 7));
+      pieces.push_back(Block(4, 0, 7));
+      pieces.push_back(Block(5, 1, 7));
+      pieceOrigins = pieces;
       break;
   }
 }
@@ -137,18 +134,18 @@ void Tetrimino::rotate(string dir)
   int pX, pY, translateX, translateY, originalX, originalY, rotatedX, rotatedY;
   double PI = 4.0*atan(1.0);
   
-  if ( activeTetrimino[0].blockType != 4) // no need to rotate the O piece
+  if ( pieces[0].blockType != 4) // no need to rotate the O piece
   {
     // calculate pivot point based on rotate block (first block in vector)
-    if ( activeTetrimino[0].blockType == 1 )   // If tetrinome is an I piece, handle it specially
+    if ( pieces[0].blockType == 1 )   // If tetrinome is an I piece, handle it specially
     {
-      pX = activeTetrimino[0].box.x;
-      pY = activeTetrimino[0].box.y;
+      pX = pieces[0].box.x;
+      pY = pieces[0].box.y;
     }
     else    // Handle all other blocks
     {
-      pX = activeTetrimino[0].box.x;
-      pY = activeTetrimino[0].box.y;
+      pX = pieces[0].box.x;
+      pY = pieces[0].box.y;
       cout<<"Pivot X: "<<pX<<endl;
       cout<<"Pivot Y: "<<pY<<endl;
     }
@@ -157,8 +154,8 @@ void Tetrimino::rotate(string dir)
     if( dir == "left" ){
       for ( int i = 0; i < 4; i++)
       {
-        originalX = activeTetrimino[i].box.x;
-        originalY = activeTetrimino[i].box.y;
+        originalX = pieces[i].box.x;
+        originalY = pieces[i].box.y;
         translateX = originalX - pX;
         translateY = originalY - pY;
       
@@ -167,8 +164,8 @@ void Tetrimino::rotate(string dir)
       
         rotatedX += pX;
         rotatedY += pY;
-        activeTetrimino[i].box.x = rotatedX;
-        activeTetrimino[i].box.y = rotatedY;
+        pieces[i].box.x = rotatedX;
+        pieces[i].box.y = rotatedY;
       }
       cout<<"rotated X: "<<rotatedX<<endl;
       cout<<"rotated Y: "<<rotatedY<<endl;
@@ -177,8 +174,8 @@ void Tetrimino::rotate(string dir)
     } else if ( dir == "right" ){
       for ( int i = 0; i < 4; i++)
       {
-        originalX = activeTetrimino[i].box.x;
-        originalY = activeTetrimino[i].box.y;
+        originalX = pieces[i].box.x;
+        originalY = pieces[i].box.y;
         translateX = originalX - pX;
         translateY = originalY - pY;
         
@@ -187,14 +184,19 @@ void Tetrimino::rotate(string dir)
         
         rotatedX += pX;
         rotatedY += pY;
-        activeTetrimino[i].box.x = rotatedX;
-        activeTetrimino[i].box.y = rotatedY;
+        pieces[i].box.x = rotatedX;
+        pieces[i].box.y = rotatedY;
       }
       cout<<"rotated X: "<<rotatedX<<endl;
       cout<<"rotated Y: "<<rotatedY<<endl;
       
     }
   }
+}
+
+void Tetrimino::resetPosition(){
+  pieces.clear();
+  pieces = pieceOrigins;
 }
 
 void Tetrimino::bubbleSort(vector <int> &num)
@@ -224,7 +226,7 @@ int Tetrimino::calcPixelWidth()
   // get x values
   for ( int b = 0; b < 4; b++ )
   {
-    xValues.push_back(activeTetrimino[b].box.x);
+    xValues.push_back(pieces[b].box.x);
   }
   
   // sort in Descending Order
@@ -240,7 +242,7 @@ int Tetrimino::calcPixelHeight()
   // get x values
   for ( int b = 0; b < 4; b++ )
   {
-    yValues.push_back(activeTetrimino[b].box.y);
+    yValues.push_back(pieces[b].box.y);
   }
   
   // sort in Descending Order
@@ -259,8 +261,8 @@ int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest pos
 
   for ( int b = 0; b < 4; b++ )   // for each block in the tetrimino, store the x and y in their respective vectors
   {
-    xValues.push_back(activeTetrimino[b].box.x);
-    yValues.push_back(activeTetrimino[b].box.y);
+    xValues.push_back(pieces[b].box.x);
+    yValues.push_back(pieces[b].box.y);
   }
 
   bubbleSort( xValues );
@@ -291,20 +293,4 @@ int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest pos
 double Tetrimino::round( double number )
 {
   return number < 0.0 ? ceil(number - 0.5) : floor(number + 0.5);
-}
-
-void Tetrimino::hold()
-{
-  vector<Block> buffer;
-  
-  if ( heldTetrimino.empty() )
-  {
-    heldTetrimino = activeTetrimino;
-    next();
-  } else {
-    buffer = activeTetrimino;
-    activeTetrimino = heldTetrimino;
-    heldTetrimino = buffer;
-    buffer.clear();
-  }
 }

@@ -31,8 +31,8 @@ bool Board::checkBlockCollision(Tetrimino* tetrimino, int direction)
   // check each block of the tetrimino
   for ( int b = 0; b < 4; b++ )
   {
-    int x = tetrimino->activeTetrimino[b].box.x / 16;
-    int y = tetrimino->activeTetrimino[b].box.y / 16;
+    int x = tetrimino->pieces[b].box.x / 16;
+    int y = tetrimino->pieces[b].box.y / 16;
     switch ( direction )
     {
       case left:

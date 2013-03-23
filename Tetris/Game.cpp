@@ -25,7 +25,9 @@ Game::Game()
   }
   
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
-  tetrimino = new Tetrimino;
+  aTetrimino = new Tetrimino(true);
+  nTetrimino = new Tetrimino(true);
+  hTetrimino = new Tetrimino(false);
   
   globalTimer.start();
   update.start();
@@ -48,6 +50,7 @@ int Game::start()
   cout<<"Starting the game"<<endl;
   gameState = Playing;
   playTimer.start();
+  holdUsed = false; // CONSIDER: Is this the best places for this??
   
   while ( quit == false )
   {
@@ -60,88 +63,87 @@ int Game::start()
       while ( SDL_PollEvent( &event ) )
       {
         // Watch for keybord events
-        // if ( gameState == Playing ) { movementInput(); }
         movementInput();
         interfaceInput();
       }
     
-    // Game Loop: Logic
-    
-    
-    // Game Loop: Rendering
-    
-    // Fill the screen white
-    SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
-    
-    // Display game timer
-    displayTimer( playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
-
-    // Draw the board and next container
-    drawInterface();
-    drawBoard();
-    drawNextContainer();
-    drawHeldContainer();
-    
-    // Draw the active and next tetrimino
-    drawActiveTetrimino();
-    drawNextTetrimino();
-    drawHeldTetrimino();
-          
-    // Update the screen
-    updateScreen();
-    
-    // Increment the frame counter
-    frame++;
-    
-    // If a second has passed since the fps caption was last updated
-    if( update.get_ticks() > 1000 )
-    {
-      // The frame rate as a string
-      stringstream caption;
-      
-      // Calculate the frame per second and create the string
-      caption << "Fielding's Tetris - Avg FPS: " << frame / ( globalTimer.get_ticks() / 1000.f );
-      
-      // Reset the caption
-      SDL_WM_SetCaption( caption.str().c_str(), NULL );
-      
-      // Restart the update timer
-      update.start();
-    }
-    
-    // If we want to cap the frame rate
-    if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
-    {
-      // Sleep the remaining time
-      SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
-    }
-      
-    end_time = playTimer.get_ticks();
-    if ( end_time - start_time > force_time )
-    {
-      if (tetrimino->moveDown(myBoard))
+      // Game Loop: Logic
+      end_time = playTimer.get_ticks();
+      if ( end_time - start_time > force_time )
       {
-        start_time = playTimer.get_ticks();
-      }
-      else
-      {
-        // add tetrimino to grid
-        storeTetrimino();
-        
-        // check for game over
-        if ( isGameOver() )
+        if (aTetrimino->moveDown(myBoard))
         {
-          gameState = GameOver;
-          break;
+          start_time = playTimer.get_ticks();
         }
+        else
+        {
+          // add tetrimino to grid
+          storeTetrimino();
+          
+          // check for game over
+          if ( isGameOver() )
+          {
+            gameState = GameOver;
+            break;
+          }
+          
+          nextTetrimino();
+          holdUsed = false;
+          
+          linesCleared = checkLines();
+          cout<<"Lines Cleared: "<<linesCleared<<endl;
+          start_time = playTimer.get_ticks();
+        }
+      }
+      
+      // Game Loop: Rendering
+    
+      // Fill the screen white
+      SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+    
+      // Display game timer
+      displayTimer( playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
+
+      // Draw the board and next container
+      drawInterface();
+      drawBoard();
+      drawNextContainer();
+      drawHeldContainer();
+      
+      // Draw the active and next tetrimino
+      drawActiveTetrimino();
+      drawNextTetrimino();
+      drawHeldTetrimino();
+            
+      // Update the screen
+      updateScreen();
+      
+      // Increment the frame counter
+      frame++;
+      
+      // If a second has passed since the fps caption was last updated
+      if( update.get_ticks() > 1000 )
+      {
+        // The frame rate as a string
+        stringstream caption;
         
-        tetrimino->next();
-        linesCleared = checkLines();
-        cout<<"Lines Cleared: "<<linesCleared<<endl;
-        start_time = playTimer.get_ticks();
+        // Calculate the frame per second and create the string
+        caption << "Fielding's Tetris - Avg FPS: " << frame / ( globalTimer.get_ticks() / 1000.f );
+        
+        // Reset the caption
+        SDL_WM_SetCaption( caption.str().c_str(), NULL );
+        
+        // Restart the update timer
+        update.start();
+      }
+      
+      // If we want to cap the frame rate
+      if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
+      {
+        // Sleep the remaining time
+        SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
       }
     }
-  }
     
     while ( gameState != Playing && quit == false )
     {
@@ -209,8 +211,8 @@ void Game::drawActiveTetrimino()
 {
   for ( int i = 0; i < 4; i++)
   {
-    if (tetrimino->activeTetrimino[i].box.y >= 0) {
-    drawBlock( tetrimino->activeTetrimino[i], active);
+    if (aTetrimino->pieces[i].box.y >= 0) {
+    drawBlock( aTetrimino->pieces[i], active);
     }
   }
 }
@@ -232,8 +234,8 @@ void Game::drawBlock( Block block, int type )
     block.box.y += BOARD_ORIGIN_Y;
   } else if ( type == held )
   {
-    block.box.x += HC_ORIGIN_X;
-    block.box.x += HC_ORIGIN_Y;
+    block.box.x += HC_ORIGIN_X - (BLOCK_SIZE * 3);
+    block.box.y += HC_ORIGIN_Y;
   }
   
   
@@ -346,68 +348,19 @@ void Game::drawNextTetrimino()
 {
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( tetrimino->nextTetrimino[i], next );
+    drawBlock( nTetrimino->pieceOrigins[i], next );
   }
 }
 
 void Game::drawHeldTetrimino()
 {
-  int tetriminoType;
-  
-  if ( tetrimino->heldTetrimino.empty() == false )
-  {
-    tetriminoType = tetrimino->heldTetrimino[0].blockType;
-    for ( int i = 0; i < 4; i++ )
+  for ( int i = 0; i < hTetrimino->pieceOrigins.size(); i++)
     {
-      switch ( tetriminoType )
-      {
-        case 1:
-          drawBlock(Block(4, 0, 1), held);
-          drawBlock(Block(3, 0, 1), held);
-          drawBlock(Block(5, 0, 1), held);
-          drawBlock(Block(6, 0, 1), held);
-          break;
-        case 2:
-          drawBlock(Block(5, 0, 2), held);
-          drawBlock(Block(3, 0, 2), held);
-          drawBlock(Block(4, 0, 2), held);
-          drawBlock(Block(5, 1, 2), held);
-          break;
-        case 3:
-          drawBlock(Block(3, 0, 3), held);
-          drawBlock(Block(4, 0, 3), held);
-          drawBlock(Block(5, 0, 3), held);
-          drawBlock(Block(3, 1, 3), held);
-          break;
-        case 4:
-          drawBlock(Block(4, 0, 4), held);
-          drawBlock(Block(5, 0, 4), held);
-          drawBlock(Block(4, 1, 4), held);
-          drawBlock(Block(5, 1, 4), held);
-          break;
-        case 5:
-          drawBlock(Block(4, 1, 5), held);
-          drawBlock(Block(4, 0, 5), held);
-          drawBlock(Block(5, 0, 5), held);
-          drawBlock(Block(3, 1, 5), held);
-          break;
-        case 6:
-          drawBlock(Block(4, 1, 6), held);
-          drawBlock(Block(4, 0, 6), held);
-          drawBlock(Block(3, 1, 6), held);
-          drawBlock(Block(5, 1, 6), held);
-          break;
-        case 7:
-          drawBlock(Block(4, 1, 7), held);
-          drawBlock(Block(3, 0, 7), held);
-          drawBlock(Block(4, 0, 7), held);
-          drawBlock(Block(5, 1, 7), held);
-          break;
-      }
+      drawBlock( hTetrimino->pieceOrigins[i], held );
     }
-  }
 }
 
+ 
 bool Game::init()
 {
   // seed for random();
@@ -602,28 +555,28 @@ void Game::movementInput()
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:   // Soft Drop
-        tetrimino->moveDown(myBoard);
+        aTetrimino->moveDown(myBoard);
         break;
       case SDLK_LEFT:   // Move Left
-        tetrimino->moveLeft(myBoard);
+        aTetrimino->moveLeft(myBoard);
         break;
       case SDLK_RIGHT:  // Move Right
-        tetrimino->moveRight(myBoard);
+        aTetrimino->moveRight(myBoard);
         break;
       case SDLK_LSHIFT:
       case SDLK_c:    // Hold Tetrimino
-        tetrimino->hold();
+        holdTetrimino();
         break;
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
-        tetrimino->rotate("left");
+        aTetrimino->rotate("left");
         break;
       case SDLK_UP: // Rotate Right
       case SDLK_x:  // Rotate Right
-        tetrimino->rotate("right");
+        aTetrimino->rotate("right");
         break;
       case SDLK_SPACE:
-        tetrimino->hardDrop(myBoard);
+        aTetrimino->hardDrop(myBoard);
       default:
         break;
     }
@@ -649,9 +602,9 @@ void Game::storeTetrimino()
 {
   for( int b = 0; b < 4; b++ )
   {
-    int xPos = tetrimino->activeTetrimino[b].box.x / 16;
-    int yPos = tetrimino->activeTetrimino[b].box.y / 16;
-    int blockType = tetrimino->activeTetrimino[b].blockType;
+    int xPos = aTetrimino->pieces[b].box.x / 16;
+    int yPos = aTetrimino->pieces[b].box.y / 16;
+    int blockType = aTetrimino->pieces[b].blockType;
     
     cout<<"Storing blocktype "<< blockType <<" at ("<< xPos <<", "<<yPos<<")\n";
     myBoard->updateBlock(xPos, yPos, blockType);
@@ -750,4 +703,33 @@ bool Game::updateScreen()  // This function is kind of pointless lol
 void Game::drawInterface()
 {
   apply_surface(BOARD_ORIGIN_X - 17 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
+}
+
+void Game::holdTetrimino()
+{
+  if ( holdUsed == false )
+  {
+    if (hTetrimino->pieces.size() == 0)
+    {
+        hTetrimino = aTetrimino;
+        nextTetrimino();
+        holdUsed = true;
+    }
+    else if (hTetrimino->pieces.size() > 0)
+    {
+        bTetrimino = hTetrimino;  // store currently heldTetrimino as bufferTetrimino
+        hTetrimino = aTetrimino;  // move activeTetrimino to heldTetrimino
+        aTetrimino = bTetrimino;  // move bufferTetrimino to activeTetrimino
+        aTetrimino->resetPosition();
+        holdUsed = true;
+        cout<<"Swapping held and active Tetrimino"<<endl;
+    }
+  }
+}
+
+void Game::nextTetrimino()
+{
+  // move next to active and spawn a new next
+  aTetrimino = nTetrimino;
+  nTetrimino = new Tetrimino(true);
 }

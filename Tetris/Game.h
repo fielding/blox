@@ -42,7 +42,11 @@ public:
 
 private:
   Board *myBoard;
-  Tetrimino *tetrimino;
+  Tetrimino *aTetrimino; //activeTetrimino
+  Tetrimino *nTetrimino; //nextTetrimino
+  Tetrimino *hTetrimino; //heldTetrimino
+  Tetrimino *bTetrimino; //bufferTetrimino for exhanges
+  
   Timer globalTimer;
   Timer playTimer;
   Timer fps;
@@ -54,6 +58,7 @@ private:
   int gameState;
   int previousGameState;
   bool quit;
+  bool holdUsed;
   
 
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
@@ -79,6 +84,8 @@ private:
   void displayTimer(int time, int x, int y);
   bool updateScreen();
   void drawInterface();
+  void holdTetrimino();
+  void nextTetrimino();
   
   SDL_Surface *load_image( string filename );
   
