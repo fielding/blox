@@ -709,7 +709,7 @@ bool Game::updateScreen()  // This function is kind of pointless lol
 
 void Game::drawInterface()
 {
-  apply_surface(BOARD_ORIGIN_X - 104 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
+  apply_surface(BOARD_ORIGIN_X - 96 , BOARD_ORIGIN_Y - 45, boardOutline, screen);
 }
 
 void Game::holdTetrimino()
