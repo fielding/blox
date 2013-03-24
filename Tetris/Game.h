@@ -95,6 +95,7 @@ private:
   void holdTetrimino();
   void nextTetrimino();
   void fillQueue();
+  void startCountdown();
   
   
   SDL_Surface *load_image( string filename );

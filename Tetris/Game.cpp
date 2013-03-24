@@ -520,6 +520,9 @@ bool Game::load_files()
   interfaceMessagePaused = load_image("Tetris.app/Contents/Resources/img/paused.png");
   
   interfaceMenu = load_image("Tetris.app/Contents/Resources/img/menu.png");
+  Uint32 colorkey = SDL_MapRGB( interfaceMenu->format, 0xFF, 0, 0xFF);
+  SDL_SetColorKey( interfaceMenu, SDL_SRCCOLORKEY, colorkey);
+  
   /*
   if ( boardOutline == NULL )
   {
@@ -761,4 +764,15 @@ void Game::fillQueue()
   for ( int i = 0; i < 5; i++ ){
     queue.push_back( bag->getNextPiece() );
   }
+}
+
+void Game::startCountdown()
+{
+  cout<<"3"<<endl;
+  SDL_Delay(1000);
+  cout<<"2"<<endl;
+  SDL_Delay(1000);
+  cout<<"1"<<endl;
+  SDL_Delay(1000);
+  cout<<"Go!"<<endl;
 }
