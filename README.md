@@ -15,4 +15,3 @@
 ### Bugs
 * Rotation ignores block collision
 * Rotation ignores left, right and bottom board boundaries. (Ignores top as well, but I restricted the drawing above the board to continue to allow it to ignore the top boundary)
-* Fix the transparency issues with the menu

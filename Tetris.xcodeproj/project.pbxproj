@@ -15,6 +15,7 @@
 		C2080DBF16F72A050028CF9A /* Tetrimino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DBD16F72A050028CF9A /* Tetrimino.cpp */; };
 		C2080DC216F72F690028CF9A /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DC016F72F690028CF9A /* Constants.cpp */; };
 		C20CF58116FE4A320088459F /* Bag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF57F16FE4A320088459F /* Bag.cpp */; };
+		C20CF5A81700F3220088459F /* GameEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5A61700F3220088459F /* GameEngine.cpp */; };
 		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
 		C276DA7916FB9CD6005A4DFC /* boardoutline.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7716FB9CD6005A4DFC /* boardoutline.png */; };
@@ -111,6 +112,9 @@
 		C2080DC116F72F690028CF9A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C20CF57F16FE4A320088459F /* Bag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bag.cpp; sourceTree = "<group>"; };
 		C20CF58016FE4A320088459F /* Bag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bag.h; sourceTree = "<group>"; };
+		C20CF5A61700F3220088459F /* GameEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameEngine.cpp; sourceTree = "<group>"; };
+		C20CF5A71700F3220088459F /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
+		C20CF5A91700F52F0088459F /* GameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
 		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
 		C276DA7816FB9CD6005A4DFC /* boardtile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardtile.png; path = assets/img/boardtile.png; sourceTree = "<group>"; };
@@ -212,6 +216,9 @@
 				C2080DC016F72F690028CF9A /* Constants.cpp */,
 				C2DD4D6D16F720D7005F36B3 /* Game.h */,
 				C2DD4D6C16F720D7005F36B3 /* Game.cpp */,
+				C20CF5A61700F3220088459F /* GameEngine.cpp */,
+				C20CF5A71700F3220088459F /* GameEngine.h */,
+				C20CF5A91700F52F0088459F /* GameState.h */,
 				C2DD4CF716F25067005F36B3 /* main.cpp */,
 				C2080DBE16F72A050028CF9A /* Tetrimino.h */,
 				C2080DBD16F72A050028CF9A /* Tetrimino.cpp */,
@@ -329,6 +336,7 @@
 				C2080DBF16F72A050028CF9A /* Tetrimino.cpp in Sources */,
 				C2080DC216F72F690028CF9A /* Constants.cpp in Sources */,
 				C20CF58116FE4A320088459F /* Bag.cpp in Sources */,
+				C20CF5A81700F3220088459F /* GameEngine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
