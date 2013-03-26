@@ -130,15 +130,19 @@ void GameEngine::PopState()
 
 void GameEngine::HandleEvents()
 {
-  
+  // let the state handle events
+  states.back()->HandleEvents(this);
 }
 
 void GameEngine::Update()
 {
-  
+  // let the state update the game
+  states.back()->Update(this);
 }
 
 void GameEngine::Draw()
 {
-  
+  // let the state draw the scene
+  states.back()->Draw(this);
 }
+

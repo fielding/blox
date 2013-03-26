@@ -26,7 +26,7 @@ public:
   
   void ChangeState( GameEngine* game, GameState* state)
   {
-    game->ChangeState( state ) );
+    game->ChangeState( state );
   }
   
 protected:

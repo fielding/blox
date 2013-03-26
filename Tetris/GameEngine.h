@@ -40,7 +40,6 @@ private:
   
   bool running;
   bool fullscreen;
-  
 };
 
 

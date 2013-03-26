@@ -7,11 +7,35 @@
 //
 
 
-#include "Game.h"
+// #include "Game.h"
+#include "GameEngine.h"
+#include "PlayState.h"
 
 int main ( int agrc, char **argv )
 {
-  Game *game = new Game();
-  game->start();
+  // Game *game = new Game();
+  // game->start();
+  
+  // creat intance of the GameEngine called game
+  GameEngine game;
+  
+  // initialize the engine
+  game.Init( "Blox", SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP);
+  
+  // Set the initial game state
+  game.ChangeState( PlayState::Instance() );
+  
+  
+  // game loop
+  while ( game.Running() )
+  {
+    game.HandleEvents();
+    game.Update();
+    game.Draw();
+  }
+  
+  // cleanup the engine
+  game.Cleanup();
+  
   return 0;
 }

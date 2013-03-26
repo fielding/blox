@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C2080DB416F726B00028CF9A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4CF716F25067005F36B3 /* main.cpp */; };
-		C2080DB516F726BD0028CF9A /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D6C16F720D7005F36B3 /* Game.cpp */; };
 		C2080DB616F726E20028CF9A /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D2416F3570A005F36B3 /* Timer.cpp */; };
 		C2080DB916F729370028CF9A /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DB716F729370028CF9A /* Board.cpp */; };
 		C2080DBC16F729B20028CF9A /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DBA16F729B20028CF9A /* Block.cpp */; };
@@ -16,6 +15,10 @@
 		C2080DC216F72F690028CF9A /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2080DC016F72F690028CF9A /* Constants.cpp */; };
 		C20CF58116FE4A320088459F /* Bag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF57F16FE4A320088459F /* Bag.cpp */; };
 		C20CF5A81700F3220088459F /* GameEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5A61700F3220088459F /* GameEngine.cpp */; };
+		C20CF5AC17010F620088459F /* PlayState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5AA17010F620088459F /* PlayState.cpp */; };
+		C20CF5B617015B710088459F /* MenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5B417015B710088459F /* MenuState.cpp */; };
+		C20CF5B917015CEE0088459F /* PauseState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5B717015CED0088459F /* PauseState.cpp */; };
+		C20CF5BC17015CFD0088459F /* GameOverState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5BA17015CFD0088459F /* GameOverState.cpp */; };
 		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
 		C276DA7916FB9CD6005A4DFC /* boardoutline.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7716FB9CD6005A4DFC /* boardoutline.png */; };
@@ -115,6 +118,14 @@
 		C20CF5A61700F3220088459F /* GameEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameEngine.cpp; sourceTree = "<group>"; };
 		C20CF5A71700F3220088459F /* GameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngine.h; sourceTree = "<group>"; };
 		C20CF5A91700F52F0088459F /* GameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
+		C20CF5AA17010F620088459F /* PlayState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayState.cpp; sourceTree = "<group>"; };
+		C20CF5AB17010F620088459F /* PlayState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayState.h; sourceTree = "<group>"; };
+		C20CF5B417015B710088459F /* MenuState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuState.cpp; sourceTree = "<group>"; };
+		C20CF5B517015B710088459F /* MenuState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuState.h; sourceTree = "<group>"; };
+		C20CF5B717015CED0088459F /* PauseState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PauseState.cpp; sourceTree = "<group>"; };
+		C20CF5B817015CED0088459F /* PauseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseState.h; sourceTree = "<group>"; };
+		C20CF5BA17015CFD0088459F /* GameOverState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverState.cpp; sourceTree = "<group>"; };
+		C20CF5BB17015CFD0088459F /* GameOverState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverState.h; sourceTree = "<group>"; };
 		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
 		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
 		C276DA7816FB9CD6005A4DFC /* boardtile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardtile.png; path = assets/img/boardtile.png; sourceTree = "<group>"; };
@@ -145,8 +156,6 @@
 		C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orangeblock.png; path = assets/img/orangeblock.png; sourceTree = "<group>"; };
 		C2DD4D4D16F63A4A005F36B3 /* redblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redblock.png; path = assets/img/redblock.png; sourceTree = "<group>"; };
 		C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowblock.png; path = assets/img/yellowblock.png; sourceTree = "<group>"; };
-		C2DD4D6C16F720D7005F36B3 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
-		C2DD4D6D16F720D7005F36B3 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,12 +223,18 @@
 				C2080DB716F729370028CF9A /* Board.cpp */,
 				C2080DC116F72F690028CF9A /* Constants.h */,
 				C2080DC016F72F690028CF9A /* Constants.cpp */,
-				C2DD4D6D16F720D7005F36B3 /* Game.h */,
-				C2DD4D6C16F720D7005F36B3 /* Game.cpp */,
 				C20CF5A61700F3220088459F /* GameEngine.cpp */,
 				C20CF5A71700F3220088459F /* GameEngine.h */,
 				C20CF5A91700F52F0088459F /* GameState.h */,
+				C20CF5BB17015CFD0088459F /* GameOverState.h */,
+				C20CF5BA17015CFD0088459F /* GameOverState.cpp */,
 				C2DD4CF716F25067005F36B3 /* main.cpp */,
+				C20CF5B517015B710088459F /* MenuState.h */,
+				C20CF5B417015B710088459F /* MenuState.cpp */,
+				C20CF5B817015CED0088459F /* PauseState.h */,
+				C20CF5B717015CED0088459F /* PauseState.cpp */,
+				C20CF5AB17010F620088459F /* PlayState.h */,
+				C20CF5AA17010F620088459F /* PlayState.cpp */,
 				C2080DBE16F72A050028CF9A /* Tetrimino.h */,
 				C2080DBD16F72A050028CF9A /* Tetrimino.cpp */,
 				C2DD4D2516F3570A005F36B3 /* Timer.h */,
@@ -329,7 +344,6 @@
 			files = (
 				C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */,
 				C2080DB416F726B00028CF9A /* main.cpp in Sources */,
-				C2080DB516F726BD0028CF9A /* Game.cpp in Sources */,
 				C2080DB616F726E20028CF9A /* Timer.cpp in Sources */,
 				C2080DB916F729370028CF9A /* Board.cpp in Sources */,
 				C2080DBC16F729B20028CF9A /* Block.cpp in Sources */,
@@ -337,6 +351,10 @@
 				C2080DC216F72F690028CF9A /* Constants.cpp in Sources */,
 				C20CF58116FE4A320088459F /* Bag.cpp in Sources */,
 				C20CF5A81700F3220088459F /* GameEngine.cpp in Sources */,
+				C20CF5AC17010F620088459F /* PlayState.cpp in Sources */,
+				C20CF5B617015B710088459F /* MenuState.cpp in Sources */,
+				C20CF5B917015CEE0088459F /* PauseState.cpp in Sources */,
+				C20CF5BC17015CFD0088459F /* GameOverState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
