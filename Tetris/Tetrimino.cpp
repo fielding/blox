@@ -13,7 +13,7 @@
 
 Tetrimino::Tetrimino(bool fill, int type)
 {
-  cout<<"Tetrimino Constructor Called!"<<endl;
+  //cout<<"Tetrimino Constructor Called!"<<endl;
   // Setup Initial Tetrimino and store it in Next Container (not visible yet)
   if (fill) spawn(type);    // only fill the pieces if bool fill = true
   // TODO: add system to prevent the first active tetrimino and the first next tetrimino from being the same
@@ -21,7 +21,7 @@ Tetrimino::Tetrimino(bool fill, int type)
 
 Tetrimino::~Tetrimino()
 {
-  cout<<"Tetrimino Destructor Called!"<<endl;
+  //cout<<"Tetrimino Destructor Called!"<<endl;
   pieces.clear();
 }
 
@@ -75,7 +75,7 @@ void Tetrimino::spawn(int type)
   //randomize the Tetrimino chosen
   //int rando = (random() % 7 + 1);
   
-  cout<<"Tetrimino spawn type: "<<type<<"\n";
+  //cout<<"Tetrimino spawn type: "<<type<<"\n";
   switch ( type ) {
     case 1:   // I piece, blockType = 1 (cyan)
       pieces.push_back(Block(4, 0, 1));  // put the pivot block first

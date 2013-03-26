@@ -13,6 +13,7 @@
 #include <string>
 
 #include "GameState.h"
+#include "PlayState.h"
 #include "Constants.h"
 
 #include "SDL.h"
@@ -21,7 +22,7 @@
 class MenuState: public GameState
 {
 public:
-  void Init();
+  void Init( GameEngine *game );
   void Cleanup();
   
   void Pause();
@@ -46,13 +47,8 @@ private:
   // Surfaces
   SDL_Surface* interfaceMenu;
   
-  // Variables
-  void loadAssets();
-  
   // Functions
-  SDL_Surface *load_image( std::string filename );
-  void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
-
+  void loadAssets( GameEngine* game );
 };
 
 

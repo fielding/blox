@@ -13,6 +13,7 @@
 
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "SDL_image.h"
 
 void GameEngine::Init(const char* title, int width, int height, int bpp, bool fullscreen)
 {
@@ -94,21 +95,21 @@ void GameEngine::ChangeState( GameState* state )
   
   // store and init the new state
   states.push_back( state );
-  states.back()->Init();
+  states.back()->Init(this);
   
 }
 
 void GameEngine::PushState( GameState* state )
 {
   // pause current state
-  if ( !states.empty () )
+  if ( !states.empty() )
   {
     states.back()->Pause();
   }
 
   // store and init the new state
   states.push_back(state);
-  states.back()->Init();
+  states.back()->Init(this);
 }
 
 void GameEngine::PopState()
@@ -124,6 +125,23 @@ void GameEngine::PopState()
   if ( !states.empty () )
   {
     states.back()->Resume();
+  }
+  
+}
+
+void GameEngine::PopStateThenChangeState( GameState* state )
+{
+  // cleanup the current state
+  if ( !states.empty() )
+  {
+    states.back()->Cleanup();
+    states.pop_back();
+  }
+  
+  // 
+  if ( !states.empty () )
+  {
+    states.back()->ChangeState( this, state );
   }
   
 }
@@ -146,3 +164,37 @@ void GameEngine::Draw()
   states.back()->Draw(this);
 }
 
+SDL_Surface *GameEngine::load_image( std::string filename )
+{
+  // pointer for initial load of image
+  SDL_Surface *loadedImage = NULL;
+  
+  // pointer for optimized surface that the function will return
+  SDL_Surface *optimizedImage = NULL;
+  
+  // load the image
+  loadedImage = IMG_Load( filename.c_str() );
+  
+  // Check that the image loaded correctly
+  if ( loadedImage != NULL )
+  {
+    // Create optimzed version
+    optimizedImage = SDL_DisplayFormat( loadedImage );
+    
+    // Free original pointer
+    SDL_FreeSurface( loadedImage);
+  }
+  // Return the optmized version
+  return optimizedImage;
+}
+
+void GameEngine::apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip )
+{
+  // Store and get offsets
+  SDL_Rect offset;
+  offset.x = x;
+  offset.y = y;
+  
+  // Blit
+  SDL_BlitSurface( source, clip, destination, &offset );
+}

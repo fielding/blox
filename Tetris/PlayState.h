@@ -33,7 +33,7 @@
 class PlayState : public GameState
 {
 public:
-  void Init();
+  void Init( GameEngine* game );
   void Cleanup();
   
   void Pause();
@@ -88,11 +88,6 @@ private:
   SDL_Surface *redBlock = NULL;
   
   // Message Surfaces
-  SDL_Surface *startStop = NULL;
-  SDL_Surface *pauseMessage = NULL;
-  SDL_Surface *mainMessage = NULL;
-  SDL_Surface* interfaceMessageGameOver;
-  SDL_Surface* interfaceMessagePaused;
 
   
   // default font, font fg color and font bg color
@@ -108,7 +103,7 @@ private:
   enum type_t { active, fixed, next, held };
 
   // Variables
-  
+  bool justStarted = false;
   bool holdUsed = false;
   int frame = 0;
   int start_time = 0;
@@ -120,7 +115,6 @@ private:
   // Functions
   
   // Functions: Rendering
-  void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   void displayText(GameEngine* game, string text, Sint16 x, Sint16 y, Uint8 fgR, Uint8 fgG, Uint8 fgB, Uint8 bgR, Uint8 bgG, Uint8 bgB);
   void displayTimer(GameEngine* game, int time, int x, int y);
   void drawActiveTetrimino(GameEngine* game);
@@ -132,8 +126,7 @@ private:
   void drawNextContainer(GameEngine* game);
   void drawNextTetrimino(GameEngine* game, int whichTetrimino);
   void drawTetriminoQueue(GameEngine* game);
-  bool load_files();
-  SDL_Surface *load_image( string filename );
+  bool loadAssets( GameEngine* game );
   
   // Functions: Input
   void interfaceInput(GameEngine* game);
@@ -149,7 +142,6 @@ private:
   bool lineIsFull( int y );
   void nextTetrimino();
   void storeTetrimino();
-
   
 };
 

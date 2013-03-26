@@ -14,9 +14,9 @@ using namespace std;
 
 PlayState PlayState::playstate;
 
-void PlayState::Init()
+void PlayState::Init( GameEngine* game )
 {
-  load_files();
+  loadAssets( game );
   
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
   bag = new Bag();
@@ -26,10 +26,13 @@ void PlayState::Init()
   fillQueue();  // fill the tetrmino queue
   nextTetrimino();  // callling this initially to get the first active Tetrimino
   
-  // Game Loop
+  
   cout<<"PlayState Init"<<endl;
+  
   playTimer.start();
   holdUsed = false; // CONSIDER: Is this the best places for this??
+  start_time = playTimer.get_ticks();
+  
   
  /* 
       // Start frame timer and play timer
@@ -72,6 +75,8 @@ void PlayState::Init()
 
 void PlayState::Cleanup()
 {
+  cout<<"PlayState Cleanup"<<endl;
+  
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
   SDL_FreeSurface(blueBlock);
@@ -83,13 +88,9 @@ void PlayState::Cleanup()
   
   SDL_FreeSurface(boardTile);
   SDL_FreeSurface(boardOutline);
-
-  SDL_FreeSurface(interfaceMessageGameOver);
-  SDL_FreeSurface(interfaceMessagePaused);
   
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
-  
 }
 
 void PlayState::Pause()
@@ -116,7 +117,6 @@ void PlayState::HandleEvents( GameEngine* game )
 
 void PlayState::Update( GameEngine* game )
 {
-  // Game Loop: Logic
   
   end_time = playTimer.get_ticks();
   if ( end_time - start_time > force_time )
@@ -133,7 +133,7 @@ void PlayState::Update( GameEngine* game )
       // check for game over
       if ( isGameOver() )
       {
-        game->PushState( GameOverState::Instance() );
+        game->ChangeState( GameOverState::Instance() );
       }
       
       nextTetrimino();
@@ -154,7 +154,7 @@ void PlayState::Draw( GameEngine* game )
   SDL_FillRect( game->screen, &game->screen->clip_rect, SDL_MapRGB( game->screen->format, 0xFF, 0xFF, 0xFF ) );
   
   // Display game timer
-  // displayTimer( playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
+  displayTimer(game, playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
   
   // Draw the board and next container
   drawInterface(game);
@@ -167,17 +167,6 @@ void PlayState::Draw( GameEngine* game )
   
   // Update the screen
   SDL_UpdateRect(game->screen, 0, 0, 0, 0);
-}
-
-void PlayState::apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip )
-{
-  // Store and get offsets
-  SDL_Rect offset;
-  offset.x = x;
-  offset.y = y;
-  
-  // Blit
-  SDL_BlitSurface( source, clip, destination, &offset );
 }
 
 void PlayState::drawActiveTetrimino(GameEngine* game)
@@ -214,25 +203,25 @@ void PlayState::drawBlock(GameEngine* game, Block block, int type, int xOffset, 
   switch ( block.blockType )
   {
     case 1:
-      apply_surface( block.box.x, block.box.y, cyanBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, cyanBlock, game->screen );
       break;
     case 2:
-      apply_surface( block.box.x, block.box.y, blueBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, blueBlock, game->screen );
       break;
     case 3:
-      apply_surface( block.box.x, block.box.y, orangeBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, orangeBlock, game->screen );
       break;
     case 4:
-      apply_surface( block.box.x, block.box.y, yellowBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, yellowBlock, game->screen );
       break;
     case 5:
-      apply_surface( block.box.x, block.box.y, greenBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, greenBlock, game->screen );
       break;
     case 6:
-      apply_surface( block.box.x, block.box.y, purpleBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, purpleBlock, game->screen );
       break;
     case 7:
-      apply_surface( block.box.x, block.box.y, redBlock, game->screen );
+      game->apply_surface( block.box.x, block.box.y, redBlock, game->screen );
     default:
       break;
   }
@@ -251,7 +240,7 @@ void PlayState::drawBoard(GameEngine* game)
         SDL_Rect offset;
         offset.x = x * BLOCK_SIZE;
         offset.y = y * BLOCK_SIZE;
-        apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, boardTile, game->screen );
+        game->apply_surface( BOARD_ORIGIN_X + offset.x, BOARD_ORIGIN_Y + offset.y, boardTile, game->screen );
       } else {
         int blockType = myBoard->mBoard[x][y];
         int xPos = x * BLOCK_SIZE + BOARD_ORIGIN_X;
@@ -260,25 +249,25 @@ void PlayState::drawBoard(GameEngine* game)
         switch ( blockType )
         {
           case 1:
-            apply_surface( xPos, yPos, cyanBlock, game->screen );
+            game->apply_surface( xPos, yPos, cyanBlock, game->screen );
             break;
           case 2:
-            apply_surface( xPos, yPos, blueBlock, game->screen );
+            game->apply_surface( xPos, yPos, blueBlock, game->screen );
             break;
           case 3:
-            apply_surface( xPos, yPos, orangeBlock, game->screen );
+            game->apply_surface( xPos, yPos, orangeBlock, game->screen );
             break;
           case 4:
-            apply_surface( xPos, yPos, yellowBlock, game->screen );
+            game->apply_surface( xPos, yPos, yellowBlock, game->screen );
             break;
           case 5:
-            apply_surface( xPos, yPos, greenBlock, game->screen );
+            game->apply_surface( xPos, yPos, greenBlock, game->screen );
             break;
           case 6:
-            apply_surface( xPos, yPos, purpleBlock, game->screen );
+            game->apply_surface( xPos, yPos, purpleBlock, game->screen );
             break;
           case 7:
-            apply_surface( xPos, yPos, redBlock, game->screen );
+            game->apply_surface( xPos, yPos, redBlock, game->screen );
           default:
             break;
         }
@@ -296,7 +285,7 @@ void PlayState::drawNextContainer(GameEngine* game)
   {
     for ( int y = 0; y < 4; y++ )
     {
-      apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, game->screen );
+      game->apply_surface( xOffset + ( x * BLOCK_SIZE ), yOffset + ( y * BLOCK_SIZE ), boardTile, game->screen );
     }
   }
 }
@@ -343,24 +332,22 @@ bool PlayState::isGameOver()
   return false;
 }
 
-bool PlayState::load_files()
+bool PlayState::loadAssets( GameEngine* game )
 {
   // background image load
   // placeholder for when I decide on a background image
   
   // Load images
-  cyanBlock = load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
-  blueBlock = load_image("Tetris.app/Contents/Resources/img/blueblock.png");
-  orangeBlock = load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
-  yellowBlock = load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
-  greenBlock = load_image("Tetris.app/Contents/Resources/img/greenblock.png");
-  purpleBlock = load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
-  redBlock = load_image("Tetris.app/Contents/Resources/img/redblock.png");
+  cyanBlock = game->load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
+  blueBlock = game->load_image("Tetris.app/Contents/Resources/img/blueblock.png");
+  orangeBlock = game->load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
+  yellowBlock = game->load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
+  greenBlock = game->load_image("Tetris.app/Contents/Resources/img/greenblock.png");
+  purpleBlock = game->load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
+  redBlock = game->load_image("Tetris.app/Contents/Resources/img/redblock.png");
   
-  boardTile = load_image("Tetris.app/Contents/Resources/img/boardtile.png");
-  boardOutline = load_image("Tetris.app/Contents/Resources/img/boardoutline.png");
-  
-  interfaceMessageGameOver = load_image("Tetris.app/Contents/Resources/img/gameover.png");
+  boardTile = game->load_image("Tetris.app/Contents/Resources/img/boardtile.png");
+  boardOutline = game->load_image("Tetris.app/Contents/Resources/img/boardoutline.png");
   
   
   /*
@@ -382,30 +369,6 @@ bool PlayState::load_files()
   
   return true;
   
-}
-
-SDL_Surface *PlayState::load_image( string filename )
-{
-  // pointer for initial load of image
-  SDL_Surface *loadedImage = NULL;
-  
-  // pointer for optimized surface that the function will return
-  SDL_Surface *optimizedImage = NULL;
-  
-  // load the image
-  loadedImage = IMG_Load( filename.c_str() );
-  
-  // Check that the image loaded correctly
-  if ( loadedImage != NULL )
-  {
-    // Create optimzed version
-    optimizedImage = SDL_DisplayFormat( loadedImage );
-    
-    // Free original pointer
-    SDL_FreeSurface( loadedImage);
-  }
-  // Return the optmized version
-  return optimizedImage;
 }
 
 void PlayState::movementInput()
@@ -532,7 +495,7 @@ void PlayState::displayTimer( GameEngine* game, int time, int x, int y )
   timer = TTF_RenderText_Shaded( font, timeString.str().c_str(), fontFgColor, fontBgColor );
   
   // Apply the time surface
-  apply_surface( ( x - ( timer->w / 2 ) ) , ( y - ( timer->h / 2 ) ) , timer, game->screen );
+  game->apply_surface( ( x - ( timer->w / 2 ) ) , ( y - ( timer->h / 2 ) ) , timer, game->screen );
   
   // Free the time surface
   SDL_FreeSurface ( timer );
@@ -546,14 +509,14 @@ void PlayState::displayText(GameEngine* game, string text, Sint16 x, Sint16 y, U
   
   SDL_Surface* textSurface = TTF_RenderText_Shaded(font, text.c_str(), foreground, background); // Render our text to temporary text surface
   
-  apply_surface( ( x - ( textSurface->w / 2 ) ) , ( y - ( textSurface->h / 2 ) ), textSurface, game->screen);  // call apply_surface function using our newly setup text surface
+  game->apply_surface( ( x - ( textSurface->w / 2 ) ) , ( y - ( textSurface->h / 2 ) ), textSurface, game->screen);  // call apply_surface function using our newly setup text surface
   
   SDL_FreeSurface(textSurface); // Free dem memories!
 }
 
 void PlayState::drawInterface(GameEngine* game)
 {
-  apply_surface(BOARD_ORIGIN_X - 96 , BOARD_ORIGIN_Y - 45, boardOutline, game->screen);
+  game->apply_surface(BOARD_ORIGIN_X - 96 , BOARD_ORIGIN_Y - 45, boardOutline, game->screen);
 }
 
 void PlayState::holdTetrimino()
@@ -618,5 +581,3 @@ void PlayState::interfaceInput(GameEngine* game)
       break;
   }
 }
-
-

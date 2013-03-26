@@ -12,7 +12,7 @@
 #include <iostream>
 
 #include "GameState.h"
-#include "MenuState.h"
+#include "PlayState.h"
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -20,7 +20,7 @@
 class GameOverState: public GameState
 {
 public:
-  void Init();
+  void Init( GameEngine* game );
   void Cleanup();
   
   void Pause();

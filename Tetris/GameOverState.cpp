@@ -10,7 +10,7 @@
 
 GameOverState GameOverState::gameoverstate;
 
-void GameOverState::Init()
+void GameOverState::Init( GameEngine* game )
 {
   loadAssets();
   std::cout<<"GameOverState Init"<<std::endl;
@@ -44,8 +44,8 @@ void GameOverState::HandleEvents( GameEngine* game)
         
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
-          case SDLK_ESCAPE:
-            game->PushState( MenuState::Instance() );
+          case SDLK_RETURN:
+            game->ChangeState( PlayState::Instance() );
             break;
 				}
 				break;

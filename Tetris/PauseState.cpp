@@ -10,7 +10,7 @@
 
 PauseState PauseState::pausestate;
 
-void PauseState::Init()
+void PauseState::Init( GameEngine* game )
 {
   loadAssets();
   std::cout<<"PauseState Init"<<std::endl;
@@ -47,9 +47,6 @@ void PauseState::HandleEvents( GameEngine* game)
 					case SDLK_p:
 						game->PopState();
 						break;
-          case SDLK_ESCAPE:
-            game->PushState( MenuState::Instance() );
-            break;
 				}
 				break;
 		}

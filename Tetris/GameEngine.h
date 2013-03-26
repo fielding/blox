@@ -24,6 +24,7 @@ public:
   void ChangeState( GameState* state );
   void PushState( GameState* state );
   void PopState();
+  void PopStateThenChangeState( GameState* state );
   
   void HandleEvents();
   void Update();
@@ -31,7 +32,10 @@ public:
   
   bool Running() { return running; }
   void Quit() { running = false; }
-
+  
+  SDL_Surface *load_image( std::string filename );
+  void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
+  
   SDL_Surface* screen;
   
 private:
