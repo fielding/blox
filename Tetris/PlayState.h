@@ -62,6 +62,7 @@ private:
   Tetrimino* nTetrimino;
   Tetrimino* hTetrimino;
   Tetrimino* bTetrimino;
+  Tetrimino* gTetrimino;
   
   std::deque<int> queue; // used as Tetrimino queue
   
@@ -86,6 +87,7 @@ private:
   SDL_Surface *greenBlock = NULL;
   SDL_Surface *purpleBlock = NULL;
   SDL_Surface *redBlock = NULL;
+  SDL_Surface *ghostBlock = NULL;
   
   // Message Surfaces
 
@@ -100,7 +102,7 @@ private:
   
   enum GameState { Menu, Playing, GameOver, Paused };
   char *gameStateNames[4] = { "Menu", "Playing", "GameOver", "Paused" };
-  enum type_t { active, fixed, next, held };
+  enum type_t { active, fixed, next, held, ghost };
 
   // Variables
   bool justStarted = false;
@@ -120,7 +122,7 @@ private:
   void drawActiveTetrimino(GameEngine* game);
   void drawBlock(GameEngine* game, Block block, int type, int xOffset = 0, int yOffset = 0 );
   void drawBoard(GameEngine* game);
-  //void drawHeldContainer();
+  void drawGhostTetrimino(GameEngine* game);
   void drawHeldTetrimino(GameEngine* game);
   void drawInterface(GameEngine* game);
   void drawNextContainer(GameEngine* game);

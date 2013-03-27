@@ -15,7 +15,7 @@
 #include "SDL_ttf.h"
 #include "SDL_image.h"
 
-void GameEngine::Init(const char* title, int width, int height, int bpp, bool fullscreen)
+void GameEngine::Init(const char* title, int width, int height, int bpp, bool fullscreen, bool noframe)
 {
   int flags = 0;
   
@@ -36,14 +36,29 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   // Set the window caption
   SDL_WM_SetCaption( title, title );
   
+  // if noframe = true then set the noframe flag
+  if ( noframe )
+  {
+    flags = SDL_NOFRAME;
+  }
+  
+  
   // if fullscreen = true then set the fullscreen flag
   if ( fullscreen )
   {
     flags = SDL_FULLSCREEN;
   }
   
+
   // Set up the screen
   screen = SDL_SetVideoMode( width, height, bpp, flags );
+  
+  // unfinished experimenting with transparency
+  //#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+  //screen = SDL_CreateRGBSurface(SDL_HWSURFACE,width,height,32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+  //#else
+  //screen = SDL_CreateRGBSurface(SDL_HWSURFACE,width,height,32, 0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+  //#endif
   
   // Check for error while starting screen
   if ( screen == NULL )

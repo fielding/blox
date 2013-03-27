@@ -85,6 +85,7 @@ void PlayState::Cleanup()
   SDL_FreeSurface(greenBlock);
   SDL_FreeSurface(purpleBlock);
   SDL_FreeSurface(redBlock);
+  SDL_FreeSurface(ghostBlock);
   
   SDL_FreeSurface(boardTile);
   SDL_FreeSurface(boardOutline);
@@ -151,19 +152,20 @@ void PlayState::Draw( GameEngine* game )
   // Game Loop: Rendering
   
   // Fill the screen white
-  SDL_FillRect( game->screen, &game->screen->clip_rect, SDL_MapRGB( game->screen->format, 0xFF, 0xFF, 0xFF ) );
+  SDL_FillRect( game->screen, &game->screen->clip_rect, SDL_MapRGBA( game->screen->format, 0xff, 0xff, 0xff, 0 ) );
   
   // Display game timer
-  displayTimer(game, playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
+  displayTimer( game, playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
   
   // Draw the board and next container
-  drawInterface(game);
-  drawBoard(game);
+  drawInterface( game );
+  drawBoard( game );
   
-  // Draw the active and next tetrimino
-  drawActiveTetrimino(game);
-  drawTetriminoQueue(game);
-  drawHeldTetrimino(game);
+  // Draw all the Tetriminoes!
+  drawGhostTetrimino( game );   // Drawing ghostTetrimino before activeTetrimino to visually smooth the hard drop
+  drawActiveTetrimino( game );
+  drawTetriminoQueue( game );
+  drawHeldTetrimino( game );
   
   // Update the screen
   SDL_UpdateRect(game->screen, 0, 0, 0, 0);
@@ -178,6 +180,31 @@ void PlayState::drawActiveTetrimino(GameEngine* game)
     }
   }
 }
+
+void PlayState::drawGhostTetrimino( GameEngine* game )
+{
+  // spawn new Tetrimino (ghostTetrimino) and fill it's pieces with the same type as activeTetrimino
+  gTetrimino = new Tetrimino( true, aTetrimino->pieces[0].blockType);
+  
+  // copy the current piece configuration from activeTetrimino everytime we draw
+  for ( int j = 0; j < 4; j++ )
+  {
+    gTetrimino->pieces[j].box.x = aTetrimino->pieces[j].box.x;
+    gTetrimino->pieces[j].box.y = aTetrimino->pieces[j].box.y;
+  }
+  
+  // based on current piece configuration, determine hard drop location
+  gTetrimino->hardDrop( myBoard );
+  
+  // draw ghostTetrimino at hard drop location
+  for ( int i = 0; i < 4; i++ )
+  {
+    drawBlock( game, gTetrimino->pieces[i], ghost);
+  }
+  
+  delete( gTetrimino );
+}
+
 
 void PlayState::drawBlock(GameEngine* game, Block block, int type, int xOffset, int yOffset )
 {
@@ -197,6 +224,11 @@ void PlayState::drawBlock(GameEngine* game, Block block, int type, int xOffset, 
   {
     block.box.x += HC_ORIGIN_X - (BLOCK_SIZE * 3) + xOffset;
     block.box.y += HC_ORIGIN_Y + yOffset;
+  } else if ( type == ghost )
+  {
+    block.box.x += BOARD_ORIGIN_X;
+    block.box.y += BOARD_ORIGIN_Y;
+    block.blockType = 8;
   }
   
   
@@ -222,6 +254,9 @@ void PlayState::drawBlock(GameEngine* game, Block block, int type, int xOffset, 
       break;
     case 7:
       game->apply_surface( block.box.x, block.box.y, redBlock, game->screen );
+      break;
+    case 8:
+      game->apply_surface( block.box.x, block.box.y, ghostBlock, game->screen );
     default:
       break;
   }
@@ -345,6 +380,7 @@ bool PlayState::loadAssets( GameEngine* game )
   greenBlock = game->load_image("Tetris.app/Contents/Resources/img/greenblock.png");
   purpleBlock = game->load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
   redBlock = game->load_image("Tetris.app/Contents/Resources/img/redblock.png");
+  ghostBlock = game->load_image("Tetris.app/Contents/Resources/img/ghostblock.png");
   
   boardTile = game->load_image("Tetris.app/Contents/Resources/img/boardtile.png");
   boardOutline = game->load_image("Tetris.app/Contents/Resources/img/boardoutline.png");
