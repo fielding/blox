@@ -110,8 +110,9 @@ private:
   int frame = 0;
   int start_time = 0;
   int end_time = 0;
-  int force_time = 500;
+  int force_time = 1000;
   int linesCleared = 0;
+  int score = 0;
   
   
   // Functions

@@ -64,10 +64,10 @@ bool Tetrimino::moveDown(Board* myBoard)
   return false;
 }
 
-void Tetrimino::hardDrop(Board* myBoard)
+void Tetrimino::hardDrop(Board* myBoard, int& score )
 {
   // Move down until it can't anymore
-  while(moveDown(myBoard));
+  while(moveDown(myBoard)) score += 2;  // HardDrops are worth ( number of lines they dropped * 2 ) points
 }
 
 void Tetrimino::spawn(int type)

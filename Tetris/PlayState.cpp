@@ -32,6 +32,7 @@ void PlayState::Init( GameEngine* game )
   playTimer.start();
   holdUsed = false; // CONSIDER: Is this the best places for this??
   start_time = playTimer.get_ticks();
+  score = 0;
   
   
  /* 
@@ -142,6 +143,7 @@ void PlayState::Update( GameEngine* game )
       
       linesCleared = checkLines();
       cout<<"Lines Cleared: "<<linesCleared<<endl;
+      cout<<"score: "<<score<<endl;
       start_time = playTimer.get_ticks();
     }
   }
@@ -194,7 +196,7 @@ void PlayState::drawGhostTetrimino( GameEngine* game )
   }
   
   // based on current piece configuration, determine hard drop location
-  gTetrimino->hardDrop( myBoard );
+  while(gTetrimino->moveDown( myBoard ));   // changed this to avoid the score getting messed up by using hardDrop tetrimino function
   
   // draw ghostTetrimino at hard drop location
   for ( int i = 0; i < 4; i++ )
@@ -415,6 +417,7 @@ void PlayState::movementInput()
     {
       case SDLK_DOWN:   // Soft Drop
         aTetrimino->moveDown(myBoard);
+        score++;  // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
         break;
       case SDLK_LEFT:   // Move Left
         aTetrimino->moveLeft(myBoard);
@@ -435,7 +438,7 @@ void PlayState::movementInput()
         aTetrimino->rotate("right");
         break;
       case SDLK_SPACE:
-        aTetrimino->hardDrop(myBoard);
+        aTetrimino->hardDrop(myBoard, score);
       default:
         break;
     }
