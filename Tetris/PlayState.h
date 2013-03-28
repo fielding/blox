@@ -112,7 +112,11 @@ private:
   int end_time = 0;
   int force_time = 1000;
   int linesCleared = 0;
+  int prevLinesCleared = 0;
+  int lineMultiplier = 0;
   int score = 0;
+  int level = 1;
+  bool forceLock = false;   // flag used to make hardDrops force a lock instantly, instead of waiting for lock time
   
   
   // Functions
@@ -136,6 +140,7 @@ private:
   void movementInput();
   
   // Functions: Logic
+  void addLineScore(int lines, int level);
   int checkLines();
   void deleteLine( int y );
   void dropLines( int y );

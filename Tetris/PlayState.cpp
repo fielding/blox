@@ -29,10 +29,13 @@ void PlayState::Init( GameEngine* game )
   
   cout<<"PlayState Init"<<endl;
   
+  // Do things needed to reset to a fresh "playstate"
+  
   playTimer.start();
-  holdUsed = false; // CONSIDER: Is this the best places for this??
+  holdUsed = false;   // CONSIDER: Is this the best places for this??
+  score = 0;          // Reset score to 0
+  level = 1;          // Reset level to 1
   start_time = playTimer.get_ticks();
-  score = 0;
   
   
  /* 
@@ -121,9 +124,9 @@ void PlayState::Update( GameEngine* game )
 {
   
   end_time = playTimer.get_ticks();
-  if ( end_time - start_time > force_time )
+  if ( end_time - start_time > force_time || forceLock )
   {
-    if (aTetrimino->moveDown(myBoard))
+    if (aTetrimino->moveDown(myBoard) & !forceLock )
     {
       start_time = playTimer.get_ticks();
     }
@@ -141,10 +144,29 @@ void PlayState::Update( GameEngine* game )
       nextTetrimino();
       holdUsed = false;
       
-      linesCleared = checkLines();
+      // if we cleared lines last round, then update prevLinesCleared
+      if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
+      
+      // check if any lines were cleared this round
+      linesCleared =  checkLines();
+      
+      if ( prevLinesCleared == 4 && linesCleared == 4)  // if previous line clear and this line clear are both 4 then set multiplier to 5 (back to back tetris)
+      {
+        lineMultiplier = 5;
+      }
+      else                                              // otherwise just set the multiplier to the number of lines cleared
+      {
+        lineMultiplier = linesCleared;
+      }
+      
       cout<<"Lines Cleared: "<<linesCleared<<endl;
+      
+      // update score with lines * level multiplier
+      addLineScore(lineMultiplier, level);
+      
       cout<<"score: "<<score<<endl;
       start_time = playTimer.get_ticks();
+      forceLock = false;
     }
   }
 }
@@ -439,6 +461,7 @@ void PlayState::movementInput()
         break;
       case SDLK_SPACE:
         aTetrimino->hardDrop(myBoard, score);
+        forceLock = true;
       default:
         break;
     }
@@ -475,20 +498,19 @@ void PlayState::storeTetrimino()
 
 int PlayState::checkLines()
 {
-  int linesCleared = 0;
+  int lines = 0;
   
   for ( int h = 0; h < BOARD_BLOCK_HEIGHT; h++ )
   {
     if ( lineIsFull( h ) )
     {
-      cout<<"Line "<<h<<" is full! Deleting it!\n";
       deleteLine( h );
       dropLines( h );
-      linesCleared++;
+      lines++;
     }
   }
-  
-  return linesCleared;
+
+  return lines;
 }
 
 bool PlayState::lineIsFull( int y )
@@ -617,6 +639,34 @@ void PlayState::interfaceInput(GameEngine* game)
           game->PushState( PauseState::Instance() );
           break;
       }
+      break;
+  }
+}
+
+void PlayState::addLineScore( int lineMultiplier, int level )
+{
+  switch ( lineMultiplier )
+  {
+    case 1:     // 1 Line (Single): 100 * current level
+      score += 100 * level;
+      break;
+    case 2:     // 2 Lines (Double): 300 * current level
+      score += 300 * level;
+      cout<<"Double!"<<endl;
+      break;
+    case 3:     // 3 Lines (Triple): 500 * current level
+      score += 500 * level;
+      cout<<"Triple!"<<endl;
+      break;
+    case 4:     // 4 Lines (Tetris): 800 * current level
+      score += 800 * level;
+      cout<<"Tetris!"<<endl;
+      break;
+    case 5:     // 4 Lines twice in a row (Back to back Tetris): 1200 * current level
+      score += 1200 * level;
+      cout<<"Back to back Tetris!"<<endl;
+      break;
+    default:
       break;
   }
 }
