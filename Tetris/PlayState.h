@@ -107,17 +107,22 @@ private:
   // Variables
   bool justStarted = false;
   bool holdUsed = false;
+  bool forceLock = false;   // flag used to make hardDrops force a lock instantly, instead of waiting for lock time
+  
   int frame = 0;
   int start_time = 0;
   int end_time = 0;
   int force_time = 1000;
-  int linesCleared = 0;
-  int prevLinesCleared = 0;
-  int lineMultiplier = 0;
-  int score = 0;
-  int level = 1;
-  bool forceLock = false;   // flag used to make hardDrops force a lock instantly, instead of waiting for lock time
   
+  int prevLinesCleared = 0;
+  int linesCleared = 0;
+  int linesAwarded = 0;
+  
+  int score = 0;
+  
+  int level = 1;
+  int goal = 5;   // number of lines needed to advance a level ( a function of the level we are currently on )
+
   
   // Functions
   
@@ -140,11 +145,13 @@ private:
   void movementInput();
   
   // Functions: Logic
-  void addLineScore(int lines, int level);
+  void addLineScore();
   int checkLines();
+  bool checkLevelUp();
   void deleteLine( int y );
   void dropLines( int y );
   void fillQueue();
+  int getLinesAwarded();
   void holdTetrimino();
   bool isGameOver();
   bool lineIsFull( int y );

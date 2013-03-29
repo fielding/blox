@@ -142,31 +142,32 @@ void PlayState::Update( GameEngine* game )
       }
       
       nextTetrimino();
-      holdUsed = false;
       
+    
       // if we cleared lines last round, then update prevLinesCleared
       if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
       
       // check if any lines were cleared this round
       linesCleared =  checkLines();
-      
-      if ( prevLinesCleared == 4 && linesCleared == 4)  // if previous line clear and this line clear are both 4 then set multiplier to 5 (back to back tetris)
-      {
-        lineMultiplier = 5;
-      }
-      else                                              // otherwise just set the multiplier to the number of lines cleared
-      {
-        lineMultiplier = linesCleared;
-      }
-      
       cout<<"Lines Cleared: "<<linesCleared<<endl;
       
-      // update score with lines * level multiplier
-      addLineScore(lineMultiplier, level);
+      // determine how many lines are actually awarded toward goal
+      linesAwarded = getLinesAwarded();
+      cout<<"Lines Awarded: "<< linesAwarded << endl;
       
+      // update score with lines * level multiplier
+      addLineScore();
       cout<<"score: "<<score<<endl;
+      
+      // check for level up
+      if ( checkLevelUp() ) cout<<"w00t! You've reached the next level!"<<endl;
+      cout<<"Level: "<< level << endl;
+      cout<<"Goal: "<< goal << endl;
+      
       start_time = playTimer.get_ticks();
-      forceLock = false;
+      
+      forceLock = false;  // reset the forceLock flag
+      holdUsed = false;   // reset the holdUsed flag
     }
   }
 }
@@ -491,7 +492,7 @@ void PlayState::storeTetrimino()
     int yPos = aTetrimino->pieces[b].box.y / 16;
     int blockType = aTetrimino->pieces[b].blockType;
     
-    cout<<"Storing blocktype "<< blockType <<" at ("<< xPos <<", "<<yPos<<")\n";
+    // cout<<"Storing blocktype "<< blockType <<" at ("<< xPos <<", "<<yPos<<")\n";
     myBoard->updateBlock(xPos, yPos, blockType);
   }
 }
@@ -643,30 +644,50 @@ void PlayState::interfaceInput(GameEngine* game)
   }
 }
 
-void PlayState::addLineScore( int lineMultiplier, int level )
+void PlayState::addLineScore()
 {
-  switch ( lineMultiplier )
+  score += (linesAwarded * 100) * level;
+}
+
+int PlayState::getLinesAwarded()
+{
+  
+  switch ( linesCleared )
   {
-    case 1:     // 1 Line (Single): 100 * current level
-      score += 100 * level;
+    case 1:   // Single: awarded lines = 1
+      return 1;
       break;
-    case 2:     // 2 Lines (Double): 300 * current level
-      score += 300 * level;
-      cout<<"Double!"<<endl;
+    case 2:   // Double: awarded lines = 3
+      return 3;
       break;
-    case 3:     // 3 Lines (Triple): 500 * current level
-      score += 500 * level;
-      cout<<"Triple!"<<endl;
+    case 3:   // Triple: awarded lines = 5
+      return 5;
       break;
-    case 4:     // 4 Lines (Tetris): 800 * current level
-      score += 800 * level;
-      cout<<"Tetris!"<<endl;
-      break;
-    case 5:     // 4 Lines twice in a row (Back to back Tetris): 1200 * current level
-      score += 1200 * level;
-      cout<<"Back to back Tetris!"<<endl;
+    case 4:   // Tetris: awarded lines = 8; if back to back then award additional 4 lines
+      if ( prevLinesCleared == 4 && linesCleared == 4)  // if previous line clear and this line clear are both 4 then add 0.5 * Action Total
+      {
+        return 12;  // 8 plus (8 * 0.5) = 12
+      }
+      else
+      {
+        return 8;   // if not a back to back then awarded lines = 8
+      }
       break;
     default:
+      return 0;
       break;
   }
+}
+
+bool PlayState::checkLevelUp()
+{
+  goal -= linesAwarded;   // subtract the linesAwarded from the current goal ( NOTE: linesAwarded does not carry over and remove lines from the next goal level, this is intentional )
+  
+  if ( goal <= 0 )        // if goal is 0 or less
+  {
+    level++;              // w00t! level up!
+    goal = level * 5;     // time to reset the goal to the new levels goal ( level * 5 )
+    return true;
+  }
+  return false;
 }

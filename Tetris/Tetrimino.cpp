@@ -146,8 +146,8 @@ void Tetrimino::rotate(string dir)
     {
       pX = pieces[0].box.x;
       pY = pieces[0].box.y;
-      cout<<"Pivot X: "<<pX<<endl;
-      cout<<"Pivot Y: "<<pY<<endl;
+      // cout<<"Pivot X: "<<pX<<endl;
+      // cout<<"Pivot Y: "<<pY<<endl;
     }
   
 
@@ -167,8 +167,8 @@ void Tetrimino::rotate(string dir)
         pieces[i].box.x = rotatedX;
         pieces[i].box.y = rotatedY;
       }
-      cout<<"rotated X: "<<rotatedX<<endl;
-      cout<<"rotated Y: "<<rotatedY<<endl;
+      // cout<<"rotated X: "<<rotatedX<<endl;
+      // cout<<"rotated Y: "<<rotatedY<<endl;
     
     
     } else if ( dir == "right" ){
@@ -187,8 +187,8 @@ void Tetrimino::rotate(string dir)
         pieces[i].box.x = rotatedX;
         pieces[i].box.y = rotatedY;
       }
-      cout<<"rotated X: "<<rotatedX<<endl;
-      cout<<"rotated Y: "<<rotatedY<<endl;
+      // cout<<"rotated X: "<<rotatedX<<endl;
+      // cout<<"rotated Y: "<<rotatedY<<endl;
       
     }
   }
