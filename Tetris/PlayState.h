@@ -94,8 +94,8 @@ private:
   
   // default font, font fg color and font bg color
   TTF_Font *font = NULL;
-  SDL_Color fontFgColor = { 0, 0, 0 };
-  SDL_Color fontBgColor = { 255, 255, 255 };
+  SDL_Color fontFgColor = { 255, 255, 255 };
+  SDL_Color fontBgColor = { 13, 13, 13 };
 
   
   // Enum
@@ -127,6 +127,9 @@ private:
   // Functions
   
   // Functions: Rendering
+  void displayGoal( GameEngine* game, int gl );
+  void displayLevel( GameEngine* game, int lvl );
+  void displayScore( GameEngine* game, int scr );
   void displayText(GameEngine* game, string text, Sint16 x, Sint16 y, Uint8 fgR, Uint8 fgG, Uint8 fgB, Uint8 bgR, Uint8 bgG, Uint8 bgB);
   void displayTimer(GameEngine* game, int time, int x, int y);
   void drawActiveTetrimino(GameEngine* game);

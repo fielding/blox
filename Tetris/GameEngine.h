@@ -18,7 +18,7 @@ class GameEngine
 {
 public:
   
-  void Init(const char* title, int width=640, int height=480, int bpp=0, bool fullscreen=false, bool noframe=true);
+  void Init(const char* title, int width=640, int height=480, int bpp=0, bool fullscreen=false, bool noframe=false);
   void Cleanup();
   
   void ChangeState( GameState* state );

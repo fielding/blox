@@ -177,14 +177,21 @@ void PlayState::Draw( GameEngine* game )
   // Game Loop: Rendering
   
   // Fill the screen white
-  SDL_FillRect( game->screen, &game->screen->clip_rect, SDL_MapRGBA( game->screen->format, 0xff, 0xff, 0xff, 0 ) );
+  //SDL_FillRect( game->screen, &game->screen->clip_rect, SDL_MapRGBA( game->screen->format, 0xff, 0xff, 0xff, 0 ) );
+  
+  //game->apply_surface( 0, 0, background, game->screen);
   
   // Display game timer
-  displayTimer( game, playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
+  //displayTimer( game, playTimer.get_ticks(), ( SCREEN_WIDTH / 2 ), 10);
   
   // Draw the board and next container
   drawInterface( game );
   drawBoard( game );
+  
+  // Display the stats (score, level, and goal)
+  displayGoal( game, goal );
+  displayLevel( game, level );
+  displayScore( game, score );
   
   // Draw all the Tetriminoes!
   drawGhostTetrimino( game );   // Drawing ghostTetrimino before activeTetrimino to visually smooth the hard drop
@@ -398,18 +405,17 @@ bool PlayState::loadAssets( GameEngine* game )
   // placeholder for when I decide on a background image
   
   // Load images
-  cyanBlock = game->load_image("Tetris.app/Contents/Resources/img/cyanblock.png");
-  blueBlock = game->load_image("Tetris.app/Contents/Resources/img/blueblock.png");
-  orangeBlock = game->load_image("Tetris.app/Contents/Resources/img/orangeblock.png");
-  yellowBlock = game->load_image("Tetris.app/Contents/Resources/img/yellowblock.png");
-  greenBlock = game->load_image("Tetris.app/Contents/Resources/img/greenblock.png");
-  purpleBlock = game->load_image("Tetris.app/Contents/Resources/img/purpleblock.png");
-  redBlock = game->load_image("Tetris.app/Contents/Resources/img/redblock.png");
-  ghostBlock = game->load_image("Tetris.app/Contents/Resources/img/ghostblock.png");
+  cyanBlock = game->load_image( "Tetris.app/Contents/Resources/img/cyanblock.png" );
+  blueBlock = game->load_image( "Tetris.app/Contents/Resources/img/blueblock.png" );
+  orangeBlock = game->load_image( "Tetris.app/Contents/Resources/img/orangeblock.png" );
+  yellowBlock = game->load_image( "Tetris.app/Contents/Resources/img/yellowblock.png" );
+  greenBlock = game->load_image( "Tetris.app/Contents/Resources/img/greenblock.png" );
+  purpleBlock = game->load_image( "Tetris.app/Contents/Resources/img/purpleblock.png" );
+  redBlock = game->load_image( "Tetris.app/Contents/Resources/img/redblock.png" );
+  ghostBlock = game->load_image( "Tetris.app/Contents/Resources/img/ghostblock.png" );
   
-  boardTile = game->load_image("Tetris.app/Contents/Resources/img/boardtile.png");
-  boardOutline = game->load_image("Tetris.app/Contents/Resources/img/boardoutline.png");
-  
+  boardTile = game->load_image( "Tetris.app/Contents/Resources/img/boardtile.png" );
+  boardOutline = game->load_image( "Tetris.app/Contents/Resources/img/boardoutline.png" );
   
   /*
    if ( boardOutline == NULL )
@@ -419,7 +425,7 @@ bool PlayState::loadAssets( GameEngine* game )
    */
   
   // Load font
-  font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/HelveticaNeueCondensedBold.ttf", 28);
+  font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/November.ttf", 18);
   
   
   
@@ -578,7 +584,7 @@ void PlayState::displayText(GameEngine* game, string text, Sint16 x, Sint16 y, U
 
 void PlayState::drawInterface(GameEngine* game)
 {
-  game->apply_surface(BOARD_ORIGIN_X - 96 , BOARD_ORIGIN_Y - 45, boardOutline, game->screen);
+  game->apply_surface(0, 0, boardOutline, game->screen);
 }
 
 void PlayState::holdTetrimino()
@@ -691,3 +697,70 @@ bool PlayState::checkLevelUp()
   }
   return false;
 }
+
+
+void PlayState::displayScore( GameEngine* game, int scr)
+{
+  // create surface to use for displaying the score
+  SDL_Surface* scrSurface = NULL;
+  
+  // need to convert the score to a string
+  stringstream scrString;
+  
+  // conver the score to a string
+  scrString << scr;
+  
+  // render the score surface
+  scrSurface = TTF_RenderText_Blended( font, scrString.str().c_str(), fontFgColor);
+
+  // apply the surface to the screen
+  game->apply_surface( ( 152 + 64 - (scrSurface->w / 2) ), 386, scrSurface, game->screen );
+  
+  // free the score surface
+  SDL_FreeSurface( scrSurface );
+}
+
+void PlayState::displayGoal( GameEngine* game, int gl)
+{
+  // create surface to use for displaying the goal
+  SDL_Surface* glSurface = NULL;
+  
+  // need to convert the goal to a string
+  stringstream glString;
+  
+  // conver the goal to a string
+  glString << gl;
+  
+  // render the goal surface
+  glSurface = TTF_RenderText_Blended( font, glString.str().c_str(), fontFgColor);
+  
+  // apply the surface to the screen
+  game->apply_surface( ( 92 + 14 - ( glSurface->w / 2 ) ), 346, glSurface, game->screen );
+  
+  // free the goal surface
+  SDL_FreeSurface( glSurface );
+}
+
+void PlayState::displayLevel( GameEngine* game, int lvl)
+{
+  // create surface to use for displaying the level
+  SDL_Surface* lvlSurface = NULL;
+  
+  // need to conver the level to a string
+  stringstream lvlString;
+  
+  // conver the level to a string
+  lvlString << lvl;
+  
+  // render the level surface
+  lvlSurface = TTF_RenderText_Blended( font, lvlString.str().c_str(), fontFgColor);
+  
+  // apply the surface to the screen
+  game->apply_surface( ( 91 + 14 - ( lvlSurface->w / 2 ) ), 300, lvlSurface, game->screen );
+  
+  // free the score surface
+  SDL_FreeSurface( lvlSurface );
+}
+
+
+

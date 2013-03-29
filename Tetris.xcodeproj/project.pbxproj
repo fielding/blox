@@ -21,6 +21,8 @@
 		C20CF5BC17015CFD0088459F /* GameOverState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5BA17015CFD0088459F /* GameOverState.cpp */; };
 		C23704E31702754400E4AC5D /* ghostblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
 		C23704E41702755100E4AC5D /* ghostblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
+		C2728A2E1705959C00284863 /* November.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
+		C2728A2F170595A900284863 /* November.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
 		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
 		C276DA7916FB9CD6005A4DFC /* boardoutline.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7716FB9CD6005A4DFC /* boardoutline.png */; };
@@ -41,7 +43,6 @@
 		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
 		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
-		C2DD4D4616F6212D005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */; };
 		C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
 		C2DD4D4916F62137005F36B3 /* greenblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3F16F62107005F36B3 /* greenblock.png */; };
 		C2DD4D4A16F62139005F36B3 /* purpleblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D4016F62107005F36B3 /* purpleblock.png */; };
@@ -79,7 +80,7 @@
 			dstPath = font;
 			dstSubfolderSpec = 7;
 			files = (
-				C2DD4D4616F6212D005F36B3 /* HelveticaNeueCondensedBold.ttf in CopyFiles */,
+				C2728A2F170595A900284863 /* November.ttf in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +131,7 @@
 		C20CF5BA17015CFD0088459F /* GameOverState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverState.cpp; sourceTree = "<group>"; };
 		C20CF5BB17015CFD0088459F /* GameOverState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverState.h; sourceTree = "<group>"; };
 		C23704E21702754400E4AC5D /* ghostblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ghostblock.png; path = assets/img/ghostblock.png; sourceTree = "<group>"; };
+		C2728A2D1705959C00284863 /* November.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = November.ttf; path = assets/font/November.ttf; sourceTree = "<group>"; };
 		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
 		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
 		C276DA7816FB9CD6005A4DFC /* boardtile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardtile.png; path = assets/img/boardtile.png; sourceTree = "<group>"; };
@@ -152,7 +154,6 @@
 		C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_ttf-2.0.0.dylib"; path = "/usr/local/Cellar/sdl_ttf/2.0.11/lib/libSDL_ttf-2.0.0.dylib"; sourceTree = "<absolute>"; };
 		C2DD4D2416F3570A005F36B3 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		C2DD4D2516F3570A005F36B3 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
-		C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaNeueCondensedBold.ttf; path = assets/font/HelveticaNeueCondensedBold.ttf; sourceTree = "<group>"; };
 		C2DD4D3D16F62107005F36B3 /* blueblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueblock.png; path = assets/img/blueblock.png; sourceTree = "<group>"; };
 		C2DD4D3F16F62107005F36B3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenblock.png; path = assets/img/greenblock.png; sourceTree = "<group>"; };
 		C2DD4D4016F62107005F36B3 /* purpleblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purpleblock.png; path = assets/img/purpleblock.png; sourceTree = "<group>"; };
@@ -251,6 +252,7 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C2728A2D1705959C00284863 /* November.ttf */,
 				C23704E21702754400E4AC5D /* ghostblock.png */,
 				C276DA7E16FB9D56005A4DFC /* paused.png */,
 				C276DA8116FBBD1A005A4DFC /* menu.png */,
@@ -261,7 +263,6 @@
 				C2DD4D4C16F63A4A005F36B3 /* orangeblock.png */,
 				C2DD4D4D16F63A4A005F36B3 /* redblock.png */,
 				C2DD4D4E16F63A4A005F36B3 /* yellowblock.png */,
-				C2DD4D3C16F62107005F36B3 /* HelveticaNeueCondensedBold.ttf */,
 				C2DD4D3D16F62107005F36B3 /* blueblock.png */,
 				C2DD4D3F16F62107005F36B3 /* greenblock.png */,
 				C2DD4D4016F62107005F36B3 /* purpleblock.png */,
@@ -338,6 +339,7 @@
 				C276DA7F16FB9D56005A4DFC /* paused.png in Resources */,
 				C276DA8216FBBD1A005A4DFC /* menu.png in Resources */,
 				C23704E31702754400E4AC5D /* ghostblock.png in Resources */,
+				C2728A2E1705959C00284863 /* November.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

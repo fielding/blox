@@ -5,7 +5,6 @@
 
 ### Todo
 * Score system/Displaying score
-* Create/Polish UI
 * Holding down movement keys
 * Wall kicks!
 
