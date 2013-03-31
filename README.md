@@ -7,6 +7,7 @@
 * Holding down movement keys
 * Audio
 * “Juice”
+* T-Spin scoring
 
 ### Consider
 * Changing playTimer (timer that is displayed as part of the UI) to a float

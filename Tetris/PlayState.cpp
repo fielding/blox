@@ -19,7 +19,7 @@ void PlayState::Init( GameEngine* game )
   loadAssets( game );
   
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
-  bag = new Bag();
+  Bag bag;
   
   hTetrimino = new Tetrimino(false, 0);  // create hTetrimino, but don't spawn blocks yet
   
@@ -35,7 +35,8 @@ void PlayState::Init( GameEngine* game )
   holdUsed = false;   // CONSIDER: Is this the best places for this??
   score = 0;          // Reset score to 0
   level = 1;          // Reset level to 1
-  start_time = playTimer.get_ticks();
+  forceTime = 1000;   // slowpoke force time
+  startTime = playTimer.get_ticks();
   
   
  /* 
@@ -96,6 +97,8 @@ void PlayState::Cleanup()
   
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
+  
+  queue.clear();
 }
 
 void PlayState::Pause()
@@ -123,12 +126,12 @@ void PlayState::HandleEvents( GameEngine* game )
 void PlayState::Update( GameEngine* game )
 {
   
-  end_time = playTimer.get_ticks();
-  if ( end_time - start_time > force_time || forceLock )
+  endTime = playTimer.get_ticks();
+  if ( endTime - startTime > forceTime || forceLock )
   {
     if (aTetrimino->moveDown(myBoard) & !forceLock )
     {
-      start_time = playTimer.get_ticks();
+      startTime = playTimer.get_ticks();
     }
     else
     {
@@ -140,9 +143,6 @@ void PlayState::Update( GameEngine* game )
       {
         game->ChangeState( GameOverState::Instance() );
       }
-      
-      nextTetrimino();
-      
     
       // if we cleared lines last round, then update prevLinesCleared
       if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
@@ -164,10 +164,11 @@ void PlayState::Update( GameEngine* game )
       cout<<"Level: "<< level << endl;
       cout<<"Goal: "<< goal << endl;
       
-      start_time = playTimer.get_ticks();
+      startTime = playTimer.get_ticks();
       
       forceLock = false;  // reset the forceLock flag
       holdUsed = false;   // reset the holdUsed flag
+      nextTetrimino();
     }
   }
 }
@@ -466,6 +467,7 @@ void PlayState::movementInput()
       case SDLK_DOWN:   // Soft Drop
         aTetrimino->moveDown(myBoard);
         score++;  // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
+        startTime = playTimer.get_ticks();  // lock delay, or more of an update delay if you are soft dropping
         break;
       case SDLK_LEFT:   // Move Left
         aTetrimino->moveLeft(myBoard);
@@ -636,14 +638,14 @@ void PlayState::nextTetrimino()
   
   aTetrimino = new Tetrimino( true, queue.front() );
   queue.pop_front();
-  queue.push_back( bag->getNextPiece() );
+  queue.push_back( bag.getNextPiece() );
   
 }
 
 void PlayState::fillQueue()
 {
   for ( int i = 0; i < 5; i++ ){
-    queue.push_back( bag->getNextPiece() );
+    queue.push_back( bag.getNextPiece() );
   }
 }
 
@@ -712,6 +714,7 @@ bool PlayState::checkLevelUp()
   {
     level++;              // w00t! level up!
     goal = level * 5;     // time to reset the goal to the new levels goal ( level * 5 )
+    forceTime *= .80;     // time to speed this bad boy up
     return true;
   }
   return false;

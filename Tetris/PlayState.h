@@ -56,7 +56,7 @@ private:
   
   Board* myBoard;
   
-  Bag* bag;
+  Bag bag;
   
   Tetrimino* aTetrimino;
   Tetrimino* nTetrimino;
@@ -111,9 +111,9 @@ private:
   bool forceLock = false;   // flag used to make hardDrops force a lock instantly, instead of waiting for lock time
   
   int frame = 0;
-  int start_time = 0;
-  int end_time = 0;
-  int force_time = 1000;
+  int startTime = 0;
+  int endTime = 0;
+  int forceTime = 1000;
   
   int prevLinesCleared = 0;
   int linesCleared = 0;
