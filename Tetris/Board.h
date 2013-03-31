@@ -27,7 +27,8 @@ public:
 
   // Functions
   void updateBlock(int x, int y, int status);
-  bool checkBlockCollision(Tetrimino* tetrimino, int direction);
+  bool checkMoveCollision(Tetrimino* tetrimino, int direction);
+  bool checkBlockCollision(Block block);
   int mBoard[10][22];
   int getBlockStatus(int x, int y);
   

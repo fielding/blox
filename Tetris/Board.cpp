@@ -26,7 +26,7 @@ void Board::updateBlock( int x, int y, int status )
   mBoard[x][y] = status;
 }
 
-bool Board::checkBlockCollision(Tetrimino* tetrimino, int direction)
+bool Board::checkMoveCollision(Tetrimino* tetrimino, int direction)
 {
   // check each block of the tetrimino
   for ( int b = 0; b < 4; b++ )
@@ -47,6 +47,15 @@ bool Board::checkBlockCollision(Tetrimino* tetrimino, int direction)
     }
   }
   return false;
+}
+
+bool Board::checkBlockCollision(Block block)
+{
+  
+  if ( getBlockStatus( ( block.box.x / 16 ), (block.box.y / 16 ) ) != 0 ) { return true; }
+  else if ( ( block.box.x / 16 ) > 9 || ( block.box.x / 16 ) < 0 ) { return true; }
+  else if ( ( block.box.y / 16 ) > 21) { return true; }
+  else { return false; }
 }
 
 int Board::getBlockStatus(int x, int y)

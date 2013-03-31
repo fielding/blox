@@ -33,7 +33,7 @@ public:
   bool moveRight(Board* myBoard);
   bool moveDown(Board* myBoard);
   void hardDrop(Board* myBoard, int& score);
-  void rotate(string dir);
+  void rotate(string dir, Board* myBoard);
   void spawn(int type);
   void resetPosition();
   int getDimension( int dimension, int unit);

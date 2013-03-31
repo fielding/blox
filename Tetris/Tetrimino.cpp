@@ -27,7 +27,7 @@ Tetrimino::~Tetrimino()
 
 bool Tetrimino::moveLeft(Board* myBoard)
 {
-  if ( getDimension( xMin, blocks ) > 0 && !myBoard->checkBlockCollision( this, left ) )
+  if ( getDimension( xMin, blocks ) > 0 && !myBoard->checkMoveCollision( this, left ) )
   {
     for ( int b = 0; b < 4; b++ )
     {
@@ -40,7 +40,7 @@ bool Tetrimino::moveLeft(Board* myBoard)
 
 bool Tetrimino::moveRight(Board* myBoard)
 {
-  if ( getDimension( xMax, blocks ) < 9 && !myBoard->checkBlockCollision( this, right ) )
+  if ( getDimension( xMax, blocks ) < 9 && !myBoard->checkMoveCollision( this, right ) )
   {
     for ( int b = 0; b < 4; b++ )
     {
@@ -53,7 +53,7 @@ bool Tetrimino::moveRight(Board* myBoard)
 
 bool Tetrimino::moveDown(Board* myBoard)
 {
-  if ( getDimension( yMax, blocks ) < 21 && !myBoard->checkBlockCollision( this, down ) )
+  if ( getDimension( yMax, blocks ) < 21 && !myBoard->checkMoveCollision( this, down ) )
   {
     for ( int b = 0; b < 4; b++ )
     {
@@ -72,8 +72,6 @@ void Tetrimino::hardDrop(Board* myBoard, int& score )
 
 void Tetrimino::spawn(int type)
 {
-  //randomize the Tetrimino chosen
-  //int rando = (random() % 7 + 1);
   
   //cout<<"Tetrimino spawn type: "<<type<<"\n";
   switch ( type ) {
@@ -129,10 +127,13 @@ void Tetrimino::spawn(int type)
   }
 }
 
-void Tetrimino::rotate(string dir)
+void Tetrimino::rotate(string dir, Board* myBoard)
 {
   int pX, pY, translateX, translateY, originalX, originalY, rotatedX, rotatedY;
   double PI = 4.0*atan(1.0);
+  bool rotationFailed = false; // create a flag for testing rotate collision
+  
+  std::vector<Block> rPieces;
   
   if ( pieces[0].blockType != 4) // no need to rotate the O piece
   {
@@ -164,13 +165,11 @@ void Tetrimino::rotate(string dir)
       
         rotatedX += pX;
         rotatedY += pY;
-        pieces[i].box.x = rotatedX;
-        pieces[i].box.y = rotatedY;
+        
+        rPieces.push_back(Block(rotatedX / 16, rotatedY / 16, pieces[i].blockType));
       }
-      // cout<<"rotated X: "<<rotatedX<<endl;
-      // cout<<"rotated Y: "<<rotatedY<<endl;
     
-    
+      
     } else if ( dir == "right" ){
       for ( int i = 0; i < 4; i++)
       {
@@ -184,13 +183,36 @@ void Tetrimino::rotate(string dir)
         
         rotatedX += pX;
         rotatedY += pY;
-        pieces[i].box.x = rotatedX;
-        pieces[i].box.y = rotatedY;
+        
+        rPieces.push_back(Block(rotatedX / 16, rotatedY / 16, pieces[i].blockType));
+  
       }
-      // cout<<"rotated X: "<<rotatedX<<endl;
-      // cout<<"rotated Y: "<<rotatedY<<endl;
+      
       
     }
+    
+    // check if any of the blocks in their rotated form would cause collision
+    for ( int i = 0; i < rPieces.size(); i++ )
+    {
+      if ( myBoard->checkBlockCollision( rPieces[i] ) )
+      {
+        rotationFailed = true;
+        cout<<"Rotation failed!"<<endl;
+      }
+    }
+    
+    // as long as the rotation didn't fail due to collision detection, update the tetrimino pieces with the rotated pieces data
+    if ( rotationFailed == false )
+    {
+      for ( int i = 0; i < pieces.size(); i++ )
+      {
+        pieces[i].box.x = rPieces[i].box.x;
+        pieces[i].box.y = rPieces[i].box.y;
+      }
+    }
+    
+    rPieces.clear();
+    
   }
 }
 
@@ -228,13 +250,13 @@ int Tetrimino::getPixelWidth()
   // get x values
   for ( int b = 0; b < 4; b++ )
   {
-    xValues.push_back(pieces[b].box.x);
+    xValues.push_back(pieceOrigins[b].box.x);
   }
   
   // sort in Descending Order
   bubbleSort( xValues );
   // return adjusted width (add 16 to the largest value)
-  return ((xValues[3] + 16) - xValues[0]);
+  return ( ( xValues.back() + 16 ) - xValues.front() );
 
 }
 
@@ -243,17 +265,17 @@ int Tetrimino::getPixelHeight()
   if ( pieces.size() == 0 ) return 0;
   
   vector <int> yValues;
-  // get x values
+  // get y values
   for ( int b = 0; b < 4; b++ )
   {
-    yValues.push_back(pieces[b].box.y);
+    yValues.push_back(pieceOrigins[b].box.y);
   }
   
   // sort in Descending Order
   bubbleSort(yValues);
   
   // return adjusted width (add 16 to the largest value)
-  return ((yValues[3] + 16) - yValues[0]);
+  return ((yValues.back() + 16) - yValues.front());
 }
 
 int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest position to the left on our board

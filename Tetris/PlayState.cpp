@@ -374,7 +374,15 @@ void PlayState::drawNextTetrimino(GameEngine* game, int whichTetrimino)
   
   for ( int i = 0; i < 4; i++)
   {
-    drawBlock( game, nTetrimino->pieceOrigins[i], next, xOffset, yOffset + (whichTetrimino * 56));
+    // crude monkeypatch for the O piece display. No idea why it is insisting on displaying +16 pixels to the right than it should be
+    if ( nTetrimino->pieceOrigins[i].blockType == 4 )
+    {
+      drawBlock( game, nTetrimino->pieceOrigins[i], next, xOffset - 16, yOffset + (whichTetrimino * 56));
+    }
+    else
+    {
+      drawBlock( game, nTetrimino->pieceOrigins[i], next, xOffset, yOffset + (whichTetrimino * 56));
+    }
   }
   delete(nTetrimino);
 }
@@ -384,9 +392,19 @@ void PlayState::drawHeldTetrimino(GameEngine* game)
   int xOffset = ( CONTAINER_WIDTH - hTetrimino->getPixelWidth() ) / 2;
   int yOffset = ( CONTAINER_HEIGHT - hTetrimino->getPixelHeight() ) / 2;
   
+
+  
   for ( int i = 0; i < hTetrimino->pieceOrigins.size(); i++)
   {
-    drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset, yOffset );
+    // crude monkeypatch for the O piece display. No idea why it is insisting on displaying +16 pixels to the right than it should be
+    if ( hTetrimino->pieceOrigins[i].blockType == 4 )
+    {
+      drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset - 16, yOffset );
+    }
+    else
+    {
+      drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset, yOffset );
+    }
   }
 }
 
@@ -461,11 +479,11 @@ void PlayState::movementInput()
         break;
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
-        aTetrimino->rotate("left");
+        aTetrimino->rotate("left", myBoard);
         break;
       case SDLK_UP: // Rotate Right
       case SDLK_x:  // Rotate Right
-        aTetrimino->rotate("right");
+        aTetrimino->rotate("right", myBoard);
         break;
       case SDLK_SPACE:
         aTetrimino->hardDrop(myBoard, score);
