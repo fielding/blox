@@ -394,7 +394,7 @@ bool PlayState::isGameOver()
 {
   for ( int w = 0; w < BOARD_BLOCK_WIDTH; w++ )
   {
-    if (myBoard->mBoard[w][0] != 0) { return true; }
+    if (myBoard->mBoard[w][2] != 0) { return true; }
   }
   
   return false;
