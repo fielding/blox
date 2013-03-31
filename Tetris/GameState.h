@@ -18,7 +18,7 @@ public:
   virtual void Cleanup() = 0;
   
   virtual void Pause() = 0;
-  virtual void Resume() =0;
+  virtual void Resume() = 0;
   
   virtual void HandleEvents( GameEngine* game ) = 0;
   virtual void Update( GameEngine* game ) = 0;

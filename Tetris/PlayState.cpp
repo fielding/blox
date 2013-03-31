@@ -479,11 +479,11 @@ void PlayState::movementInput()
         break;
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
-        aTetrimino->rotate("left", myBoard);
+        aTetrimino->rotate(left, myBoard);
         break;
       case SDLK_UP: // Rotate Right
       case SDLK_x:  // Rotate Right
-        aTetrimino->rotate("right", myBoard);
+        aTetrimino->rotate(right, myBoard);
         break;
       case SDLK_SPACE:
         aTetrimino->hardDrop(myBoard, score);

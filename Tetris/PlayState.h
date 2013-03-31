@@ -103,6 +103,7 @@ private:
   enum GameState { Menu, Playing, GameOver, Paused };
   char *gameStateNames[4] = { "Menu", "Playing", "GameOver", "Paused" };
   enum type_t { active, fixed, next, held, ghost };
+  enum direction_t { left, right, down };
 
   // Variables
   bool justStarted = false;

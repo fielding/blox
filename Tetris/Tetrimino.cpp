@@ -17,6 +17,8 @@ Tetrimino::Tetrimino(bool fill, int type)
   // Setup Initial Tetrimino and store it in Next Container (not visible yet)
   if (fill) spawn(type);    // only fill the pieces if bool fill = true
   // TODO: add system to prevent the first active tetrimino and the first next tetrimino from being the same
+  rotationsLeft = 0;
+  rotationsRight = 0;
 }
 
 Tetrimino::~Tetrimino()
@@ -83,15 +85,15 @@ void Tetrimino::spawn(int type)
       pieceOrigins = pieces;
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      pieces.push_back(Block(5, 2, 2));  // put the pivot block first
+      pieces.push_back(Block(4, 3, 2));  // put the pivot block first
+      pieces.push_back(Block(3, 3, 2));  
       pieces.push_back(Block(3, 2, 2));
-      pieces.push_back(Block(4, 2, 2));
       pieces.push_back(Block(5, 3, 2));
       pieceOrigins = pieces;
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      pieces.push_back(Block(3, 2, 3));  // put the pivot block first
-      pieces.push_back(Block(4, 2, 3));
+      pieces.push_back(Block(4, 3, 3)); // put the pivot block first
+      pieces.push_back(Block(5, 3, 3));  
       pieces.push_back(Block(5, 2, 3));
       pieces.push_back(Block(3, 3, 3));
       pieceOrigins = pieces;
@@ -127,7 +129,7 @@ void Tetrimino::spawn(int type)
   }
 }
 
-void Tetrimino::rotate(string dir, Board* myBoard)
+void Tetrimino::rotate(int direction, Board* myBoard)
 {
   int pX, pY, translateX, translateY, originalX, originalY, rotatedX, rotatedY;
   double PI = 4.0*atan(1.0);
@@ -152,7 +154,7 @@ void Tetrimino::rotate(string dir, Board* myBoard)
     }
   
 
-    if( dir == "left" ){
+    if( direction == right ){
       for ( int i = 0; i < 4; i++)
       {
         originalX = pieces[i].box.x;
@@ -170,7 +172,7 @@ void Tetrimino::rotate(string dir, Board* myBoard)
       }
     
       
-    } else if ( dir == "right" ){
+    } else if ( direction == left ){
       for ( int i = 0; i < 4; i++)
       {
         originalX = pieces[i].box.x;
@@ -197,7 +199,6 @@ void Tetrimino::rotate(string dir, Board* myBoard)
       if ( myBoard->checkBlockCollision( rPieces[i] ) )
       {
         rotationFailed = true;
-        cout<<"Rotation failed!"<<endl;
       }
     }
     
@@ -209,11 +210,169 @@ void Tetrimino::rotate(string dir, Board* myBoard)
         pieces[i].box.x = rPieces[i].box.x;
         pieces[i].box.y = rPieces[i].box.y;
       }
+      
+      if (direction == right ) rotationsRight++;
+      if (direction == left ) rotationsLeft++;
+      
     }
-    
+    // if the rotation did fail then check if there are any suitable wall kick positions
+    else
+    {
+      // attempt a wallkick
+      if ( wallKick( rPieces, myBoard, direction ) )
+      {
+        cout<<"applying wallKick!!"<<endl;
+        for ( int i = 0; i < pieces.size(); i++ )
+        {
+          pieces[i].box.x = rPieces[i].box.x;
+          pieces[i].box.y = rPieces[i].box.y;
+        }
+        
+        if (direction == right ) rotationsRight++;
+        if (direction == left ) rotationsLeft++;
+      }
+    }
+    // clear the rPieces vector so it can be used again
     rPieces.clear();
     
   }
+}
+
+int Tetrimino::getCurrentRotationState()
+{
+  //cout<<"rotationsRight: "<<rotationsRight<<" rotationsLeft: "<<rotationsLeft<<" curState: "<< (rotationsRight - rotationsLeft ) % 4 << endl;
+  return ( rotationsRight - rotationsLeft ) % 4;
+}
+
+bool Tetrimino::wallKickTest( int stateTransition, std::vector<Block>& rPieces, Board* myBoard, bool isI )
+{
+  bool failed = false;
+  
+  if ( isI == true )  // if we are testing kicks for I
+  {
+    
+    for ( int i = 0; i < 4; i++ ) // for each test
+    {
+      //cout<<"testing wallKickTestsI["<<stateTransition<<"]["<<i<<"]: "<< wallKickTestsI[stateTransition][i].x <<","<< wallKickTestsI[stateTransition][i].y <<endl;
+      failed = false;
+      // create testPiece based on rPieces
+      for ( int b = 0; b < 4; b++ )
+      {
+        if ( myBoard->checkBlockCollision( Block( ( rPieces[b].box.x / 16 ) + ( wallKickTestsI[stateTransition][i].x), ( rPieces[b].box.y / 16 ) + ( wallKickTestsI[stateTransition][i].y), rPieces[b].blockType ) ) )
+        {
+          failed = true;
+        }
+      }
+      
+      if ( failed == false )
+      {
+        // this test fully passed, return true
+        for ( int b = 0; b < 4; b++ )
+        {
+          rPieces[b].box.x += ( wallKickTestsI[stateTransition][i].x * 16 );
+          rPieces[b].box.y += ( wallKickTestsI[stateTransition][i].y * 16 );
+        }
+        cout<<"Found a suitable wall kick!"<<endl;
+        return true;
+      }
+    }
+    
+    
+  }
+  else
+  {    // if we are testing kicks for any piece other than I
+  
+  
+    for ( int i = 0; i < 4; i++ ) // for each test
+    {
+      //cout<<"testing wallKickTests["<<stateTransition<<"]["<<i<<"]: "<< wallKickTests[stateTransition][i].x <<","<< wallKickTests[stateTransition][i].y <<endl;
+      failed = false;
+      // create testPiece based on rPieces
+      for ( int b = 0; b < 4; b++ )
+      {
+        if ( myBoard->checkBlockCollision( Block( ( rPieces[b].box.x / 16 ) + ( wallKickTests[stateTransition][i].x), ( rPieces[b].box.y / 16 ) + ( wallKickTests[stateTransition][i].y), rPieces[b].blockType ) ) )
+        {
+          failed = true;
+        }
+      }
+      
+      if ( failed == false )
+      {
+        // this test fully passed, return true
+        for ( int b = 0; b < 4; b++ )
+        {
+          rPieces[b].box.x += ( wallKickTests[stateTransition][i].x * 16 );
+          rPieces[b].box.y += ( wallKickTests[stateTransition][i].y * 16 );
+        }
+        cout<<"Found a suitable wall kick!"<<endl;
+        return true;
+      }
+    }
+    
+  }
+  
+return false;
+}
+
+
+bool Tetrimino::wallKick( std::vector<Block>& rPieces, Board* myBoard, int direction )
+{
+  // for J, L, S, T, Z Tetromino do these tests
+  int curState = getCurrentRotationState();
+  
+  
+  
+  
+  // determine which rotation state the piece is trying
+     switch ( direction )
+  {
+    
+    case right:
+      switch ( curState )
+      {
+      case 0:   // 0->R
+          if ( wallKickTest( 0, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+          break;
+      case 1:   // R->2
+          if ( wallKickTest( 2, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+          break;
+      case 2:   // 2->L
+          if ( wallKickTest( 4, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+          break;
+      case 3:   // L->0
+          if ( wallKickTest( 6, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+          break;
+      }
+      break;
+    
+    case left:
+      switch ( curState )
+      {
+      case 0:   // 0->L
+         if ( wallKickTest( 7, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+        break;
+      case 1:   // L->2
+         if ( wallKickTest( 5, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+        break;
+      case 2:   // 2->R
+        if ( wallKickTest( 3, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+        break;
+      case 3:   // R->0
+        if ( wallKickTest( 1, rPieces, myBoard, (rPieces[0].blockType == 1) ) ) return true;
+        break;
+      }
+    break;
+  }
+
+  
+
+  // for I Tetromino do these tests
+  
+    // determine which rotation state the piece is trying
+  
+      // run tests 2-5
+  
+  
 }
 
 void Tetrimino::resetPosition(){

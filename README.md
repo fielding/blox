@@ -3,7 +3,6 @@
 
 ### Todo
 * Holding down movement keys
-* Wall kicks!
 * Audio
 * “Juice”
 
