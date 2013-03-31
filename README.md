@@ -4,7 +4,6 @@
 
 
 ### Todo
-* Score system/Displaying score
 * Holding down movement keys
 * Wall kicks!
 
