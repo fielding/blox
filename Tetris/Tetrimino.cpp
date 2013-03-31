@@ -53,7 +53,7 @@ bool Tetrimino::moveRight(Board* myBoard)
 
 bool Tetrimino::moveDown(Board* myBoard)
 {
-  if ( getDimension( yMax, blocks ) < 19 && !myBoard->checkBlockCollision( this, down ) )
+  if ( getDimension( yMax, blocks ) < 21 && !myBoard->checkBlockCollision( this, down ) )
   {
     for ( int b = 0; b < 4; b++ )
     {
@@ -78,52 +78,52 @@ void Tetrimino::spawn(int type)
   //cout<<"Tetrimino spawn type: "<<type<<"\n";
   switch ( type ) {
     case 1:   // I piece, blockType = 1 (cyan)
-      pieces.push_back(Block(4, 0, 1));  // put the pivot block first
-      pieces.push_back(Block(3, 0, 1));
-      pieces.push_back(Block(5, 0, 1));
-      pieces.push_back(Block(6, 0, 1));
+      pieces.push_back(Block(4, 2, 1));  // put the pivot block first
+      pieces.push_back(Block(3, 2, 1));
+      pieces.push_back(Block(5, 2, 1));
+      pieces.push_back(Block(6, 2, 1));
       pieceOrigins = pieces;
       break;
     case 2:   // J piece, blockType = 2 (blue)
-      pieces.push_back(Block(5, 0, 2));  // put the pivot block first
-      pieces.push_back(Block(3, 0, 2));
-      pieces.push_back(Block(4, 0, 2));
-      pieces.push_back(Block(5, 1, 2));
+      pieces.push_back(Block(5, 2, 2));  // put the pivot block first
+      pieces.push_back(Block(3, 2, 2));
+      pieces.push_back(Block(4, 2, 2));
+      pieces.push_back(Block(5, 3, 2));
       pieceOrigins = pieces;
       break;
     case 3:   // L piece, blockType = 3 (orange)
-      pieces.push_back(Block(3, 0, 3));  // put the pivot block first
-      pieces.push_back(Block(4, 0, 3));
-      pieces.push_back(Block(5, 0, 3));
-      pieces.push_back(Block(3, 1, 3));
+      pieces.push_back(Block(3, 2, 3));  // put the pivot block first
+      pieces.push_back(Block(4, 2, 3));
+      pieces.push_back(Block(5, 2, 3));
+      pieces.push_back(Block(3, 3, 3));
       pieceOrigins = pieces;
       break;
     case 4:   // O piece, blockType = 4 (yellow)
-      pieces.push_back(Block(4, 0, 4)); 
-      pieces.push_back(Block(5, 0, 4));
-      pieces.push_back(Block(4, 1, 4));
-      pieces.push_back(Block(5, 1, 4));
+      pieces.push_back(Block(4, 2, 4));
+      pieces.push_back(Block(5, 2, 4));
+      pieces.push_back(Block(4, 3, 4));
+      pieces.push_back(Block(5, 3, 4));
       pieceOrigins = pieces;
       break;
     case 5:   // S piece, blockType = 5 (green)
-      pieces.push_back(Block(4, 1, 5));
-      pieces.push_back(Block(4, 0, 5));
-      pieces.push_back(Block(5, 0, 5));
-      pieces.push_back(Block(3, 1, 5));
+      pieces.push_back(Block(4, 3, 5));
+      pieces.push_back(Block(4, 2, 5));
+      pieces.push_back(Block(5, 2, 5));
+      pieces.push_back(Block(3, 3, 5));
       pieceOrigins = pieces;
       break;
     case 6:   // T piece, blockType = 6 (purple)
-      pieces.push_back(Block(4, 1, 6));
-      pieces.push_back(Block(4, 0, 6));
-      pieces.push_back(Block(3, 1, 6));
-      pieces.push_back(Block(5, 1, 6));
+      pieces.push_back(Block(4, 3, 6));
+      pieces.push_back(Block(4, 2, 6));
+      pieces.push_back(Block(3, 3, 6));
+      pieces.push_back(Block(5, 3, 6));
       pieceOrigins = pieces;
       break;
     case 7:   // Z piece, blockType = 7 (red)
-      pieces.push_back(Block(4, 1, 7));
-      pieces.push_back(Block(3, 0, 7));
-      pieces.push_back(Block(4, 0, 7));
-      pieces.push_back(Block(5, 1, 7));
+      pieces.push_back(Block(4, 3, 7));
+      pieces.push_back(Block(3, 2, 7));
+      pieces.push_back(Block(4, 2, 7));
+      pieces.push_back(Block(5, 3, 7));
       pieceOrigins = pieces;
       break;
   }

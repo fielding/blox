@@ -207,7 +207,8 @@ void PlayState::drawActiveTetrimino(GameEngine* game)
 {
   for ( int i = 0; i < 4; i++)
   {
-    if (aTetrimino->pieces[i].box.y >= 0) {
+    // check if the block is on the visible board ( the top 2 blocks on the board are not visible )
+    if (aTetrimino->pieces[i].box.y >= (2 * BLOCK_SIZE) ) {
       drawBlock(game, aTetrimino->pieces[i], active);
     }
   }
@@ -299,7 +300,7 @@ void PlayState::drawBoard(GameEngine* game)
 {
   for ( int x = 0; x < BOARD_WIDTH / BLOCK_SIZE; x++ )
   {
-    for ( int y = 0; y < BOARD_HEIGHT / BLOCK_SIZE; y++ )
+    for ( int y = 2; y < BOARD_HEIGHT / BLOCK_SIZE; y++ )
     {
       // If block is empty then use a board tile
       if ( myBoard->mBoard[x][y] == 0 )

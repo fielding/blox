@@ -18,12 +18,12 @@ const int FRAMES_PER_SECOND = 30;
 
 const int BLOCK_SIZE = 16;    // Block size in pixels
 const int BOARD_BLOCK_WIDTH = 10;   // Board width in blocks
-const int BOARD_BLOCK_HEIGHT = 20;  // Board height in blocks
+const int BOARD_BLOCK_HEIGHT = 22;  // Board height in blocks
 const int BOARD_WIDTH = BOARD_BLOCK_WIDTH * BLOCK_SIZE;   // Board width in pixels
 const int BOARD_HEIGHT = BOARD_BLOCK_HEIGHT * BLOCK_SIZE;   // Board height in pixels
 
 const int BOARD_ORIGIN_X = 136;   // X-origin position the board appears on the screen
-const int BOARD_ORIGIN_Y = 64;   // Y-origin position the board appears on the screen
+const int BOARD_ORIGIN_Y = 32;   // Y-origin position the board appears on the screen
 
 const int NC_ORIGIN_X = BOARD_ORIGIN_X + 176;    // X-origin for the next container
 const int NC_ORIGIN_Y = BOARD_ORIGIN_Y + 31;   // Y-origin for the next container
