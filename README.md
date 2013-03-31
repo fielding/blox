@@ -2,6 +2,8 @@
 ## A Tetronimo game
 
 ### Todo
+* Finish menuState
+* Increase forcetime based on level in marathon mode
 * Holding down movement keys
 * Audio
 * “Juice”

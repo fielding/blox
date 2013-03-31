@@ -41,21 +41,13 @@ void GameOverState::HandleEvents( GameEngine* game)
 			case SDL_QUIT:
 				game->Quit();
 				break;
-        
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
-          case SDLK_RETURN:
-            game->ChangeState( PlayState::Instance() );
-            break;
-				}
-				break;
 		}
 	}
 }
 
 void GameOverState::Update( GameEngine* game)
 {
-  
+  game->PushState( MenuState::Instance() );
 }
 
 void GameOverState::Draw( GameEngine* game )
