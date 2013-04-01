@@ -26,10 +26,10 @@ void PlayState::Init( GameEngine* game )
   queue.clear(); // make sure the queue is clear from any previous gamestate
   fillQueue();  // fill the tetrmino queue
   nextTetrimino();  // callling this initially to get the first active Tetrimino
-  
-  
-  IAudio *audio = Locator::getAudio();
-  audio->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);
+
+  Locator::getAudio()->setMusicVolume( 60 );
+  Locator::getAudio()->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);
+  cout<<Locator::getAudio()->getMusicVolume()<<endl;
   
   //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   

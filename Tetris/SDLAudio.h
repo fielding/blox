@@ -26,6 +26,9 @@ public:
   void playSong ( std::string filename, int looping = 0 );
   void stopAllSounds ( );
 
+  void setMusicVolume ( int volAsPercent );  // set the music volume by percent
+  int  getMusicVolume ( ); // return the current music volume as a percent
+  
   bool isSoundPlaying ( );
   bool isSongPlaying ( );
 

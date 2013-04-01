@@ -71,6 +71,7 @@ void Tetrimino::hardDrop(Board* myBoard, int& score )
 {
   // Move down until it can't anymore
   while(moveDown(myBoard)) score += 2;  // HardDrops are worth ( number of lines they dropped * 2 ) points
+  Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/harddrop.wav", 0);
 }
 
 void Tetrimino::spawn(int type)

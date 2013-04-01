@@ -19,6 +19,9 @@ public:
   virtual void playSong( std::string filename, int looping ) = 0;
   virtual void stopAllSounds() = 0;
   
+  virtual void setMusicVolume ( int volAsPercent ) =0;
+  virtual int  getMusicVolume ( ) = 0;
+  
   virtual bool isSoundPlaying() = 0;
   virtual bool isSongPlaying() = 0;
   
