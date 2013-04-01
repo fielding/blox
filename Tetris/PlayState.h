@@ -29,6 +29,7 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "SDL_image.h"
+#include "SDL_mixer.h"
 
 class PlayState : public GameState
 {
@@ -56,7 +57,7 @@ private:
   
   Board* myBoard;
   
-  Bag bag;
+  Bag* bag;
   
   Tetrimino* aTetrimino;
   Tetrimino* nTetrimino;
@@ -70,6 +71,7 @@ private:
   Timer playTimer;
   Timer fps;
   Timer update;
+  
   
   SDL_Event event;
   
@@ -90,13 +92,11 @@ private:
   SDL_Surface *ghostBlock = NULL;
   
   // Message Surfaces
-
   
   // default font, font fg color and font bg color
   TTF_Font *font = NULL;
   SDL_Color fontFgColor = { 255, 255, 255 };
   SDL_Color fontBgColor = { 13, 13, 13 };
-
   
   // Enum
   

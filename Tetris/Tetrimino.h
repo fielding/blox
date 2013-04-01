@@ -15,6 +15,7 @@
 
 using namespace std;
 
+class GameEngine;
 class Board;
 class Block;
 
@@ -55,6 +56,7 @@ public:
   
   
 private:
+  GameEngine* engine;
   Coords wallKickTests[8][4]= {
     { {-1,0},{-1,-1},{0,2},{-1,2} },
     { {1,0},{1,1},{0,-2},{1,-2} },

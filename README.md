@@ -20,8 +20,7 @@
 ### Bugs
 * Rotation ignores block collision
 * Rotation ignores left, right and bottom board boundaries.
-* Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState and GameOverState. Might look in to fixing the redraw issue later.
-* First Tetrimino seems to be ignoring the random generation algorithm, or getting around it some how... need to look in to and do analysis on the random generation of the tetrominos.
+* Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later.
 
 ## Game Play
 

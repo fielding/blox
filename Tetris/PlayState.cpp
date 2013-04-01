@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "PlayState.h"
+#include "SDL.h"
 
 using namespace std;
 
@@ -17,14 +18,20 @@ PlayState PlayState::playstate;
 void PlayState::Init( GameEngine* game )
 {
   loadAssets( game );
-  
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
-  Bag bag;
+  bag = new Bag;
   
   hTetrimino = new Tetrimino(false, 0);  // create hTetrimino, but don't spawn blocks yet
   
+  queue.clear(); // make sure the queue is clear from any previous gamestate
   fillQueue();  // fill the tetrmino queue
   nextTetrimino();  // callling this initially to get the first active Tetrimino
+  
+  
+  IAudio *audio = Locator::getAudio();
+  audio->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);
+  
+  //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   
   
   cout<<"PlayState Init"<<endl;
@@ -38,6 +45,7 @@ void PlayState::Init( GameEngine* game )
   forceTime = 1000;   // slowpoke force time
   startTime = playTimer.get_ticks();
   
+
   
  /* 
       // Start frame timer and play timer
@@ -436,7 +444,6 @@ bool PlayState::loadAssets( GameEngine* game )
   
   boardTile = game->load_image( "Tetris.app/Contents/Resources/img/boardtile.png" );
   boardOutline = game->load_image( "Tetris.app/Contents/Resources/img/boardoutline.png" );
-  
   /*
    if ( boardOutline == NULL )
    {
@@ -638,14 +645,14 @@ void PlayState::nextTetrimino()
   
   aTetrimino = new Tetrimino( true, queue.front() );
   queue.pop_front();
-  queue.push_back( bag.getNextPiece() );
+  queue.push_back( bag->getNextPiece() );
   
 }
 
 void PlayState::fillQueue()
 {
   for ( int i = 0; i < 5; i++ ){
-    queue.push_back( bag.getNextPiece() );
+    queue.push_back( bag->getNextPiece() );
   }
 }
 

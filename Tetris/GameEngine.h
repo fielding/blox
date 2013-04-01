@@ -9,7 +9,10 @@
 #ifndef __Tetris__GameEngine__
 #define __Tetris__GameEngine__
 
+#include "IAudio.h"
+#include "Locator.h"
 #include "SDL.h"
+#include "SDL_mixer.h"
 #include <vector>
 
 class GameState;

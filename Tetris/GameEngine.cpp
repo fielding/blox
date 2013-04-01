@@ -10,7 +10,7 @@
 
 #include "GameEngine.h"
 #include "GameState.h"
-
+#include "SDLAudio.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "SDL_image.h"
@@ -32,6 +32,10 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   {
     std::cout<<"Failed to initialize the SDL Font library"<<std::endl;
   }
+  
+  SDLAudio *audio = new SDLAudio();
+  Locator::provide(audio);
+  
   
   // Set the window caption
   SDL_WM_SetCaption( title, title );
@@ -71,7 +75,6 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   
   std::cout<<"GameEngine Init"<<std::endl;
   
-
 }
 
 void GameEngine::Cleanup()

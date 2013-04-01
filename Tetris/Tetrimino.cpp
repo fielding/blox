@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Fielding Johnston. All rights reserved.
 //
 
+#include "GameEngine.h"
 #include "Tetrimino.h"
 #include "Board.h"
 #include "Block.h"
@@ -189,8 +190,6 @@ void Tetrimino::rotate(int direction, Board* myBoard)
         rPieces.push_back(Block(rotatedX / 16, rotatedY / 16, pieces[i].blockType));
   
       }
-      
-      
     }
     
     // check if any of the blocks in their rotated form would cause collision
@@ -317,14 +316,9 @@ return false;
 
 bool Tetrimino::wallKick( std::vector<Block>& rPieces, Board* myBoard, int direction )
 {
-  // for J, L, S, T, Z Tetromino do these tests
   int curState = getCurrentRotationState();
   
-  
-  
-  
-  // determine which rotation state the piece is trying
-     switch ( direction )
+  switch ( direction )
   {
     
     case right:
@@ -362,17 +356,10 @@ bool Tetrimino::wallKick( std::vector<Block>& rPieces, Board* myBoard, int direc
         break;
       }
     break;
+    default:
+      return false;
+      break;
   }
-
-  
-
-  // for I Tetromino do these tests
-  
-    // determine which rotation state the piece is trying
-  
-      // run tests 2-5
-  
-  
 }
 
 void Tetrimino::resetPosition(){
