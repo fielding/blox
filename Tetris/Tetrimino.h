@@ -38,7 +38,7 @@ public:
   // public functions
   bool moveLeft(Board* myBoard);
   bool moveRight(Board* myBoard);
-  bool moveDown(Board* myBoard);
+  bool moveDown(Board* myBoard, bool gravity);
   void hardDrop(Board* myBoard, int& score);
   void rotate(int direction, Board* myBoard);
   void spawn(int type);
@@ -57,7 +57,8 @@ public:
   
 private:
   GameEngine* engine;
-  Coords wallKickTests[8][4]= {
+  Coords wallKickTests[8][4]=
+  {
     { {-1,0},{-1,-1},{0,2},{-1,2} },
     { {1,0},{1,1},{0,-2},{1,-2} },
     { {1,0},{1,1},{0,-2},{1,-2} },
@@ -68,7 +69,8 @@ private:
     { {1,0},{1,-1},{0,2},{1,2} },
   };
   
-  Coords wallKickTestsI[8][4]= {
+  Coords wallKickTestsI[8][4] =
+  {
     { {-2,0},{1,0},{-2,1},{1,-2} },
     { {2,0},{-1,0},{2,-1},{-1,2} },
     { {-1,0},{2,0},{-1,-2},{2,1} },

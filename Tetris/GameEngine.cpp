@@ -35,8 +35,10 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   
   SDLAudio *audio = new SDLAudio();
   Locator::provide(audio);
-  
-  
+  Locator::getAudio()->setChannelVolume( 1, 25 ); // Set the volume of channel 1
+  Locator::getAudio()->setChannelVolume( 2, 50 ); // Set the volume of channel 1
+  Locator::getAudio()->setChannelVolume( 3, 75 ); // Set the volume of channel 1
+  Locator::getAudio()->setChannelVolume( 4, 100 ); // Set the volume of channel 1
   // Set the window caption
   SDL_WM_SetCaption( title, title );
   

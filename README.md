@@ -3,11 +3,12 @@
 
 ### Todo
 * Finish menuState
-* Increase forcetime based on level in marathon mode
 * Holding down movement keys
 * Audio
 * “Juice”
 * T-Spin scoring
+* Analyze the forcetime increments per level (too fast or too slow)
+* Lock delay
 
 ### Consider
 * Changing playTimer (timer that is displayed as part of the UI) to a float

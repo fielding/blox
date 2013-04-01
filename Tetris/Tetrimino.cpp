@@ -36,6 +36,7 @@ bool Tetrimino::moveLeft(Board* myBoard)
     {
       pieces[b].box.x -= 1 * BLOCK_SIZE;
     }
+    Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/tmove.wav", 1);
     return true;
   }
   return false;
@@ -49,12 +50,13 @@ bool Tetrimino::moveRight(Board* myBoard)
     {
       pieces[b].box.x += 1 * BLOCK_SIZE;;
     }
+    Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/tmove.wav", 1);
     return true;
   }
   return false;
 }
 
-bool Tetrimino::moveDown(Board* myBoard)
+bool Tetrimino::moveDown(Board* myBoard, bool gravity)
 {
   if ( getDimension( yMax, blocks ) < 21 && !myBoard->checkMoveCollision( this, down ) )
   {
@@ -62,6 +64,7 @@ bool Tetrimino::moveDown(Board* myBoard)
     {
       pieces[b].box.y += 1 * BLOCK_SIZE;
     }
+    if ( gravity == false) Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/tmove.wav", 1);
     return true;
   }
   return false;
@@ -70,8 +73,8 @@ bool Tetrimino::moveDown(Board* myBoard)
 void Tetrimino::hardDrop(Board* myBoard, int& score )
 {
   // Move down until it can't anymore
-  while(moveDown(myBoard)) score += 2;  // HardDrops are worth ( number of lines they dropped * 2 ) points
-  Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/harddrop.wav", 0);
+  while(moveDown(myBoard, true)) score += 2;  // HardDrops are worth ( number of lines they dropped * 2 ) points
+  Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/harddrop.wav", 3);
 }
 
 void Tetrimino::spawn(int type)
@@ -211,6 +214,7 @@ void Tetrimino::rotate(int direction, Board* myBoard)
         pieces[i].box.y = rPieces[i].box.y;
       }
       
+      Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/trotate.wav", 2);
       if (direction == right ) rotationsRight++;
       if (direction == left ) rotationsLeft++;
       
@@ -230,6 +234,7 @@ void Tetrimino::rotate(int direction, Board* myBoard)
         
         if (direction == right ) rotationsRight++;
         if (direction == left ) rotationsLeft++;
+        Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/trotate.wav", 2);
       }
     }
     // clear the rPieces vector so it can be used again

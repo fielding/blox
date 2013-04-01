@@ -28,10 +28,10 @@ SDLAudio::~SDLAudio()
   Mix_CloseAudio();
 }
 
-void SDLAudio::playSound( std::string filename, int looping )
+void SDLAudio::playSound( std::string filename, int channel, int looping )
 {
   sound = Mix_LoadWAV ( filename.c_str() );
-  Mix_PlayChannel( -1, sound, looping);
+  Mix_PlayChannel( channel, sound, looping);
 }
 
 void SDLAudio::playSong(std::string filename, int looping )
@@ -60,6 +60,19 @@ int SDLAudio::getMusicVolume()
   return floor( ( Mix_VolumeMusic(-1) / 128.f ) * 100 );    // return the current music volume as a percent
 }
 
+void SDLAudio::setChannelVolume(int channel, int volAsPercent)
+{
+  
+  Mix_Volume(channel, ceil( MIX_MAX_VOLUME * ( volAsPercent / 100.f )) );  // set the music volume based on the percent passed to the method
+}
+
+int SDLAudio::getChannelVolume(int channel)
+{
+  
+  return floor( ( Mix_Volume(channel, -1 ) / 128.f ) * 100 );    // return the current music volume as a percent
+}
+
+
 bool SDLAudio::isSoundPlaying()
 {
   return true;
@@ -68,4 +81,18 @@ bool SDLAudio::isSoundPlaying()
 bool SDLAudio::isSongPlaying()
 {
   return true;
+}
+
+bool SDLAudio::toggleMusic()
+{
+  if ( Mix_PausedMusic() == 1 )
+  {
+    Mix_ResumeMusic();
+    return false;
+  }
+  else
+  {
+    Mix_PauseMusic();
+    return true;
+  }
 }

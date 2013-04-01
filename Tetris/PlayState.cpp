@@ -27,9 +27,8 @@ void PlayState::Init( GameEngine* game )
   fillQueue();  // fill the tetrmino queue
   nextTetrimino();  // callling this initially to get the first active Tetrimino
 
-  Locator::getAudio()->setMusicVolume( 60 );
-  Locator::getAudio()->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);
-  cout<<Locator::getAudio()->getMusicVolume()<<endl;
+  Locator::getAudio()->setMusicVolume( 40 );  // Set the volume
+  Locator::getAudio()->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);  // tetris theme, yeah buddy!
   
   //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   
@@ -137,7 +136,7 @@ void PlayState::Update( GameEngine* game )
   endTime = playTimer.get_ticks();
   if ( endTime - startTime > forceTime || forceLock )
   {
-    if (aTetrimino->moveDown(myBoard) & !forceLock )
+    if (aTetrimino->moveDown(myBoard, true) & !forceLock )
     {
       startTime = playTimer.get_ticks();
     }
@@ -236,7 +235,7 @@ void PlayState::drawGhostTetrimino( GameEngine* game )
   }
   
   // based on current piece configuration, determine hard drop location
-  while(gTetrimino->moveDown( myBoard ));   // changed this to avoid the score getting messed up by using hardDrop tetrimino function
+  while(gTetrimino->moveDown( myBoard, true ));   // changed this to avoid the score getting messed up by using hardDrop tetrimino function
   
   // draw ghostTetrimino at hard drop location
   for ( int i = 0; i < 4; i++ )
@@ -472,7 +471,7 @@ void PlayState::movementInput()
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:   // Soft Drop
-        aTetrimino->moveDown(myBoard);
+        aTetrimino->moveDown(myBoard, false);
         score++;  // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
         startTime = playTimer.get_ticks();  // lock delay, or more of an update delay if you are soft dropping
         break;
