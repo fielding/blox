@@ -69,7 +69,6 @@ private:
   
   Timer globalTimer;
   Timer playTimer;
-  Timer fps;
   Timer update;
   
   
@@ -161,6 +160,7 @@ private:
   bool lineIsFull( int y );
   void nextTetrimino();
   void storeTetrimino();
+  void reset();
   
 };
 

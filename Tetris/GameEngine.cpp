@@ -32,13 +32,18 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   {
     std::cout<<"Failed to initialize the SDL Font library"<<std::endl;
   }
-  
+
   SDLAudio *audio = new SDLAudio();
   Locator::provide(audio);
+  
+  // setting up some default audio settings
+  
   Locator::getAudio()->setChannelVolume( 1, 25 ); // Set the volume of channel 1
-  Locator::getAudio()->setChannelVolume( 2, 50 ); // Set the volume of channel 1
-  Locator::getAudio()->setChannelVolume( 3, 75 ); // Set the volume of channel 1
-  Locator::getAudio()->setChannelVolume( 4, 100 ); // Set the volume of channel 1
+  Locator::getAudio()->setChannelVolume( 2, 50 ); // Set the volume of channel 2
+  Locator::getAudio()->setChannelVolume( 3, 75 ); // Set the volume of channel 3
+  Locator::getAudio()->setChannelVolume( 4, 100 ); // Set the volume of channel 4
+  Locator::getAudio()->setMusicVolume( 40 );  // Set the music volume
+  
   // Set the window caption
   SDL_WM_SetCaption( title, title );
   
@@ -174,7 +179,6 @@ void GameEngine::HandleEvents()
 
 void GameEngine::Update()
 {
-  // let the state update the game
   states.back()->Update(this);
 }
 

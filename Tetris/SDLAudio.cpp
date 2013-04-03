@@ -72,27 +72,36 @@ int SDLAudio::getChannelVolume(int channel)
   return floor( ( Mix_Volume(channel, -1 ) / 128.f ) * 100 );    // return the current music volume as a percent
 }
 
+bool SDLAudio::isSongPlaying()
+{
+  return true;
+}
 
 bool SDLAudio::isSoundPlaying()
 {
   return true;
 }
 
-bool SDLAudio::isSongPlaying()
+bool SDLAudio::isSongPaused()
 {
-  return true;
+  if ( Mix_PausedMusic() == 1 ) return true;
+  
+  return false;
 }
 
-bool SDLAudio::toggleMusic()
+bool SDLAudio::isSoundPaused()
+{
+  return false;
+}
+
+void SDLAudio::toggleMusic()
 {
   if ( Mix_PausedMusic() == 1 )
   {
     Mix_ResumeMusic();
-    return false;
   }
   else
   {
     Mix_PauseMusic();
-    return true;
   }
 }

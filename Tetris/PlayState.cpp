@@ -27,8 +27,8 @@ void PlayState::Init( GameEngine* game )
   fillQueue();  // fill the tetrmino queue
   nextTetrimino();  // callling this initially to get the first active Tetrimino
 
-  Locator::getAudio()->setMusicVolume( 40 );  // Set the volume
-  Locator::getAudio()->playSong("Tetris.app/Contents/Resources/audio/tetris.ogg", -1);  // tetris theme, yeah buddy!
+
+  if ( !Locator::getAudio()->isSongPaused() ) Locator::getAudio()->playSong( "Tetris.app/Contents/Resources/audio/tetris.ogg", -1 );  // tetris theme, yeah buddy!
   
   //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   
@@ -36,53 +36,7 @@ void PlayState::Init( GameEngine* game )
   cout<<"PlayState Init"<<endl;
   
   // Do things needed to reset to a fresh "playstate"
-  
-  playTimer.start();
-  holdUsed = false;   // CONSIDER: Is this the best places for this??
-  score = 0;          // Reset score to 0
-  level = 1;          // Reset level to 1
-  forceTime = 1000;   // slowpoke force time
-  startTime = playTimer.get_ticks();
-  
-
-  
- /* 
-      // Start frame timer and play timer
-      fps.start();
-      // Game Loop: Events
-
-      
-
-      
-
-      
-      // Increment the frame counter
-      frame++;
-      
-      // If a second has passed since the fps caption was last updated
-      if( update.get_ticks() > 1000 )
-      {
-        // The frame rate as a string
-        stringstream caption;
-        
-        // Calculate the frame per second and create the string
-        caption << "Fielding's Tetris - Avg FPS: " << frame / ( globalTimer.get_ticks() / 1000.f );
-        
-        // Reset the caption
-        SDL_WM_SetCaption( caption.str().c_str(), NULL );
-        
-        // Restart the update timer
-        update.start();
-      }
-      
-      // If we want to cap the frame rate
-      if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
-      {
-        // Sleep the remaining time
-        SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
-      }
-  */
-  
+  reset();
 }
 
 void PlayState::Cleanup()
@@ -672,6 +626,9 @@ void PlayState::interfaceInput(GameEngine* game)
         case SDLK_p:
           game->PushState( PauseState::Instance() );
           break;
+        case SDLK_m:
+          Locator::getAudio()->toggleMusic();
+          break;
       }
       break;
   }
@@ -790,5 +747,15 @@ void PlayState::displayLevel( GameEngine* game, int lvl)
   SDL_FreeSurface( lvlSurface );
 }
 
+void PlayState::reset()
+{
+  playTimer.start();
+  holdUsed = false;   // CONSIDER: Is this the best places for this??
+  score = 0;          // Reset score to 0
+  level = 1;          // Reset level to 1
+  goal = 5;           // reset goal to 5
+  forceTime = 1000;   // slowpoke force time
+  startTime = playTimer.get_ticks();
+}
 
 

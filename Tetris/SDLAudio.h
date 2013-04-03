@@ -32,10 +32,14 @@ public:
   void setChannelVolume ( int channel, int volAsPercent );  // set the sound volume by percent
   int  getChannelVolume ( int channel ); // return the current sound volume as a percent
   
-  bool toggleMusic ( );   // returns true or false based on if the music was currently playing ( true if it was, false if it was muted );
+  void toggleMusic ( );   // returns true or false based on if the music was currently playing ( true if it was, false if it was muted );
   
-  bool isSoundPlaying ( );
   bool isSongPlaying ( );
+  bool isSoundPlaying ( );
+  
+  bool isSongPaused ( );
+  bool isSoundPaused ( );
+
   
 private:
   Mix_Chunk *sound;

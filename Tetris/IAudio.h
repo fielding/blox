@@ -25,10 +25,13 @@ public:
   virtual void setChannelVolume ( int channel, int volAsPercent ) = 0;
   virtual int  getChannelVolume ( int channel ) = 0;
   
-  virtual bool toggleMusic ( ) = 0;
+  virtual void toggleMusic ( ) = 0;
   
-  virtual bool isSoundPlaying() = 0;
   virtual bool isSongPlaying() = 0;
+  virtual bool isSoundPlaying() = 0;
+
+  virtual bool isSongPaused() = 0;
+  virtual bool isSoundPaused() = 0;
   
 };
 
