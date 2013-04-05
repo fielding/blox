@@ -15,15 +15,14 @@ SDLAudio::SDLAudio()
   
   if ( Mix_OpenAudio( 22050, AUDIO_S16, 2, 4096) == -1 )
   {
-    std::cout << "ERR: " << Mix_GetError << std::endl;
+    std::cerr << "ERR: " << Mix_GetError << std::endl;
   }
 
 }
 
 SDLAudio::~SDLAudio()
 {
-  Mix_FreeChunk( sound );
-  Mix_HaltMusic();
+  Mix_HaltMusic();  // to be safe
   Mix_FreeMusic( music );
   Mix_CloseAudio();
 }
@@ -32,9 +31,17 @@ void SDLAudio::playSound( std::string filename, int channel, int looping )
 {
   sound = Mix_LoadWAV ( filename.c_str() );
 
-  if ( sound == NULL ) std::cout<<"Failed to load "<<filename.c_str()<<std::endl;
+  if ( sound == NULL ) std::cerr <<"Failed to load "<<filename.c_str()<<std::endl;
   
   Mix_PlayChannel( channel, sound, looping);
+  
+  Mix_ChannelFinished(soundFinished);
+  
+}
+
+void SDLAudio::soundFinished( int channel )
+{
+  Mix_FreeChunk( Mix_GetChunk( channel ) );
 }
 
 void SDLAudio::playSong(std::string filename, int looping )
@@ -50,6 +57,13 @@ void SDLAudio::stopAllSounds()
 {
   
 }
+
+void SDLAudio::stopMusic()
+{
+  Mix_HaltMusic();  // to be safe
+  Mix_FreeMusic( music ); // this should call Mix_HaltMusic for us
+}
+
 
 void SDLAudio::setMusicVolume(int volAsPercent)
 {
@@ -77,7 +91,9 @@ int SDLAudio::getChannelVolume(int channel)
 
 bool SDLAudio::isSongPlaying()
 {
-  return true;
+  if ( Mix_PlayingMusic() ) return true;
+  
+  return false;
 }
 
 bool SDLAudio::isSoundPlaying()

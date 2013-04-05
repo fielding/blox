@@ -24,7 +24,9 @@ public:
   
   void playSound ( std::string filename, int channel = -1, int looping = 0 );
   void playSong ( std::string filename, int looping = 0 );
+  
   void stopAllSounds ( );
+  void stopMusic();
 
   void setMusicVolume ( int volAsPercent );  // set the music volume by percent
   int  getMusicVolume ( ); // return the current music volume as a percent
@@ -39,7 +41,8 @@ public:
   
   bool isSongPaused ( );
   bool isSoundPaused ( );
-
+  
+  static void soundFinished( int channel );
   
 private:
   Mix_Chunk *sound;

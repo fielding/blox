@@ -17,7 +17,9 @@ public:
   virtual ~IAudio() {}
   virtual void playSound( std::string filename, int channel = -1, int looping = 0 ) = 0;
   virtual void playSong( std::string filename, int looping ) = 0;
+  
   virtual void stopAllSounds() = 0;
+  virtual void stopMusic() = 0;
   
   virtual void setMusicVolume ( int volAsPercent ) = 0;
   virtual int  getMusicVolume ( ) = 0;
@@ -32,7 +34,7 @@ public:
 
   virtual bool isSongPaused() = 0;
   virtual bool isSoundPaused() = 0;
-  
+
 };
 
 #endif
