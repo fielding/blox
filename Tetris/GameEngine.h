@@ -24,10 +24,10 @@ public:
   GameEngine(const char* title, int width=640, int height=480, int bpp=0, bool fullscreen=false, bool noframe=false);
   ~GameEngine();
   
-  void ChangeState( GameState* state );
-  void PushState( GameState* state );
+  void ChangeState( std::unique_ptr<GameState> state );
+  void PushState( std::unique_ptr<GameState> state );
   void PopState();
-  void PopStateThenChangeState( GameState* state );
+  void PopStateThenChangeState( std::unique_ptr<GameState> state );
   
   void HandleEvents();
   void Update();
@@ -43,7 +43,7 @@ public:
   
 private:
   // state stack
-  std::vector<GameState*> states;
+  std::vector<std::unique_ptr<GameState>> states;
   
   bool running;
   bool fullscreen;

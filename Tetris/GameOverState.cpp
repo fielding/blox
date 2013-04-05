@@ -45,7 +45,7 @@ void GameOverState::HandleEvents( GameEngine* game)
 
 void GameOverState::Update( GameEngine* game)
 {
-  game->PushState( new MenuState( game ) );
+  game->PushState( std::unique_ptr<MenuState>( new MenuState( game ) ) );
 }
 
 void GameOverState::Draw( GameEngine* game )

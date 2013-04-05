@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Fielding Johnston. All rights reserved.
 //
 
+#include <memory>
 
 // #include "Game.h"
 #include "GameEngine.h"
@@ -17,9 +18,8 @@ int main ( int agrc, char **argv )
   GameEngine game( "Blox", SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP );
   
   // Set the initial game state
-
-  game.ChangeState( new PlayState( &game ) );
-  
+ 
+  game.ChangeState( std::unique_ptr<PlayState>( new PlayState( &game ) ) );
   
   // game loop
   while ( game.Running() )
@@ -28,9 +28,6 @@ int main ( int agrc, char **argv )
     game.Update();
     game.Draw();
   }
-  
-  // cleanup the engine
-  //game.Cleanup();
   
   return 0;
 }

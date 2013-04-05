@@ -28,9 +28,9 @@ public:
   virtual void Update( GameEngine* game ) = 0;
   virtual void Draw ( GameEngine* game ) = 0;
   
-  void ChangeState( GameEngine* game, GameState* state)
+  void ChangeState( GameEngine* game, std::unique_ptr<GameState> state)
   {
-    game->ChangeState( state );
+    game->ChangeState( move(state) );
   }
 };
 

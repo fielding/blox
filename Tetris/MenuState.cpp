@@ -46,7 +46,7 @@ void MenuState::HandleEvents( GameEngine* game)
 						game->PopState();
 						break;
           case SDLK_1:
-            game->PopStateThenChangeState( new PlayState( game ) );
+            game->PopStateThenChangeState( std::unique_ptr<PlayState>( new PlayState( game ) ) );
             break;
           case SDLK_3:
             game->Quit();

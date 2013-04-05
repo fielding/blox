@@ -101,7 +101,7 @@ void PlayState::Update( GameEngine* game )
     else if ( isGameOver() )
     {
       // should I stop the music here??
-      game->ChangeState( new GameOverState( game ) );
+      game->ChangeState( std::unique_ptr<GameOverState>( new GameOverState( game ) ) );
     }
     else
     {
@@ -630,10 +630,10 @@ void PlayState::interfaceInput(GameEngine* game)
       switch (event.key.keysym.sym)
       {
         case SDLK_ESCAPE:
-          game->PushState( new MenuState( game ) );
+          game->PushState( std::unique_ptr<MenuState>( new MenuState( game ) ) );
           break;
         case SDLK_p:
-          game->PushState( new PauseState( game ) );
+          game->PushState( std::unique_ptr<PauseState>( new PauseState( game ) ) );
           break;
         case SDLK_m:
           Locator::getAudio()->toggleMusic();
