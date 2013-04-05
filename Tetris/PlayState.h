@@ -73,6 +73,7 @@ private:
   
   
   SDL_Event event;
+  // Uint8 *keystates = SDL_GetKeyState ( NULL ); // haven't decided if I'm going to use this yet
   
   // Surfaces
   SDL_Surface *background = NULL;

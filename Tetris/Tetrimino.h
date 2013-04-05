@@ -54,6 +54,10 @@ public:
   bool wallKick( std::vector<Block>& rPieces, Board* myBoard, int direction );
   bool wallKickTest(int stateTransition, std::vector<Block>& rPieces, Board* myBoard, bool isI = false);
   
+  // movement vel // placeholder incase I need
+  // int xVel = 0;
+  // int yVel = 0;
+  
   
 private:
   GameEngine* engine;

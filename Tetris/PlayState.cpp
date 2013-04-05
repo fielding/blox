@@ -201,7 +201,7 @@ void PlayState::drawGhostTetrimino( GameEngine* game )
     drawBlock( game, gTetrimino->pieces[i], ghost);
   }
   
-  delete( gTetrimino );
+  delete gTetrimino;
 }
 
 
@@ -429,7 +429,7 @@ void PlayState::movementInput()
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:   // Soft Drop
-        aTetrimino->moveDown(myBoard, false);
+        aTetrimino->moveDown(myBoard, false); // move the Tetromino down, the false flag is to specify it's not a gravity forced movement, but instead a player forced one.
         score++;  // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
         startTime = playTimer.get_ticks();  // lock delay, or more of an update delay if you are soft dropping
         break;
@@ -458,16 +458,19 @@ void PlayState::movementInput()
         break;
     }
   }
-  // FUTURE USE: I plan to allow holding down keys for movement
+  // Possible future use, still determining how to go about implenting movement while keys are held down
   else if ( event.type == SDL_KEYUP )   // If a key was released
   {
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:
+        // if ( aTetrimino->yVel > 0 ) aTetrimino->yVel = 0;
         break;
       case SDLK_LEFT:
+        // if ( aTetrimino->xVel < 0 ) aTetrimino->xVel = 0;
         break;
       case SDLK_RIGHT:
+        // if ( aTetrimino->xVel > 0 ) aTetrimino->xVel = 0;
         break;
       default:
         break;
