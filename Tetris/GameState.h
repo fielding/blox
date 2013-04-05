@@ -30,7 +30,7 @@ public:
   
   void ChangeState( GameEngine* game, std::unique_ptr<GameState> state)
   {
-    game->ChangeState( move(state) );
+    game->ChangeState( std::move( state ) );
   }
 };
 

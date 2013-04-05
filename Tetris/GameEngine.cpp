@@ -89,8 +89,6 @@ GameEngine::~GameEngine()
   // cleanup all of the states
   while ( !states.empty() )
   {
-    //states.back()->Cleanup();
-    //delete states.back();
     states.pop_back();
   }
   
@@ -115,13 +113,11 @@ void GameEngine::ChangeState( std::unique_ptr<GameState> state )
   // cleanup the current state
   if ( !states.empty() )
   {
-    //delete states.back();
     states.pop_back();
   }
   
-  // store and init the new state
-  states.push_back( move(state) );
-  //states.back()->Init(this);
+  // store the new state
+  states.push_back( std::move( state ) );
   
 }
 
@@ -133,9 +129,8 @@ void GameEngine::PushState( std::unique_ptr<GameState> state )
     states.back()->Pause();
   }
 
-  // store and init the new state
-  states.push_back(move(state));
-  //states.back()->Init(this);
+  // store the new state
+  states.push_back( std::move( state ) );
 }
 
 void GameEngine::PopState()
@@ -143,8 +138,6 @@ void GameEngine::PopState()
   // cleanup the current state
   if ( !states.empty() )
   {
-    //states.back()->Cleanup();
-    //delete states.back();
     states.pop_back();
   }
   
@@ -161,15 +154,13 @@ void GameEngine::PopStateThenChangeState( std::unique_ptr<GameState> state )
   // cleanup the current state
   if ( !states.empty() )
   {
-    //states.back()->Cleanup();
-    //delete states.back();
     states.pop_back();
   }
   
   // 
   if ( !states.empty () )
   {
-    states.back()->ChangeState( this, move(state) );
+    states.back()->ChangeState( this, std::move( state ) );
   }
   
 }
