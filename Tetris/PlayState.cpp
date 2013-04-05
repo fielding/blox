@@ -59,6 +59,11 @@ void PlayState::Cleanup()
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
   
+  // clean up the delete the bag object
+  delete bag;
+  // set the pointer that was pointing to the bag object we just deleted to NULL
+  bag = NULL;
+  // clear out our deque with any remaining pieces we hadn't spawned yet
   queue.clear();
 }
 
@@ -94,16 +99,15 @@ void PlayState::Update( GameEngine* game )
     {
       startTime = playTimer.get_ticks();
     }
+    else if ( isGameOver() )
+    {
+      // should I stop the music here??
+      game->ChangeState( GameOverState::Instance() );
+    }
     else
     {
       // add tetrimino to grid
       storeTetrimino();
-      
-      // check for game over
-      if ( isGameOver() )
-      {
-        game->ChangeState( GameOverState::Instance() );
-      }
     
       // if we cleared lines last round, then update prevLinesCleared
       if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
