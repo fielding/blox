@@ -31,6 +31,9 @@ SDLAudio::~SDLAudio()
 void SDLAudio::playSound( std::string filename, int channel, int looping )
 {
   sound = Mix_LoadWAV ( filename.c_str() );
+
+  if ( sound == NULL ) std::cout<<"Failed to load "<<filename.c_str()<<std::endl;
+  
   Mix_PlayChannel( channel, sound, looping);
 }
 

@@ -504,7 +504,10 @@ int PlayState::checkLines()
       lines++;
     }
   }
-
+  
+  // play sound effect for line being cleared
+  if ( lines > 0 ) Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/lineclear.wav", 4);
+  
   return lines;
 }
 

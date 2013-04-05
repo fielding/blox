@@ -44,12 +44,14 @@
 		C2D5412617091F2B00AB642A /* SDL_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D5412417091EA100AB642A /* SDL_mixer.framework */; };
 		C2D5412A17094BDF00AB642A /* SDLAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2D5412817094BDF00AB642A /* SDLAudio.cpp */; };
 		C2D5412D170954E900AB642A /* Locator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2D5412B170954E800AB642A /* Locator.cpp */; };
-		C2D5412F1709753600AB642A /* harddrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D5412E1709753600AB642A /* harddrop.wav */; };
-		C2D541301709754700AB642A /* harddrop.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D5412E1709753600AB642A /* harddrop.wav */; };
-		C2D5413217097A6C00AB642A /* tmove.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D5413117097A6C00AB642A /* tmove.wav */; };
-		C2D5413317097A7700AB642A /* tmove.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D5413117097A6C00AB642A /* tmove.wav */; };
-		C2D541351709856100AB642A /* trotate.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D541341709856000AB642A /* trotate.wav */; };
-		C2D541361709857700AB642A /* trotate.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D541341709856000AB642A /* trotate.wav */; };
+		C2D54166170EEAAD00AB642A /* harddrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54162170EEAAD00AB642A /* harddrop.wav */; };
+		C2D54167170EEAAD00AB642A /* lineclear.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54163170EEAAD00AB642A /* lineclear.wav */; };
+		C2D54168170EEAAD00AB642A /* tmove.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54164170EEAAD00AB642A /* tmove.wav */; };
+		C2D54169170EEAAD00AB642A /* trotate.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54165170EEAAD00AB642A /* trotate.wav */; };
+		C2D5416A170EEAB400AB642A /* harddrop.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54162170EEAAD00AB642A /* harddrop.wav */; };
+		C2D5416B170EEAB600AB642A /* lineclear.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54163170EEAAD00AB642A /* lineclear.wav */; };
+		C2D5416C170EEABD00AB642A /* tmove.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54164170EEAAD00AB642A /* tmove.wav */; };
+		C2D5416D170EEABE00AB642A /* trotate.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54165170EEAAD00AB642A /* trotate.wav */; };
 		C2DD4CFB16F2507F005F36B3 /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
 		C2DD4CFC16F2507F005F36B3 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
 		C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
@@ -83,9 +85,10 @@
 			dstSubfolderSpec = 7;
 			files = (
 				C2D5412317090EEE00AB642A /* tetris.ogg in CopyFiles */,
-				C2D541361709857700AB642A /* trotate.wav in CopyFiles */,
-				C2D541301709754700AB642A /* harddrop.wav in CopyFiles */,
-				C2D5413317097A7700AB642A /* tmove.wav in CopyFiles */,
+				C2D5416C170EEABD00AB642A /* tmove.wav in CopyFiles */,
+				C2D5416D170EEABE00AB642A /* trotate.wav in CopyFiles */,
+				C2D5416A170EEAB400AB642A /* harddrop.wav in CopyFiles */,
+				C2D5416B170EEAB600AB642A /* lineclear.wav in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,9 +185,10 @@
 		C2D5412917094BDF00AB642A /* SDLAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLAudio.h; sourceTree = "<group>"; };
 		C2D5412B170954E800AB642A /* Locator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Locator.cpp; sourceTree = "<group>"; };
 		C2D5412C170954E900AB642A /* Locator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Locator.h; sourceTree = "<group>"; };
-		C2D5412E1709753600AB642A /* harddrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = harddrop.wav; path = assets/audio/harddrop.wav; sourceTree = "<group>"; };
-		C2D5413117097A6C00AB642A /* tmove.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tmove.wav; path = assets/audio/tmove.wav; sourceTree = "<group>"; };
-		C2D541341709856000AB642A /* trotate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trotate.wav; path = assets/audio/trotate.wav; sourceTree = "<group>"; };
+		C2D54162170EEAAD00AB642A /* harddrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = harddrop.wav; path = assets/audio/harddrop.wav; sourceTree = "<group>"; };
+		C2D54163170EEAAD00AB642A /* lineclear.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = lineclear.wav; path = assets/audio/lineclear.wav; sourceTree = "<group>"; };
+		C2D54164170EEAAD00AB642A /* tmove.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tmove.wav; path = assets/audio/tmove.wav; sourceTree = "<group>"; };
+		C2D54165170EEAAD00AB642A /* trotate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trotate.wav; path = assets/audio/trotate.wav; sourceTree = "<group>"; };
 		C2DD4CF716F25067005F36B3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C2DD4CF916F2507F005F36B3 /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = /Library/Frameworks/SDL_image.framework; sourceTree = "<absolute>"; };
 		C2DD4CFA16F2507F005F36B3 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
@@ -300,15 +304,34 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C2D541341709856000AB642A /* trotate.wav */,
-				C2D5413117097A6C00AB642A /* tmove.wav */,
-				C2D5412E1709753600AB642A /* harddrop.wav */,
+				C2D5415F170EEA7900AB642A /* audio */,
+				C2D54161170EEAA000AB642A /* font */,
+				C2D54160170EEA8300AB642A /* img */,
+				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
+				C2DD4D0116F250E1005F36B3 /* SDLMain.m */,
+				C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */,
+				C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */,
+				C2A37D8416F24F1B00ED5820 /* Tetris-Prefix.pch */,
+				C2A37D8516F24F1B00ED5820 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C2D5415F170EEA7900AB642A /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				C2D54162170EEAAD00AB642A /* harddrop.wav */,
+				C2D54163170EEAAD00AB642A /* lineclear.wav */,
+				C2D54164170EEAAD00AB642A /* tmove.wav */,
+				C2D54165170EEAAD00AB642A /* trotate.wav */,
 				C2D5411E17090EB000AB642A /* tetris.ogg */,
-				C2728A2D1705959C00284863 /* November.ttf */,
-				C23704E21702754400E4AC5D /* ghostblock.png */,
-				C276DA7E16FB9D56005A4DFC /* paused.png */,
-				C276DA8116FBBD1A005A4DFC /* menu.png */,
-				C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
+		C2D54160170EEA8300AB642A /* img */ = {
+			isa = PBXGroup;
+			children = (
 				C276DA7716FB9CD6005A4DFC /* boardoutline.png */,
 				C276DA7816FB9CD6005A4DFC /* boardtile.png */,
 				C276DA7516FB9CC2005A4DFC /* gameover.png */,
@@ -318,14 +341,20 @@
 				C2DD4D3D16F62107005F36B3 /* blueblock.png */,
 				C2DD4D3F16F62107005F36B3 /* greenblock.png */,
 				C2DD4D4016F62107005F36B3 /* purpleblock.png */,
-				C2DD4D0016F250E1005F36B3 /* SDLMain.h */,
-				C2DD4D0116F250E1005F36B3 /* SDLMain.m */,
-				C2A37D7E16F24F1B00ED5820 /* Tetris-Info.plist */,
-				C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */,
-				C2A37D8416F24F1B00ED5820 /* Tetris-Prefix.pch */,
-				C2A37D8516F24F1B00ED5820 /* Credits.rtf */,
+				C23704E21702754400E4AC5D /* ghostblock.png */,
+				C276DA7E16FB9D56005A4DFC /* paused.png */,
+				C276DA8116FBBD1A005A4DFC /* menu.png */,
+				C2DD4D4B16F63A4A005F36B3 /* cyanblock.png */,
 			);
-			name = "Supporting Files";
+			name = img;
+			sourceTree = "<group>";
+		};
+		C2D54161170EEAA000AB642A /* font */ = {
+			isa = PBXGroup;
+			children = (
+				C2728A2D1705959C00284863 /* November.ttf */,
+			);
+			name = font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,9 +423,10 @@
 				C23704E31702754400E4AC5D /* ghostblock.png in Resources */,
 				C2728A2E1705959C00284863 /* November.ttf in Resources */,
 				C2D5411F17090EB000AB642A /* tetris.ogg in Resources */,
-				C2D5412F1709753600AB642A /* harddrop.wav in Resources */,
-				C2D5413217097A6C00AB642A /* tmove.wav in Resources */,
-				C2D541351709856100AB642A /* trotate.wav in Resources */,
+				C2D54166170EEAAD00AB642A /* harddrop.wav in Resources */,
+				C2D54167170EEAAD00AB642A /* lineclear.wav in Resources */,
+				C2D54168170EEAAD00AB642A /* tmove.wav in Resources */,
+				C2D54169170EEAAD00AB642A /* trotate.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

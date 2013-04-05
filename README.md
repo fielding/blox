@@ -4,24 +4,29 @@
 ### Todo
 * Finish menuState
 * Holding down movement keys
-* Audio
 * “Juice”
 * T-Spin scoring
 * Analyze the forcetime increments per level (too fast or too slow)
 * Lock delay
 
 ### Consider
-* Changing playTimer (timer that is displayed as part of the UI) to a float
-* Breaking up PlayState class in to IO (rendering/key events) and game logic, instead of one big class
-* Revisit the rotation function, some of the pivot points seem off a bit
+* Change the pieces to spawn at y=0 instead of y=2; This causes them to spawn out of view, but is more inline with T-compliance. 
+* Displaying playTimer ? If I do then float or int?
+* Creating a renderer service, similar to the audio service and how audio is handled.
+* Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
 
 ### Someday/Maybe
 * Finding work around for shaped windows in SDL. SDL doesn’t currently support SDL_CreateShapedWindow for OS X, afaik. Revisit this when it does, or look at alternative to SDL. This is definitely not a limitation I want any future games to have.
+* Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later, but due to the nature that I implemented drawing/redrawing in each gamestate, I don’t predict an easy solution.
+* Revamp the sound effects. Here is a list of potential (keyword) sound additions
+	* Different sounds, perhaps just higher pitch, for line clears based on the number of lines cleared.
+	* T-spin sounds
+	* Wall Kick Sounds
+	* Interface sounds
+	* Level change sound
+	* Hold sound
 
 ### Bugs
-* Rotation ignores block collision
-* Rotation ignores left, right and bottom board boundaries.
-* Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later.
 
 ## Game Play
 
