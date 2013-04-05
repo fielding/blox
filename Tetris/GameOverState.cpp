@@ -8,15 +8,13 @@
 
 #include "GameOverState.h"
 
-GameOverState GameOverState::gameoverstate;
-
-void GameOverState::Init( GameEngine* game )
+GameOverState::GameOverState( GameEngine* game )
 {
   loadAssets();
   std::cout<<"GameOverState Init"<<std::endl;
 }
 
-void GameOverState::Cleanup()
+GameOverState::~GameOverState()
 {
   SDL_FreeSurface(interfaceMessageGameOver);
   std::cout<<"GameOverState Cleanup"<<std::endl;
@@ -47,7 +45,7 @@ void GameOverState::HandleEvents( GameEngine* game)
 
 void GameOverState::Update( GameEngine* game)
 {
-  game->PushState( MenuState::Instance() );
+  game->PushState( new MenuState( game ) );
 }
 
 void GameOverState::Draw( GameEngine* game )

@@ -8,18 +8,16 @@
 
 #include "PauseState.h"
 
-PauseState PauseState::pausestate;
-
-void PauseState::Init( GameEngine* game )
+PauseState::PauseState( GameEngine* game )
 {
   loadAssets();
-  std::cout<<"PauseState Init"<<std::endl;
+  std::cout<<"PauseState Constructor Called"<<std::endl;
 }
 
-void PauseState::Cleanup()
+PauseState::~PauseState()
 {
   SDL_FreeSurface(interfaceMessagePaused);
-  std::cout<<"PauseState Cleanup"<<std::endl;
+  std::cout<<"PauseState Destructor Called"<<std::endl;
 }
 
 void PauseState::Pause()

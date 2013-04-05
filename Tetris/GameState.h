@@ -14,12 +14,16 @@
 class GameState
 {
 public:
-  virtual void Init( GameEngine* game ) = 0;
-  virtual void Cleanup() = 0;
+  
+  //GameState( GameEngine* game );
+  virtual ~GameState() {}
+  //{
+  //  std::cout<<"Destructor Called!"<<std::endl;
+  //}
   
   virtual void Pause() = 0;
   virtual void Resume() = 0;
-  
+    
   virtual void HandleEvents( GameEngine* game ) = 0;
   virtual void Update( GameEngine* game ) = 0;
   virtual void Draw ( GameEngine* game ) = 0;
@@ -28,9 +32,6 @@ public:
   {
     game->ChangeState( state );
   }
-  
-protected:
-  GameState() { }
 };
 
 

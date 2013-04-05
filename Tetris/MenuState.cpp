@@ -8,18 +8,16 @@
 
 #include "MenuState.h"
 
-MenuState MenuState::menustate;
-
-void MenuState::Init( GameEngine* game )
+MenuState::MenuState( GameEngine* game )
 {
   loadAssets( game );
-  std::cout<<"MenuState Init"<<std::endl;
+  std::cout<<"MenuState Constructor Called"<<std::endl;
 }
 
-void MenuState::Cleanup()
+MenuState::~MenuState()
 {
   SDL_FreeSurface(interfaceMenu);
-  std::cout<<"MenuState Cleanup"<<std::endl;
+  std::cout<<"MenuState Destructor Called"<<std::endl;
 }
 
 void MenuState::Pause()
@@ -48,7 +46,7 @@ void MenuState::HandleEvents( GameEngine* game)
 						game->PopState();
 						break;
           case SDLK_1:
-            game->PopStateThenChangeState( PlayState::Instance() );
+            game->PopStateThenChangeState( new PlayState( game ) );
             break;
           case SDLK_3:
             game->Quit();

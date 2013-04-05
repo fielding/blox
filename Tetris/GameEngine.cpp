@@ -89,7 +89,8 @@ GameEngine::~GameEngine()
   // cleanup all of the states
   while ( !states.empty() )
   {
-    states.back()->Cleanup();
+    //states.back()->Cleanup();
+    delete states.back();
     states.pop_back();
   }
   
@@ -108,19 +109,19 @@ GameEngine::~GameEngine()
   SDL_Quit();
   
 }
-2
+
 void GameEngine::ChangeState( GameState* state )
 {
   // cleanup the current state
   if ( !states.empty() )
   {
-    states.back()->Cleanup();
+    delete states.back();
     states.pop_back();
   }
   
   // store and init the new state
   states.push_back( state );
-  states.back()->Init(this);
+  //states.back()->Init(this);
   
 }
 
@@ -134,7 +135,7 @@ void GameEngine::PushState( GameState* state )
 
   // store and init the new state
   states.push_back(state);
-  states.back()->Init(this);
+  //states.back()->Init(this);
 }
 
 void GameEngine::PopState()
@@ -142,7 +143,8 @@ void GameEngine::PopState()
   // cleanup the current state
   if ( !states.empty() )
   {
-    states.back()->Cleanup();
+    //states.back()->Cleanup();
+    delete states.back();
     states.pop_back();
   }
   
@@ -159,7 +161,8 @@ void GameEngine::PopStateThenChangeState( GameState* state )
   // cleanup the current state
   if ( !states.empty() )
   {
-    states.back()->Cleanup();
+    //states.back()->Cleanup();
+    delete states.back();
     states.pop_back();
   }
   

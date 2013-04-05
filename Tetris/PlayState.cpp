@@ -13,9 +13,7 @@
 
 using namespace std;
 
-PlayState PlayState::playstate;
-
-void PlayState::Init( GameEngine* game )
+PlayState::PlayState( GameEngine* game )
 {
   loadAssets( game );
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
@@ -33,15 +31,15 @@ void PlayState::Init( GameEngine* game )
   //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   
   
-  cout<<"PlayState Init"<<endl;
+  cout<<"PlayState Constructor Called"<<endl;
   
   // Do things needed to reset to a fresh "playstate"
   reset();
 }
 
-void PlayState::Cleanup()
+PlayState::~PlayState()
 {
-  cout<<"PlayState Cleanup"<<endl;
+  cout<<"PlayState Destructor Called"<<endl;
   
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
@@ -63,6 +61,7 @@ void PlayState::Cleanup()
   delete bag;
   // set the pointer that was pointing to the bag object we just deleted to NULL
   bag = NULL;
+  
   // clear out our deque with any remaining pieces we hadn't spawned yet
   queue.clear();
 }
@@ -102,7 +101,7 @@ void PlayState::Update( GameEngine* game )
     else if ( isGameOver() )
     {
       // should I stop the music here??
-      game->ChangeState( GameOverState::Instance() );
+      game->ChangeState( new GameOverState( game ) );
     }
     else
     {
@@ -631,10 +630,10 @@ void PlayState::interfaceInput(GameEngine* game)
       switch (event.key.keysym.sym)
       {
         case SDLK_ESCAPE:
-          game->PushState( MenuState::Instance() );
+          game->PushState( new MenuState( game ) );
           break;
         case SDLK_p:
-          game->PushState( PauseState::Instance() );
+          game->PushState( new PauseState( game ) );
           break;
         case SDLK_m:
           Locator::getAudio()->toggleMusic();

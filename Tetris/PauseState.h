@@ -20,8 +20,8 @@
 class PauseState: public GameState
 {
 public:
-  void Init( GameEngine* game );
-  void Cleanup();
+  PauseState( GameEngine* game );
+  ~PauseState();
   
   void Pause();
   void Resume();
@@ -29,18 +29,9 @@ public:
   void HandleEvents( GameEngine* game );
   void Update( GameEngine* game );
   void Draw( GameEngine* game );
-  
-  static PauseState* Instance()
-  {
-    return &pausestate;
-  }
-  
-protected:
-  PauseState() { }
-  
+
 private:
   // Objects/Object Pointers
-  static PauseState pausestate;
   
   // Surfaces
   SDL_Surface* interfaceMessagePaused;

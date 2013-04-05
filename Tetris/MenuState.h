@@ -22,8 +22,8 @@
 class MenuState: public GameState
 {
 public:
-  void Init( GameEngine *game );
-  void Cleanup();
+  MenuState( GameEngine *game );
+  ~MenuState();
   
   void Pause();
   void Resume();
@@ -32,17 +32,8 @@ public:
   void Update( GameEngine* game );
   void Draw( GameEngine* game );
   
-  static MenuState* Instance()
-  {
-    return &menustate;
-  }
-  
-protected:
-  MenuState() { }
-  
 private:
   // Objects/Object Pointers
-  static MenuState menustate;
   
   // Surfaces
   SDL_Surface* interfaceMenu;

@@ -20,8 +20,8 @@
 class GameOverState: public GameState
 {
 public:
-  void Init( GameEngine* game );
-  void Cleanup();
+  GameOverState( GameEngine* game );
+  ~GameOverState();
   
   void Pause();
   void Resume();
@@ -29,18 +29,9 @@ public:
   void HandleEvents( GameEngine* game );
   void Update( GameEngine* game );
   void Draw( GameEngine* game );
-  
-  static GameOverState* Instance()
-  {
-    return &gameoverstate;
-  }
-  
-protected:
-  GameOverState() { }
-  
+
 private:
   // Objects/Object Pointers
-  static GameOverState gameoverstate;
   
   // Surfaces
   SDL_Surface* interfaceMessageGameOver;

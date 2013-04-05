@@ -34,27 +34,19 @@
 class PlayState : public GameState
 {
 public:
-  void Init( GameEngine* game );
-  void Cleanup();
   
+  PlayState( GameEngine* game );
+  ~PlayState();
+
   void Pause();
   void Resume();
   
   void HandleEvents(GameEngine* game);
   void Update(GameEngine* game);
   void Draw(GameEngine* game);
-  
-  static PlayState* Instance() {
-    return &playstate;
-  }
-  
-protected:
-  PlayState() { }
-  
+
 private:
   // Objects/Object Pointers
-  static PlayState playstate;
-  
   Board* myBoard;
   
   Bag* bag;
