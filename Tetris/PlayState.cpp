@@ -23,6 +23,7 @@ PlayState::PlayState( GameEngine* game )
   
   queue.clear(); // make sure the queue is clear from any previous gamestate
   fillQueue();  // fill the tetrmino queue
+  
   nextTetrimino();  // callling this initially to get the first active Tetrimino
 
 
@@ -57,10 +58,17 @@ PlayState::~PlayState()
   // Close the font and quit SDL_ttf
   TTF_CloseFont( font );
   
-  // clean up the delete the bag object
+  // clean up objects we have created
+  delete myBoard;
   delete bag;
-  // set the pointer that was pointing to the bag object we just deleted to NULL
+  delete hTetrimino;
+  delete aTetrimino;
+
+  // set the pointer that was pointing to the objects we just deleted
+  myBoard = NULL;
   bag = NULL;
+  hTetrimino = NULL;
+  aTetrimino = NULL;
   
   // clear out our deque with any remaining pieces we hadn't spawned yet
   queue.clear();
@@ -132,6 +140,7 @@ void PlayState::Update( GameEngine* game )
       
       forceLock = false;  // reset the forceLock flag
       holdUsed = false;   // reset the holdUsed flag
+  
       nextTetrimino();
     }
   }
@@ -349,7 +358,7 @@ void PlayState::drawNextTetrimino(GameEngine* game, int whichTetrimino)
       drawBlock( game, nTetrimino->pieceOrigins[i], next, xOffset, yOffset + (whichTetrimino * 56));
     }
   }
-  delete(nTetrimino);
+  delete nTetrimino;
 }
 
 void PlayState::drawHeldTetrimino(GameEngine* game)
@@ -488,6 +497,11 @@ void PlayState::storeTetrimino()
     // cout<<"Storing blocktype "<< blockType <<" at ("<< xPos <<", "<<yPos<<")\n";
     myBoard->updateBlock(xPos, yPos, blockType);
   }
+  
+  // delete the object and clear the aTetrimino pointer before we spawn a new one
+  delete aTetrimino;
+  aTetrimino = NULL;
+  
 }
 
 int PlayState::checkLines()
