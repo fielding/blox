@@ -15,7 +15,7 @@
 #include "SDL_ttf.h"
 #include "SDL_image.h"
 
-void GameEngine::Init(const char* title, int width, int height, int bpp, bool fullscreen, bool noframe)
+GameEngine::GameEngine(const char* title, int width, int height, int bpp, bool fullscreen, bool noframe)
 {
   int flags = 0;
   
@@ -32,7 +32,7 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   {
     std::cout<<"Failed to initialize the SDL Font library"<<std::endl;
   }
-
+  
   SDLAudio *audio = new SDLAudio();
   Locator::provide(audio);
   
@@ -60,7 +60,7 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
     flags = SDL_FULLSCREEN;
   }
   
-
+  
   // Set up the screen
   screen = SDL_SetVideoMode( width, height, bpp, flags );
   
@@ -84,7 +84,7 @@ void GameEngine::Init(const char* title, int width, int height, int bpp, bool fu
   
 }
 
-void GameEngine::Cleanup()
+GameEngine::~GameEngine()
 {
   // cleanup all of the states
   while ( !states.empty() )
@@ -108,7 +108,7 @@ void GameEngine::Cleanup()
   SDL_Quit();
   
 }
-
+2
 void GameEngine::ChangeState( GameState* state )
 {
   // cleanup the current state

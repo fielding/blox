@@ -17,10 +17,10 @@ int main ( int agrc, char **argv )
   // game->start();
   
   // creat intance of the GameEngine called game
-  GameEngine game;
+  GameEngine game( "Blox", SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP );
   
   // initialize the engine
-  game.Init( "Blox", SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP);
+  //game.Init( "Blox", SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP);
   
   // Set the initial game state
   game.ChangeState( PlayState::Instance() );
@@ -35,7 +35,7 @@ int main ( int agrc, char **argv )
   }
   
   // cleanup the engine
-  game.Cleanup();
+  //game.Cleanup();
   
   return 0;
 }

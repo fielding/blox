@@ -21,8 +21,8 @@ class GameEngine
 {
 public:
   
-  void Init(const char* title, int width=640, int height=480, int bpp=0, bool fullscreen=false, bool noframe=false);
-  void Cleanup();
+  GameEngine(const char* title, int width=640, int height=480, int bpp=0, bool fullscreen=false, bool noframe=false);
+  ~GameEngine();
   
   void ChangeState( GameState* state );
   void PushState( GameState* state );
