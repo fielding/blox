@@ -59,11 +59,8 @@ private:
   
   std::deque<int> queue; // used as Tetrimino queue
   
-  Timer globalTimer;
   Timer playTimer;
-  Timer update;
-  
-  
+
   SDL_Event event;
   // Uint8 *keystates = SDL_GetKeyState ( NULL ); // haven't decided if I'm going to use this yet
   
@@ -105,7 +102,7 @@ private:
   int frame = 0;
   int startTime, endTime, lockStartTime = 0;
   int forceTime = 1000;           // 1sec force time starting out ( might need to adjust this in the future )
-  int lockDelay = 200;  // need to figure out appropriate lockDelay for this
+  int lockDelay = 300;  // need to figure out appropriate lockDelay for this
   
   int prevLinesCleared = 0;
   int linesCleared = 0;

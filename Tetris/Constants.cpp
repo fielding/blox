@@ -8,11 +8,17 @@
 
 #include "Constants.h"
 
+// Game Loop Timing
+const int TICKS_PER_SECOND = 30;  // how many times the game is updated per second (independent of the rendering frame rate)
+const int SKIP_TICKS = 1000 / TICKS_PER_SECOND; // calculation used to determine how many ticks to wait between updating
+const int MAX_FRAMESKIP = 5;  // Max amount of frames we can skip if the framerate takes a dip
+const int FRAMES_PER_SECOND = 60; // used if I need to set a specific framerate for testing, currently unused, but might implement for testing how the game will run at lower framerates
+
+
 // Screen Attributes
 const int SCREEN_WIDTH = 432;
 const int SCREEN_HEIGHT = 496;
 const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 60;
 
 // Board Attributes
 
@@ -36,3 +42,5 @@ const int CONTAINER_HEIGHT = 48;
 
 // Logic/Gameplay Settings
 const int LOCK_DELAY_MAX = 3000;
+
+

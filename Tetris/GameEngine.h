@@ -9,6 +9,7 @@
 #ifndef __Tetris__GameEngine__
 #define __Tetris__GameEngine__
 
+#include "Timer.h"
 #include "IAudio.h"
 #include "Locator.h"
 #include "SDL.h"
@@ -31,7 +32,7 @@ public:
   
   void HandleEvents();
   void Update();
-  void Draw();
+  void Draw( float interpolation );
   
   bool Running() { return running; }
   void Quit() { running = false; }
@@ -40,6 +41,10 @@ public:
   void apply_surface( int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip = NULL );
   
   SDL_Surface* screen;
+  
+  // Timers
+  Timer globalTimer;
+  Timer updateTimer;
   
 private:
   // state stack

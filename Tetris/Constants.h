@@ -11,12 +11,16 @@
 
 #include <iostream>
 
+// Game Loop Timing
+extern const int TICKS_PER_SECOND;
+extern const int SKIP_TICKS;
+extern const int MAX_FRAMESKIP;
+extern const int FRAMES_PER_SECOND;
 
 // Screen Attributes
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int SCREEN_BPP;
-extern const int FRAMES_PER_SECOND;
 
 // Board Attributes
 

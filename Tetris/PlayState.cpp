@@ -156,7 +156,7 @@ void PlayState::Update( GameEngine* game )
           forceLock = false;  // reset the forceLock flag
           holdUsed = false;   // reset the holdUsed flag
           locking = false;    // we have finished locking the piece
-          lockDelay = 200;    // reset lockDelay back to it's default time
+          lockDelay = 300;    // reset lockDelay back to it's default time
         }
       }
     }
@@ -463,11 +463,11 @@ void PlayState::movementInput()
         break;
       case SDLK_LEFT:   // Move Left
         if ( aTetrimino->moveLeft( myBoard ) )  // if we are able to move the piece
-          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
+          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 300; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
         break;
       case SDLK_RIGHT:  // Move Right
         if ( aTetrimino->moveRight( myBoard ) )
-          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
+          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 300; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
           break;
       case SDLK_LSHIFT:
       case SDLK_c:    // Hold Tetrimino
@@ -476,12 +476,12 @@ void PlayState::movementInput()
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
         aTetrimino->rotate(left, myBoard);
-        if ( locking && (lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
+        if ( locking && (lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 300; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
         break;
       case SDLK_UP: // Rotate Right
       case SDLK_x:  // Rotate Right
         aTetrimino->rotate(right, myBoard);
-        if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
+        if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 300; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
         break;
       case SDLK_SPACE:
         forceLock = true;
@@ -801,7 +801,7 @@ void PlayState::reset()
   holdUsed = false;
   locking = false;
   forceLock = false;
-  lockDelay = 200; // just incase the playstate was restart after time was added to lockDelay, but before it locked and reset lockDelay back to it's default
+  lockDelay = 300; // just incase the playstate was restart after time was added to lockDelay, but before it locked and reset lockDelay back to it's default
   
   // reset all information on score, level, goal to the starting settings
   score = 0;          // Reset score to 0

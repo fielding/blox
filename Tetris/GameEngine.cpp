@@ -80,6 +80,8 @@ GameEngine::GameEngine(const char* title, int width, int height, int bpp, bool f
   this->fullscreen = fullscreen;
   this->running = true;
   
+  globalTimer.start();
+  
   std::cout<<"GameEngine Init"<<std::endl;
   
 }
@@ -176,7 +178,7 @@ void GameEngine::Update()
   states.back()->Update(this);
 }
 
-void GameEngine::Draw()
+void GameEngine::Draw( float interpolation )
 {
   // let the state draw the scene
   states.back()->Draw(this);
