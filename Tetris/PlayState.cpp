@@ -19,15 +19,16 @@ PlayState::PlayState( GameEngine* game )
   myBoard = new Board( BOARD_BLOCK_WIDTH, BOARD_BLOCK_HEIGHT );
   bag = new Bag;
   
-  hTetrimino = new Tetrimino(false, 0);  // create hTetrimino, but don't spawn blocks yet
+  // No Tetrimino is being held currently, so the hold tetrmino pointer should be NULL
+  hTetrimino = NULL;
   
   queue.clear(); // make sure the queue is clear from any previous gamestate
   fillQueue();  // fill the tetrmino queue
   
   nextTetrimino();  // callling this initially to get the first active Tetrimino
 
-
-  if ( !Locator::getAudio()->isSongPaused() ) Locator::getAudio()->playSong( "Tetris.app/Contents/Resources/audio/tetris.ogg", -1 );  // tetris theme, yeah buddy!
+  if ( Locator::getAudio()->isMusicPlaying() ) Locator::getAudio()->stopMusic();  // check if music is currently playing, if it is then stop and restart the music
+  Locator::getAudio()->playMusic( "Tetris.app/Contents/Resources/audio/tetris.ogg", -1 );  // tetris theme, yeah buddy!
   
   //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
   
@@ -41,9 +42,7 @@ PlayState::PlayState( GameEngine* game )
 PlayState::~PlayState()
 {
   cout<<"PlayState Destructor Called"<<endl;
-  
-  Locator::getAudio()->stopMusic();
-  
+
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
   SDL_FreeSurface(blueBlock);
@@ -111,7 +110,6 @@ void PlayState::Update( GameEngine* game )
     }
     else if ( isGameOver() )  // if game is over then move to gameover state
     {
-      // should I stop the music here??
       game->ChangeState( std::unique_ptr<GameOverState>( new GameOverState( game ) ) );
     }
     else if ( !aTetrimino->moveDown(myBoard, true) )  // if we can not move the Tetromino down any further due to collison with the bottom or a block
@@ -381,21 +379,24 @@ void PlayState::drawNextTetrimino(GameEngine* game, int whichTetrimino)
 
 void PlayState::drawHeldTetrimino(GameEngine* game)
 {
-  int xOffset = ( CONTAINER_WIDTH - hTetrimino->getPixelWidth() ) / 2;
-  int yOffset = ( CONTAINER_HEIGHT - hTetrimino->getPixelHeight() ) / 2;
+  if ( hTetrimino != NULL )
+  {
+    int xOffset = ( CONTAINER_WIDTH - hTetrimino->getPixelWidth() ) / 2;
+    int yOffset = ( CONTAINER_HEIGHT - hTetrimino->getPixelHeight() ) / 2;
   
 
   
-  for ( int i = 0; i < hTetrimino->pieceOrigins.size(); i++)
-  {
-    // crude monkeypatch for the O piece display. No idea why it is insisting on displaying +16 pixels to the right than it should be
-    if ( hTetrimino->pieceOrigins[i].blockType == 4 )
+    for ( int i = 0; i < hTetrimino->pieceOrigins.size(); i++)
     {
-      drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset - 16, yOffset );
-    }
-    else
-    {
-      drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset, yOffset );
+      // crude monkeypatch for the O piece display. No idea why it is insisting on displaying +16 pixels to the right than it should be
+      if ( hTetrimino->pieceOrigins[i].blockType == 4 )
+      {
+        drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset - 16, yOffset );
+      }
+      else
+      {
+        drawBlock(game, hTetrimino->pieceOrigins[i], held, xOffset, yOffset );
+      }
     }
   }
 }
@@ -617,13 +618,13 @@ void PlayState::holdTetrimino()
 {
   if ( holdUsed == false )
   {
-    if (hTetrimino->pieces.size() == 0)
+    if (hTetrimino == NULL)
     {
       hTetrimino = aTetrimino;
       nextTetrimino();
       holdUsed = true;
     }
-    else if (hTetrimino->pieces.size() > 0)
+    else
     {
       bTetrimino = hTetrimino;  // store currently heldTetrimino as bufferTetrimino
       hTetrimino = aTetrimino;  // move activeTetrimino to heldTetrimino
@@ -794,6 +795,7 @@ void PlayState::displayLevel( GameEngine* game, int lvl)
 
 void PlayState::reset()
 {
+  
   // reset flags used to check for certain situations
   holdUsed = false;
   locking = false;
