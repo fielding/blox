@@ -225,7 +225,7 @@ void Tetrimino::rotate(int direction, Board* myBoard)
       // attempt a wallkick
       if ( wallKick( rPieces, myBoard, direction ) )
       {
-        cout<<"applying wallKick!!"<<endl;
+        cout<<"applying Kick!!"<<endl;
         for ( int i = 0; i < pieces.size(); i++ )
         {
           pieces[i].box.x = rPieces[i].box.x;

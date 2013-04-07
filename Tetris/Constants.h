@@ -35,4 +35,6 @@ extern const int HC_ORIGIN_Y;
 extern const int CONTAINER_WIDTH;
 extern const int CONTAINER_HEIGHT;
 
+extern const int LOCK_DELAY_MAX;
+
 #endif /* defined(__Tetris__Constants__) */

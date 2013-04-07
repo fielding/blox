@@ -42,6 +42,8 @@ PlayState::~PlayState()
 {
   cout<<"PlayState Destructor Called"<<endl;
   
+  Locator::getAudio()->stopMusic();
+  
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
   SDL_FreeSurface(blueBlock);
@@ -100,48 +102,64 @@ void PlayState::Update( GameEngine* game )
 {
   
   endTime = playTimer.get_ticks();
-  if ( endTime - startTime > forceTime || forceLock )
+  if ( endTime - startTime > forceTime || forceLock )  // check if force time has elapsed from last starttime
   {
-    if (aTetrimino->moveDown(myBoard, true) & !forceLock )
+    
+    if (aTetrimino->moveDown(myBoard, true) & !forceLock )  // if we are able to move down with out collision, then move down and reset the starttime
     {
       startTime = playTimer.get_ticks();
     }
-    else if ( isGameOver() )
+    else if ( isGameOver() )  // if game is over then move to gameover state
     {
       // should I stop the music here??
       game->ChangeState( std::unique_ptr<GameOverState>( new GameOverState( game ) ) );
     }
-    else
+    else if ( !aTetrimino->moveDown(myBoard, true) )  // if we can not move the Tetromino down any further due to collison with the bottom or a block
     {
-      // add tetrimino to grid
-      storeTetrimino();
-    
-      // if we cleared lines last round, then update prevLinesCleared
-      if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
       
-      // check if any lines were cleared this round
-      linesCleared =  checkLines();
-      cout<<"Lines Cleared: "<<linesCleared<<endl;
-      
-      // determine how many lines are actually awarded toward goal
-      linesAwarded = getLinesAwarded();
-      cout<<"Lines Awarded: "<< linesAwarded << endl;
-      
-      // update score with lines * level multiplier
-      addLineScore();
-      cout<<"score: "<<score<<endl;
-      
-      // check for level up
-      if ( checkLevelUp() ) cout<<"w00t! You've reached the next level!"<<endl;
-      cout<<"Level: "<< level << endl;
-      cout<<"Goal: "<< goal << endl;
-      
-      startTime = playTimer.get_ticks();
-      
-      forceLock = false;  // reset the forceLock flag
-      holdUsed = false;   // reset the holdUsed flag
-  
-      nextTetrimino();
+      // check if we already initiated the locking sequence
+      if ( !locking ) // if we haven't initiated locking sequence
+      {
+        locking = true; // set locking boolean to true, aka initiate locking sequence
+        lockStartTime = playTimer.get_ticks(); // record the time we started to lock
+      }
+      else  // if we have initiated locking sequence ( locking == true )
+      {
+        if ( endTime - lockStartTime > lockDelay || forceLock )
+        {
+          
+          // add tetrimino to grid
+          storeTetrimino();
+          
+          // if we cleared lines last round, then update prevLinesCleared
+          if ( linesCleared > 0 ) prevLinesCleared = linesCleared;
+          
+          // check if any lines were cleared this round
+          linesCleared =  checkLines();
+          cout<<"Lines Cleared: "<<linesCleared<<endl;
+          
+          // determine how many lines are actually awarded toward goal
+          linesAwarded = getLinesAwarded();
+          cout<<"Lines Awarded: "<< linesAwarded << endl;
+          
+          // update score with lines * level multiplier
+          addLineScore();
+          cout<<"score: "<<score<<endl;
+          
+          // check for level up
+          if ( checkLevelUp() ) cout<<"w00t! You've reached the next level!"<<endl;
+          cout<<"Level: "<< level << endl;
+          cout<<"Goal: "<< goal << endl;
+          
+          startTime = playTimer.get_ticks();
+        
+          nextTetrimino();
+          
+          forceLock = false;  // reset the forceLock flag
+          holdUsed = false;   // reset the holdUsed flag
+          locking = false;    // we have finished locking the piece
+        }
+      }
     }
   }
 }
@@ -432,21 +450,23 @@ bool PlayState::loadAssets( GameEngine* game )
 
 void PlayState::movementInput()
 {
-  if ( event.type == SDL_KEYDOWN )      // If a key was presed
+  if ( event.type == SDL_KEYDOWN && !forceLock )      // If a key was presed and forceLock flag hasn't been set (aka prevent movement after initiating a hard drop)
   {
     switch ( event.key.keysym.sym )
     {
       case SDLK_DOWN:   // Soft Drop
-        aTetrimino->moveDown(myBoard, false); // move the Tetromino down, the false flag is to specify it's not a gravity forced movement, but instead a player forced one.
-        score++;  // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
-        startTime = playTimer.get_ticks();  // lock delay, or more of an update delay if you are soft dropping
+        // move the Tetromino down, the false flag is to specify it's not a gravity forced movement, but instead a player forced one.
+        if ( aTetrimino->moveDown(myBoard, false) ) score++;  // If we were able to perform the soft drop, then add to the score.
+                                                              // SoftDrops are worth (lines moved * 1) points, so each time we move down we add 1 to the score
         break;
       case SDLK_LEFT:   // Move Left
-        aTetrimino->moveLeft(myBoard);
+        if ( aTetrimino->moveLeft( myBoard ) )  // if we are able to move the piece
+          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
         break;
       case SDLK_RIGHT:  // Move Right
-        aTetrimino->moveRight(myBoard);
-        break;
+        if ( aTetrimino->moveRight( myBoard ) )
+          if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for successful movement left or right to create a lockDelay
+          break;
       case SDLK_LSHIFT:
       case SDLK_c:    // Hold Tetrimino
         holdTetrimino();
@@ -454,14 +474,16 @@ void PlayState::movementInput()
       case SDLK_RCTRL: // Rotate Left
       case SDLK_z:  // Rotate Left
         aTetrimino->rotate(left, myBoard);
+        if ( locking && (lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
         break;
       case SDLK_UP: // Rotate Right
       case SDLK_x:  // Rotate Right
         aTetrimino->rotate(right, myBoard);
+        if ( locking && ( lockDelay < LOCK_DELAY_MAX ) ) lockDelay += 200; // if we are currently locking the piece and we haven't reached the maximum lock delay, then allow for rotations to create a lockDelay
         break;
       case SDLK_SPACE:
-        aTetrimino->hardDrop(myBoard, score);
         forceLock = true;
+        aTetrimino->hardDrop(myBoard, score);
       default:
         break;
     }
@@ -772,12 +794,19 @@ void PlayState::displayLevel( GameEngine* game, int lvl)
 
 void PlayState::reset()
 {
-  playTimer.start();
-  holdUsed = false;   // CONSIDER: Is this the best places for this??
+  // reset flags used to check for certain situations
+  holdUsed = false;
+  locking = false;
+  forceLock = false;
+  
+  // reset all information on score, level, goal to the starting settings
   score = 0;          // Reset score to 0
   level = 1;          // Reset level to 1
   goal = 5;           // reset goal to 5
   forceTime = 1000;   // slowpoke force time
+  
+  // Reset Timer info
+  playTimer.start();
   startTime = playTimer.get_ticks();
 }
 

@@ -7,7 +7,6 @@
 * “Juice”
 * T-Spin scoring
 * Analyze the forcetime increments per level (too fast or too slow)
-* Lock delay
 
 ### Consider
 * Change the pieces to spawn at y=0 instead of y=2; This causes them to spawn out of view, but is more inline with T-compliance. 
@@ -20,15 +19,21 @@
 * Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later, but due to the nature that I implemented drawing/redrawing in each gamestate, I don’t predict an easy solution.
 * Revamp the sound effects. Here is a list of potential (keyword) sound additions
 	* Different sounds, perhaps just higher pitch, for line clears based on the number of lines cleared.
-	* T-spin sounds
-	* Wall Kick Sounds
-	* Interface sounds
+	* T-spin sound effect
+	* Wall kick (maybe distinguish wall and floor kicks too) sound effect
+	* Interface sound effects
 	* Level change sound
-	* Hold sound
+	* Hold sound effect
+	* Locking sound effect ( only used on none hardDrop locks)
 
 ### Bugs
+* Music restarting/freeing the memory for the music object properly (check for leaks)
+
 
 ## Game Play
+
+### Features
+* Lock Delay (non-infinity)
 
 ### Scoring
 #### Scoring Values Of Each Move

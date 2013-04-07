@@ -98,14 +98,14 @@ private:
   enum direction_t { left, right, down };
 
   // Variables
-  bool justStarted = false;
   bool holdUsed = false;
   bool forceLock = false;   // flag used to make hardDrops force a lock instantly, instead of waiting for lock time
+  bool locking = false;
   
   int frame = 0;
-  int startTime = 0;
-  int endTime = 0;
-  int forceTime = 1000;
+  int startTime, endTime, lockStartTime = 0;
+  int forceTime = 1000;           // 1sec force time starting out ( might need to adjust this in the future )
+  int lockDelay = 200;  // need to figure out appropriate lockDelay for this
   
   int prevLinesCleared = 0;
   int linesCleared = 0;

@@ -12,7 +12,7 @@
 const int SCREEN_WIDTH = 432;
 const int SCREEN_HEIGHT = 496;
 const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 30;
+const int FRAMES_PER_SECOND = 60;
 
 // Board Attributes
 
@@ -33,3 +33,6 @@ const int HC_ORIGIN_Y = BOARD_ORIGIN_Y + 31; // Y-origin for the held container
 
 const int CONTAINER_WIDTH = 72;
 const int CONTAINER_HEIGHT = 48;
+
+// Logic/Gameplay Settings
+const int LOCK_DELAY_MAX = 3000;
