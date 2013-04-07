@@ -4,7 +4,6 @@
 ### Todo
 * Finish menuState
 * Holding down movement keys
-* Analyze the forcetime increments per level (too fast or too slow)
 
 ### Consider
 * Blacking out the board when the game is paused to prevent using pause as an extended thinking period.
@@ -12,6 +11,7 @@
 * Displaying playTimer ? If I do then float or int?
 * Creating a renderer service, similar to the audio service and how audio is handled.
 * Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
+* Analyze the forcetime increments per level and the lockDelay time/my implementation of lockDelay.
 
 ### Someday/Maybe
 * T-Spin scoring
@@ -25,9 +25,10 @@
 	* Level change sound
 	* Hold sound effect
 	* Locking sound effect ( only used on none hardDrop locks)
+	* Pause sound effect
+	* Game Over sound effect
 
 ### Bugs
-* Music restarting/freeing the memory for the music object properly (check for leaks)
 
 
 ## Game Play
