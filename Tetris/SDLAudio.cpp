@@ -23,7 +23,7 @@ SDLAudio::SDLAudio()
 SDLAudio::~SDLAudio()
 {
   Mix_HaltMusic();  // to be safe
-  Mix_FreeMusic( music );
+  if (music != NULL) Mix_FreeMusic( music );
   Mix_CloseAudio();
 }
 
@@ -44,7 +44,7 @@ void SDLAudio::soundFinished( int channel )
   Mix_FreeChunk( Mix_GetChunk( channel ) );
 }
 
-void SDLAudio::playSong(std::string filename, int looping )
+void SDLAudio::playMusic(std::string filename, int looping )
 {
   music = Mix_LoadMUS( filename.c_str() );
   
@@ -62,6 +62,7 @@ void SDLAudio::stopMusic()
 {
   Mix_HaltMusic();  // to be safe
   Mix_FreeMusic( music ); // this should call Mix_HaltMusic for us
+  music = NULL; // set the pointer that was pointing at the newly free music object to NULL
 }
 
 
@@ -89,7 +90,7 @@ int SDLAudio::getChannelVolume(int channel)
   return floor( ( Mix_Volume(channel, -1 ) / 128.f ) * 100 );    // return the current music volume as a percent
 }
 
-bool SDLAudio::isSongPlaying()
+bool SDLAudio::isMusicPlaying()
 {
   if ( Mix_PlayingMusic() ) return true;
   
@@ -101,7 +102,7 @@ bool SDLAudio::isSoundPlaying()
   return true;
 }
 
-bool SDLAudio::isSongPaused()
+bool SDLAudio::isMusicPaused()
 {
   if ( Mix_PausedMusic() == 1 ) return true;
   

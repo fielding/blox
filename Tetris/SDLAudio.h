@@ -23,7 +23,7 @@ public:
   ~SDLAudio();
   
   void playSound ( std::string filename, int channel = -1, int looping = 0 );
-  void playSong ( std::string filename, int looping = 0 );
+  void playMusic ( std::string filename, int looping = 0 );
   
   void stopAllSounds ( );
   void stopMusic();
@@ -36,11 +36,11 @@ public:
   
   void toggleMusic ( );   // returns true or false based on if the music was currently playing ( true if it was, false if it was muted );
   
-  bool isSongPlaying ( );
   bool isSoundPlaying ( );
-  
-  bool isSongPaused ( );
+  bool isMusicPlaying ( );
+
   bool isSoundPaused ( );
+  bool isMusicPaused ( );
   
   static void soundFinished( int channel );
   
