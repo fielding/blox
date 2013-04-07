@@ -4,17 +4,17 @@
 ### Todo
 * Finish menuState
 * Holding down movement keys
-* “Juice”
-* T-Spin scoring
 * Analyze the forcetime increments per level (too fast or too slow)
 
 ### Consider
+* Blacking out the board when the game is paused to prevent using pause as an extended thinking period.
 * Change the pieces to spawn at y=0 instead of y=2; This causes them to spawn out of view, but is more inline with T-compliance. 
 * Displaying playTimer ? If I do then float or int?
 * Creating a renderer service, similar to the audio service and how audio is handled.
 * Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
 
 ### Someday/Maybe
+* T-Spin scoring
 * Finding work around for shaped windows in SDL. SDL doesn’t currently support SDL_CreateShapedWindow for OS X, afaik. Revisit this when it does, or look at alternative to SDL. This is definitely not a limitation I want any future games to have.
 * Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later, but due to the nature that I implemented drawing/redrawing in each gamestate, I don’t predict an easy solution.
 * Revamp the sound effects. Here is a list of potential (keyword) sound additions

@@ -41,7 +41,7 @@ PlayState::PlayState( GameEngine* game )
 
 PlayState::~PlayState()
 {
-  cout<<"PlayState Destructor Called"<<endl;
+  cerr<<"PlayState Destructor Called"<<endl;
 
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
@@ -156,6 +156,7 @@ void PlayState::Update( GameEngine* game )
           forceLock = false;  // reset the forceLock flag
           holdUsed = false;   // reset the holdUsed flag
           locking = false;    // we have finished locking the piece
+          lockDelay = 200;    // reset lockDelay back to it's default time
         }
       }
     }
@@ -800,6 +801,7 @@ void PlayState::reset()
   holdUsed = false;
   locking = false;
   forceLock = false;
+  lockDelay = 200; // just incase the playstate was restart after time was added to lockDelay, but before it locked and reset lockDelay back to it's default
   
   // reset all information on score, level, goal to the starting settings
   score = 0;          // Reset score to 0
