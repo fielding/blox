@@ -2,8 +2,8 @@
 ## A Tetronimo game
 
 ### Todo
-* Finish menuState
-* Holding down movement keys
+* Application Icon
+* Fix MenuState Image
 
 ### Consider
 * Blacking out the board when the game is paused to prevent using pause as an extended thinking period.
@@ -11,10 +11,11 @@
 * Displaying playTimer ? If I do then float or int?
 * Creating a renderer service, similar to the audio service and how audio is handled.
 * Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
-* Analyze the forcetime increments per level and the lockDelay time/my implementation of lockDelay.
+* Tweak following settings for best game play: DAS, ARR, Lock Delay, Force Time and how quickly each level increases the force time.
 
 ### Someday/Maybe
 * T-Spin scoring
+* Implement a better Menu
 * Finding work around for shaped windows in SDL. SDL doesn’t currently support SDL_CreateShapedWindow for OS X, afaik. Revisit this when it does, or look at alternative to SDL. This is definitely not a limitation I want any future games to have.
 * Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later, but due to the nature that I implemented drawing/redrawing in each gamestate, I don’t predict an easy solution.
 * Revamp the sound effects. Here is a list of potential (keyword) sound additions
@@ -35,6 +36,8 @@
 
 ### Features
 * Lock Delay (non-infinity)
+* DAS (Delayed Auto Shift)
+* SRS Rotation System
 
 ### Scoring
 #### Scoring Values Of Each Move

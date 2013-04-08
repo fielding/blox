@@ -40,5 +40,7 @@ extern const int CONTAINER_WIDTH;
 extern const int CONTAINER_HEIGHT;
 
 extern const int LOCK_DELAY_MAX;
+extern const int DAS_DELAY_TIME;
+extern const int AUTO_REPEAT_RATE;
 
 #endif /* defined(__Tetris__Constants__) */

@@ -41,6 +41,8 @@ const int CONTAINER_WIDTH = 72;
 const int CONTAINER_HEIGHT = 48;
 
 // Logic/Gameplay Settings
-const int LOCK_DELAY_MAX = 3000;
+const int LOCK_DELAY_MAX = 2000;
+const int DAS_DELAY_TIME = 200;
+const int AUTO_REPEAT_RATE = 50;
 
 

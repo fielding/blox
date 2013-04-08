@@ -21,6 +21,7 @@
 		C20CF5BC17015CFD0088459F /* GameOverState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C20CF5BA17015CFD0088459F /* GameOverState.cpp */; };
 		C23704E31702754400E4AC5D /* ghostblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
 		C23704E41702755100E4AC5D /* ghostblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
+		C240036B17123FA2003BF14B /* bloxIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C240036A17123FA2003BF14B /* bloxIcon.icns */; };
 		C2728A2E1705959C00284863 /* November.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C2728A2F170595A900284863 /* November.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
@@ -72,7 +73,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 6;
 			files = (
 				C276DA7116FB7B3E005A4DFC /* libSDL_ttf-2.0.0.dylib in CopyFiles */,
 			);
@@ -161,6 +162,7 @@
 		C20CF5BA17015CFD0088459F /* GameOverState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverState.cpp; sourceTree = "<group>"; };
 		C20CF5BB17015CFD0088459F /* GameOverState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverState.h; sourceTree = "<group>"; };
 		C23704E21702754400E4AC5D /* ghostblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ghostblock.png; path = assets/img/ghostblock.png; sourceTree = "<group>"; };
+		C240036A17123FA2003BF14B /* bloxIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = bloxIcon.icns; path = ../bloxIcon.icns; sourceTree = "<group>"; };
 		C2728A2D1705959C00284863 /* November.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = November.ttf; path = assets/font/November.ttf; sourceTree = "<group>"; };
 		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
 		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		C2A37D7D16F24F1B00ED5820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C240036A17123FA2003BF14B /* bloxIcon.icns */,
 				C2D5415F170EEA7900AB642A /* audio */,
 				C2D54161170EEAA000AB642A /* font */,
 				C2D54160170EEA8300AB642A /* img */,
@@ -427,6 +430,7 @@
 				C2D54167170EEAAD00AB642A /* lineclear.wav in Resources */,
 				C2D54168170EEAAD00AB642A /* tmove.wav in Resources */,
 				C2D54169170EEAAD00AB642A /* trotate.wav in Resources */,
+				C240036B17123FA2003BF14B /* bloxIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

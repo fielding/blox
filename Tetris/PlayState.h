@@ -112,6 +112,10 @@ private:
   
   int level = 1;
   int goal = 5;   // number of lines needed to advance a level ( a function of the level we are currently on )
+  
+  // variables for DAS implementationj
+  int delayDown, delayLeft, delayRight = -1;
+  long dasLastTime;
 
   
   // Functions
