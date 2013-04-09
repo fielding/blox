@@ -12,19 +12,31 @@
 #include <iostream>
 
 #include "IAudio.h"
+#include "NullAudio.h"
 
 class Locator
 {
 public:
+  static void initialize() { audioService = &nullService; }
+  
   static IAudio* getAudio() { return audioService; }
   
   static void provide (IAudio* service)
   {
-    audioService = service;
+    if ( service == NULL )
+    {
+      // use null service
+      audioService = &nullService;
+    }
+    else
+    {
+      audioService = service;
+    }
   }
 
 private:
   static IAudio* audioService;
+  static NullAudio nullService;
   
 };
 

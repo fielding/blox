@@ -9,3 +9,4 @@
 #include "Locator.h"
 
 IAudio* Locator::audioService = NULL;
+NullAudio Locator::nullService;

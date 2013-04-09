@@ -33,6 +33,7 @@ GameEngine::GameEngine(const char* title, int width, int height, int bpp, bool f
     std::cout<<"Failed to initialize the SDL Font library"<<std::endl;
   }
   
+  Locator::initialize();
   SDLAudio *audio = new SDLAudio();
   Locator::provide(audio);
   
