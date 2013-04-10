@@ -13,7 +13,7 @@
 SDLAudio::SDLAudio()
 {
   
-  if ( Mix_OpenAudio( 22050, AUDIO_S16, 2, 4096) == -1 )
+  if ( Mix_OpenAudio( 44100, AUDIO_S16, 2, 4096) == -1 )
   {
     std::cerr << "ERR: " << Mix_GetError << std::endl;
   }
