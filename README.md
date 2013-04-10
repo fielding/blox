@@ -30,7 +30,8 @@
 	* Game Over sound effect
 
 ### Bugs
-
+*	Key events don’t update properly if the game is paused and a keyup event happens.
+* Ghost piece is showing above the top boarder in some instances.
 
 ## Game Play
 
