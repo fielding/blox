@@ -3,8 +3,6 @@
 
 ### Todo
 #### SoundCache Branch
-	* Implement public assessors for MusicVolume and SoundVolume that use the filename and are checked against the cache to get the correct sound/music object to adjust the volume.
-
 
 ### Consider
 * Blacking out the board when the game is paused to prevent using pause as an extended thinking period.

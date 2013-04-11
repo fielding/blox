@@ -16,25 +16,28 @@ class NullAudio : public IAudio
 public:
   
   virtual ~NullAudio() {}
-  virtual void playSound( std::string filename, int volume = 100, int looping = 0 )   { /* Do nothing */}
-  virtual void playMusic( std::string filename, int volume = 100, int looping = 0 )   { /* Do nothing */}
+  virtual void playSound( std::string filename, int volume = -1, int looping = 0 )   { /* Do nothing */ }
+  virtual void playMusic( std::string filename, int volume = -1, int looping = 0 )   { /* Do nothing */ }
   
-  virtual void stopAllSounds()                                                        { /* Do nothing */}
-  virtual void stopMusic()                                                            { /* Do nothing */}
-  virtual void stopEverything()                                                       { /* Do nothing */}
+  virtual void stopAllSounds()                                                        { /* Do nothing */ }
+  virtual void stopMusic()                                                            { /* Do nothing */ }
+  virtual void stopEverything()                                                       { /* Do nothing */ }
   
-  virtual void setMusicVolume ( int volAsPercent )                                    { /* Do nothing */}
-  virtual int  getMusicVolume ( )                                                     { /* Do nothing */}
+  virtual void setSoundVolume ( std::string filename, int volAsPercent )              { /* Do nothing */ }
+  virtual int  getSoundVolume ( std::string filename )                                { /* Do nothing */ }
   
-  virtual void setChannelVolume ( int channel, int volAsPercent )                     { /* Do nothing */}
-  virtual int  getChannelVolume ( int channel )                                       { /* Do nothing */}
+  virtual void setMusicVolume ( int volAsPercent )                                    { /* Do nothing */ }
+  virtual int  getMusicVolume ( )                                                     { /* Do nothing */ }
   
-  virtual void toggleMusic ( )                                                        { /* Do nothing */}
+  virtual void setChannelVolume ( int channel, int volAsPercent )                     { /* Do nothing */ }
+  virtual int  getChannelVolume ( int channel )                                       { /* Do nothing */ }
   
-  virtual bool isSoundPlaying( std::string filename )                                 { /* Do nothing */}
-  virtual bool isMusicPlaying()                                                       { /* Do nothing */}
+  virtual void toggleMusic ( )                                                        { /* Do nothing */ }
   
-  virtual bool isMusicPaused()                                                        { /* Do nothing */}
+  virtual bool isSoundPlaying( std::string filename )                                 { /* Do nothing */ }
+  virtual bool isMusicPlaying()                                                       { /* Do nothing */ }
+  
+  virtual bool isMusicPaused()                                                        { /* Do nothing */ }
 };
 
 

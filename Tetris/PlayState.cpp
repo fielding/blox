@@ -722,6 +722,8 @@ void PlayState::interfaceInput(GameEngine* game)
         case SDLK_m:
           Locator::getAudio()->toggleMusic();
           break;
+        case SDLK_t: // key I use to test various features
+          break;
       }
       break;
   }
