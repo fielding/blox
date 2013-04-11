@@ -11,13 +11,13 @@
 MenuState::MenuState( GameEngine* game )
 {
   loadAssets( game );
-  std::cout<<"MenuState Constructor Called"<<std::endl;
+  //std::cerr<<"MenuState Constructor Called"<<std::endl;
 }
 
 MenuState::~MenuState()
 {
   SDL_FreeSurface(interfaceMenu);
-  std::cout<<"MenuState Destructor Called"<<std::endl;
+  //std::cerr<<"MenuState Destructor Called"<<std::endl;
 }
 
 void MenuState::Pause()

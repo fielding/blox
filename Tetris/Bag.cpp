@@ -11,12 +11,12 @@
 Bag::Bag(){   // Constructor
   create();
   shuffle();
-  std::cout<<"Bag Constructor called!"<<std::endl;
+  //std::cerr<<"Bag Constructor called!"<<std::endl;
 }
 
 Bag::~Bag(){  // Destructor
   content.clear();
-  std::cout<<"Bag Destructor called!"<<std::endl;
+  //std::cerr<<"Bag Destructor called!"<<std::endl;
 }
 
 void Bag::listContent()

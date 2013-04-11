@@ -27,13 +27,9 @@ PlayState::PlayState( GameEngine* game )
   
   nextTetrimino();  // callling this initially to get the first active Tetrimino
 
-  if ( Locator::getAudio()->isMusicPlaying() ) Locator::getAudio()->stopMusic();  // check if music is currently playing, if it is then stop and restart the music
-  Locator::getAudio()->playMusic( "Tetris.app/Contents/Resources/audio/tetris.ogg", -1 );  // tetris theme, yeah buddy!
-  
-  //  "Tetris.app/Contents/Resources/audio/tetris.ogg"
-  
-  
-  cout<<"PlayState Constructor Called"<<endl;
+  Locator::getAudio()->playMusic( "Tetris.app/Contents/Resources/audio/tetris.ogg", 40, -1 );  // tetris theme, yeah buddy!
+
+  //cerr<<"PlayState Constructor Called"<<endl;
   
   // Do things needed to reset to a fresh "playstate"
   reset();
@@ -41,7 +37,7 @@ PlayState::PlayState( GameEngine* game )
 
 PlayState::~PlayState()
 {
-  cerr<<"PlayState Destructor Called"<<endl;
+  //cerr<<"PlayState Destructor Called"<<endl;
 
   // Free the image surfaces
   SDL_FreeSurface(cyanBlock);
@@ -593,7 +589,7 @@ int PlayState::checkLines()
   }
   
   // play sound effect for line being cleared
-  if ( lines > 0 ) Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/lineclear.wav", 4);
+  if ( lines > 0 ) Locator::getAudio()->playSound("Tetris.app/Contents/Resources/audio/lineclear.wav");
   
   return lines;
 }

@@ -16,11 +16,12 @@ class NullAudio : public IAudio
 public:
   
   virtual ~NullAudio() {}
-  virtual void playSound( std::string filename, int channel = -1, int looping = 0 )   { /* Do nothing */}
-  virtual void playMusic( std::string filename, int looping )                         { /* Do nothing */}
+  virtual void playSound( std::string filename, int volume = 100, int looping = 0 )   { /* Do nothing */}
+  virtual void playMusic( std::string filename, int volume = 100, int looping = 0 )   { /* Do nothing */}
   
   virtual void stopAllSounds()                                                        { /* Do nothing */}
   virtual void stopMusic()                                                            { /* Do nothing */}
+  virtual void stopEverything()                                                       { /* Do nothing */}
   
   virtual void setMusicVolume ( int volAsPercent )                                    { /* Do nothing */}
   virtual int  getMusicVolume ( )                                                     { /* Do nothing */}
@@ -30,10 +31,9 @@ public:
   
   virtual void toggleMusic ( )                                                        { /* Do nothing */}
   
-  virtual bool isSoundPlaying()                                                       { /* Do nothing */}
+  virtual bool isSoundPlaying( std::string filename )                                 { /* Do nothing */}
   virtual bool isMusicPlaying()                                                       { /* Do nothing */}
   
-  virtual bool isSoundPaused()                                                        { /* Do nothing */}
   virtual bool isMusicPaused()                                                        { /* Do nothing */}
 };
 

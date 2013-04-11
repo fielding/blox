@@ -23,6 +23,7 @@
 		C23704E41702755100E4AC5D /* ghostblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
 		C240036B17123FA2003BF14B /* bloxIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C240036A17123FA2003BF14B /* bloxIcon.icns */; };
 		C240036C17124305003BF14B /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C24003701714E970003BF14B /* SoundAssetCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C240036E1714E970003BF14B /* SoundAssetCache.cpp */; };
 		C2728A2E1705959C00284863 /* November.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C2728A2F170595A900284863 /* November.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
@@ -154,6 +155,8 @@
 		C23704E21702754400E4AC5D /* ghostblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ghostblock.png; path = assets/img/ghostblock.png; sourceTree = "<group>"; };
 		C240036A17123FA2003BF14B /* bloxIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = bloxIcon.icns; path = ../bloxIcon.icns; sourceTree = "<group>"; };
 		C240036D17149286003BF14B /* NullAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullAudio.h; sourceTree = "<group>"; };
+		C240036E1714E970003BF14B /* SoundAssetCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundAssetCache.cpp; sourceTree = "<group>"; };
+		C240036F1714E970003BF14B /* SoundAssetCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundAssetCache.h; sourceTree = "<group>"; };
 		C2728A2D1705959C00284863 /* November.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = November.ttf; path = assets/font/November.ttf; sourceTree = "<group>"; };
 		C276DA7516FB9CC2005A4DFC /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameover.png; path = assets/img/gameover.png; sourceTree = "<group>"; };
 		C276DA7716FB9CD6005A4DFC /* boardoutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boardoutline.png; path = assets/img/boardoutline.png; sourceTree = "<group>"; };
@@ -213,6 +216,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C24003711714EAC9003BF14B /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				C20CF5A61700F3220088459F /* GameEngine.cpp */,
+				C20CF5A71700F3220088459F /* GameEngine.h */,
+				C20CF5A91700F52F0088459F /* GameState.h */,
+				C2D5412717094A4400AB642A /* IAudio.h */,
+				C2D5412B170954E800AB642A /* Locator.cpp */,
+				C2D5412C170954E900AB642A /* Locator.h */,
+				C240036D17149286003BF14B /* NullAudio.h */,
+				C2D5412817094BDF00AB642A /* SDLAudio.cpp */,
+				C2D5412917094BDF00AB642A /* SDLAudio.h */,
+				C240036E1714E970003BF14B /* SoundAssetCache.cpp */,
+				C240036F1714E970003BF14B /* SoundAssetCache.h */,
+				C2DD4D2416F3570A005F36B3 /* Timer.cpp */,
+				C2DD4D2516F3570A005F36B3 /* Timer.h */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
 		C2A37D6A16F24F1B00ED5820 = {
 			isa = PBXGroup;
 			children = (
@@ -256,36 +279,26 @@
 		C2A37D7C16F24F1B00ED5820 /* Tetris */ = {
 			isa = PBXGroup;
 			children = (
-				C20CF58016FE4A320088459F /* Bag.h */,
+				C24003711714EAC9003BF14B /* Engine */,
 				C20CF57F16FE4A320088459F /* Bag.cpp */,
-				C2080DBB16F729B20028CF9A /* Block.h */,
+				C20CF58016FE4A320088459F /* Bag.h */,
 				C2080DBA16F729B20028CF9A /* Block.cpp */,
-				C2080DB816F729370028CF9A /* Board.h */,
+				C2080DBB16F729B20028CF9A /* Block.h */,
 				C2080DB716F729370028CF9A /* Board.cpp */,
-				C2080DC116F72F690028CF9A /* Constants.h */,
+				C2080DB816F729370028CF9A /* Board.h */,
 				C2080DC016F72F690028CF9A /* Constants.cpp */,
-				C2D5412717094A4400AB642A /* IAudio.h */,
-				C240036D17149286003BF14B /* NullAudio.h */,
-				C2D5412917094BDF00AB642A /* SDLAudio.h */,
-				C2D5412817094BDF00AB642A /* SDLAudio.cpp */,
-				C20CF5A61700F3220088459F /* GameEngine.cpp */,
-				C20CF5A71700F3220088459F /* GameEngine.h */,
-				C20CF5A91700F52F0088459F /* GameState.h */,
-				C20CF5BB17015CFD0088459F /* GameOverState.h */,
+				C2080DC116F72F690028CF9A /* Constants.h */,
 				C20CF5BA17015CFD0088459F /* GameOverState.cpp */,
-				C2D5412C170954E900AB642A /* Locator.h */,
-				C2D5412B170954E800AB642A /* Locator.cpp */,
+				C20CF5BB17015CFD0088459F /* GameOverState.h */,
 				C2DD4CF716F25067005F36B3 /* main.cpp */,
-				C20CF5B517015B710088459F /* MenuState.h */,
 				C20CF5B417015B710088459F /* MenuState.cpp */,
-				C20CF5B817015CED0088459F /* PauseState.h */,
+				C20CF5B517015B710088459F /* MenuState.h */,
 				C20CF5B717015CED0088459F /* PauseState.cpp */,
-				C20CF5AB17010F620088459F /* PlayState.h */,
+				C20CF5B817015CED0088459F /* PauseState.h */,
 				C20CF5AA17010F620088459F /* PlayState.cpp */,
-				C2080DBE16F72A050028CF9A /* Tetrimino.h */,
+				C20CF5AB17010F620088459F /* PlayState.h */,
 				C2080DBD16F72A050028CF9A /* Tetrimino.cpp */,
-				C2DD4D2516F3570A005F36B3 /* Timer.h */,
-				C2DD4D2416F3570A005F36B3 /* Timer.cpp */,
+				C2080DBE16F72A050028CF9A /* Tetrimino.h */,
 				C2A37D7D16F24F1B00ED5820 /* Supporting Files */,
 			);
 			path = Tetris;
@@ -443,6 +456,7 @@
 				C20CF5BC17015CFD0088459F /* GameOverState.cpp in Sources */,
 				C2D5412A17094BDF00AB642A /* SDLAudio.cpp in Sources */,
 				C2D5412D170954E900AB642A /* Locator.cpp in Sources */,
+				C24003701714E970003BF14B /* SoundAssetCache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
