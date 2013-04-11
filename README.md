@@ -13,6 +13,7 @@
 * Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
 * Tweak following settings for best game play: DAS, ARR, Lock Delay, Force Time and how quickly each level increases the force time.
 
+
 ### Someday/Maybe
 * T-Spin scoring
 * Implement a better Menu
@@ -28,6 +29,7 @@
 	* Locking sound effect ( only used on none hardDrop locks)
 	* Pause sound effect
 	* Game Over sound effect
+* Piece placement mode that helps create scenarios to practice/test wall kicks or t-spins.
 
 ### Bugs
 * Key events don’t update properly if the game is paused and a keyup event happens.
