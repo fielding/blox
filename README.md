@@ -2,6 +2,8 @@
 ## A Tetronimo game
 
 ### Todo
+* Look in to Mix_PlayChannelTimed.
+
 
 ### Consider
 * Blacking out the board when the game is paused to prevent using pause as an extended thinking period.
@@ -28,7 +30,7 @@
 	* Game Over sound effect
 
 ### Bugs
-*	Key events don’t update properly if the game is paused and a keyup event happens.
+* Key events don’t update properly if the game is paused and a keyup event happens.
 * Ghost piece is showing above the top boarder in some instances.
 
 ## Game Play

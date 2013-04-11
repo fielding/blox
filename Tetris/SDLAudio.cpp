@@ -89,7 +89,6 @@ void SDLAudio::playMusic( std::string filename, int volume, int looping )     //
     {
       if ( Mix_PlayingMusic() == true )
       {
-        std::cerr<<"Stopping the currently playing music"<<std::endl; // debugging REMOVE
         Mix_HaltMusic();
       }
     }
