@@ -16,8 +16,8 @@ class NullAudio : public IAudio
 public:
   
   virtual ~NullAudio() {}
-  virtual void playSound( std::string filename, int volume = -1, int looping = 0 )   { /* Do nothing */ }
-  virtual void playMusic( std::string filename, int volume = -1, int looping = 0 )   { /* Do nothing */ }
+  virtual void playSound( std::string filename, int volume = -1, int looping = 0 )    { /* Do nothing */ }
+  virtual void playMusic( std::string filename, int volume = -1, int looping = 0 )    { /* Do nothing */ }
   
   virtual void stopAllSounds()                                                        { /* Do nothing */ }
   virtual void stopMusic()                                                            { /* Do nothing */ }

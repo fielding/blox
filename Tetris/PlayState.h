@@ -16,6 +16,7 @@
 
 #include "GameEngine.h"
 #include "GameState.h"
+#include "AssetCache.h"
 #include "MenuState.h"
 #include "PauseState.h"
 #include "GameOverState.h"

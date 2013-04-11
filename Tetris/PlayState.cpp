@@ -53,7 +53,7 @@ PlayState::~PlayState()
   SDL_FreeSurface(boardOutline);
   
   // Close the font and quit SDL_ttf
-  TTF_CloseFont( font );
+  //TTF_CloseFont( font );
   
   // clean up objects we have created
   delete myBoard;
@@ -454,9 +454,6 @@ bool PlayState::isGameOver()
 
 bool PlayState::loadAssets( GameEngine* game )
 {
-  // background image load
-  // placeholder for when I decide on a background image
-  
   // Load images
   cyanBlock = game->load_image( "Tetris.app/Contents/Resources/img/cyanblock.png" );
   blueBlock = game->load_image( "Tetris.app/Contents/Resources/img/blueblock.png" );
@@ -469,22 +466,9 @@ bool PlayState::loadAssets( GameEngine* game )
   
   boardTile = game->load_image( "Tetris.app/Contents/Resources/img/boardtile.png" );
   boardOutline = game->load_image( "Tetris.app/Contents/Resources/img/boardoutline.png" );
-  /*
-   if ( boardOutline == NULL )
-   {
-   cout<<IMG_GetError()<<endl;
-   }
-   */
   
   // Load font
   font = TTF_OpenFont( "Tetris.app/Contents/Resources/font/November.ttf", 18);
-  
-  
-  
-  // Check if font loaded properly
-  if ( font == NULL ) {
-    return false;
-  }
   
   return true;
   

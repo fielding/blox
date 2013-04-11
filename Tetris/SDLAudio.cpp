@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cmath>
 #include "SDLAudio.h"
-#include "SoundAssetCache.h"
+//#include "AssetCache.h"
 
 //
 // Public Methods
@@ -52,12 +52,12 @@ void SDLAudio::playSound( std::string filename, int volume, int looping )     //
   {
     try
     {
-      currentSounds[availChannel] = soundAssetCache.getSound(filename);
+      currentSounds[availChannel] = assetCache.getSound(filename);
       setSoundVolume( currentSounds[availChannel], volume );
       Mix_PlayChannel( availChannel, currentSounds[availChannel], 0 );
     }
     
-    catch( SoundNotFoundException& ex)
+    catch( NotFoundException& ex)
     {
       // Error, file was not found
       std::cerr<<ex.what()<<std::endl;
@@ -73,9 +73,9 @@ void SDLAudio::playMusic( std::string filename, int volume, int looping )     //
   // attempt to load the file in to the cache, or retrieve a pointer to it if it exists
   try
   {
-    current = soundAssetCache.getMusic( filename );
+    current = assetCache.getMusic( filename );
   }
-  catch( SoundNotFoundException& ex)
+  catch( NotFoundException& ex)
   {
     // We couldn't find the selected song, report that and then exit
     std::cerr<<ex.what()<<std::endl;
@@ -92,7 +92,7 @@ void SDLAudio::playMusic( std::string filename, int volume, int looping )     //
         Mix_HaltMusic();
       }
     }
-    catch( SoundNotFoundException& )
+    catch( NotFoundException& )
     {
       // Couldn't stop previous song
     }
@@ -131,13 +131,13 @@ void SDLAudio::stopEverything()     // Stops both sound and music being played.
 
 void SDLAudio::setSoundVolume ( std::string filename, int volAsPercent )      // Public version of setSoundVolume that takes filename as parameter and the volume as a percent
 {
-  Mix_Chunk* sound = soundAssetCache.getSound( filename );
+  Mix_Chunk* sound = assetCache.getSound( filename );
   setSoundVolume(sound, volAsPercent); // call the private version of this function using the pointer to the sound struct
 }
 
 int SDLAudio::getSoundVolume ( std::string filename )                         // Public version of getSoundVolume that takes filename as parameter and returns the volume as a percent
 {
-  Mix_Chunk* sound = soundAssetCache.getSound( filename );
+  Mix_Chunk* sound = assetCache.getSound( filename );
   return getSoundVolume(sound);
 }
 
@@ -177,7 +177,7 @@ bool SDLAudio::isSoundPlaying( std::string filename )     // Checks if a sound i
 {
   for ( int i = 0; i < MAX_SOUND_CHANNELS; i++ )
   {
-    if ( soundAssetCache.getSound(filename) == currentSounds[i] )
+    if ( assetCache.getSound(filename) == currentSounds[i] )
     {
       if ( Mix_Playing( i ) )
       {

@@ -15,7 +15,7 @@
 
 #include "SDL.h"
 #include "SDL_mixer.h"
-#include "SoundAssetCache.h"
+#include "AssetCache.h"
 
 class SDLAudio : public IAudio
 {
@@ -55,7 +55,7 @@ private:
   void setSoundVolume ( Mix_Chunk* sound, int volAsPercent );     // Private version of setSoundVolume that takes a pointer to the sound struct as parameter and the volume as a percent
   int  getSoundVolume ( Mix_Chunk* sound );                       // Private version of getSoundVolume that takes a pointer to the sound struct as parameter and returns the volume as a percent
   
-  SoundAssetCache soundAssetCache;                  // instance of the soundAssetCache
+  AssetCache assetCache;                  // instance of the AssetCache
   Mix_Chunk* currentSounds[MAX_SOUND_CHANNELS];     // create an array the size of the number of chunk channels sdl_mixer has provided (8)
   std::string currentMusicName;                     // string that the filename of current music is stored in
 };
