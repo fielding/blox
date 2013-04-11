@@ -2,7 +2,6 @@
 ## A Tetronimo game
 
 ### Todo
-#### SoundCache Branch
 
 ### Consider
 * Blacking out the board when the game is paused to prevent using pause as an extended thinking period.
