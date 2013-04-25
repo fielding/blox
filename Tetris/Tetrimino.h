@@ -86,7 +86,6 @@ private:
   };
   
   void bubbleSort(vector <int> &num);
-  double round( double number );
   enum direction_t { left, right, down };
   enum dimension_t { xMin, xMax, yMin, yMax };
   enum unit_t { blocks, pixels };

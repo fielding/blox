@@ -167,8 +167,8 @@ void Tetrimino::rotate(int direction, Board* myBoard)
         translateX = originalX - pX;
         translateY = originalY - pY;
       
-        rotatedX = round(translateX * cos(PI/2) - translateY * sin(PI/2));
-        rotatedY = round(translateX * sin(PI/2) - translateX * cos(PI/2));
+        rotatedX = Maths::round(translateX * cos(PI/2) - translateY * sin(PI/2));
+        rotatedY = Maths::round(translateX * sin(PI/2) - translateX * cos(PI/2));
       
         rotatedX += pX;
         rotatedY += pY;
@@ -185,8 +185,8 @@ void Tetrimino::rotate(int direction, Board* myBoard)
         translateX = originalX - pX;
         translateY = originalY - pY;
         
-        rotatedX = round(translateX * cos(-PI/2) - translateY * sin(-PI/2));
-        rotatedY = round(translateX * sin(-PI/2) - translateX * cos(-PI/2));
+        rotatedX = Maths::round(translateX * cos(-PI/2) - translateY * sin(-PI/2));
+        rotatedY = Maths::round(translateX * sin(-PI/2) - translateX * cos(-PI/2));
         
         rotatedX += pX;
         rotatedY += pY;
@@ -466,9 +466,4 @@ int Tetrimino::getDimension(int dimension, int unit)   // Calculate furthest pos
   
   return (returnValue);
   
-}
-
-double Tetrimino::round( double number )
-{
-  return number < 0.0 ? ceil(number - 0.5) : floor(number + 0.5);
 }
