@@ -20,7 +20,7 @@
 		C23704E31702754400E4AC5D /* ghostblock.png in Resources */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
 		C23704E41702755100E4AC5D /* ghostblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C23704E21702754400E4AC5D /* ghostblock.png */; };
 		C240036B17123FA2003BF14B /* bloxIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C240036A17123FA2003BF14B /* bloxIcon.icns */; };
-		C240036C17124305003BF14B /* libSDL_ttf-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; };
+		C240036C17124305003BF14B /* libSDL_ttf-2.0.0.dylib in Copy Files (4 items) */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C2728A2E1705959C00284863 /* November.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C2728A2F170595A900284863 /* November.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2728A2D1705959C00284863 /* November.ttf */; };
 		C276DA7616FB9CC2005A4DFC /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C276DA7516FB9CC2005A4DFC /* gameover.png */; };
@@ -40,13 +40,15 @@
 		C28A47DD1728E25700EB2A9C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C28A47D41728E25700EB2A9C /* README.md */; };
 		C28A47DE1728E25700EB2A9C /* SDLAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C28A47D51728E25700EB2A9C /* SDLAudio.cpp */; };
 		C28A47DF1728E25700EB2A9C /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C28A47D71728E25700EB2A9C /* Timer.cpp */; };
+		C29E995F1CE2E44B00627984 /* libSDL_image-1.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C29E995D1CE2E42900627984 /* libSDL_image-1.2.0.dylib */; };
+		C29E99601CE2E46600627984 /* libSDL_image-1.2.0.dylib in Copy Files (4 items) */ = {isa = PBXBuildFile; fileRef = C29E995D1CE2E42900627984 /* libSDL_image-1.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A37D7616F24F1B00ED5820 /* Cocoa.framework */; };
 		C2A37D8116F24F1B00ED5820 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D7F16F24F1B00ED5820 /* InfoPlist.strings */; };
 		C2A37D8716F24F1B00ED5820 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C2A37D8516F24F1B00ED5820 /* Credits.rtf */; };
 		C2D5411F17090EB000AB642A /* tetris.ogg in Resources */ = {isa = PBXBuildFile; fileRef = C2D5411E17090EB000AB642A /* tetris.ogg */; };
 		C2D5412317090EEE00AB642A /* tetris.ogg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D5411E17090EB000AB642A /* tetris.ogg */; };
 		C2D5412517091EA100AB642A /* SDL_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2D5412417091EA100AB642A /* SDL_mixer.framework */; };
-		C2D5412617091F2B00AB642A /* SDL_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D5412417091EA100AB642A /* SDL_mixer.framework */; };
+		C2D5412617091F2B00AB642A /* SDL_mixer.framework in Copy Files (4 items) */ = {isa = PBXBuildFile; fileRef = C2D5412417091EA100AB642A /* SDL_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C2D54166170EEAAD00AB642A /* harddrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54162170EEAAD00AB642A /* harddrop.wav */; };
 		C2D54167170EEAAD00AB642A /* lineclear.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54163170EEAAD00AB642A /* lineclear.wav */; };
 		C2D54168170EEAAD00AB642A /* tmove.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2D54164170EEAAD00AB642A /* tmove.wav */; };
@@ -55,10 +57,8 @@
 		C2D5416B170EEAB600AB642A /* lineclear.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54163170EEAAD00AB642A /* lineclear.wav */; };
 		C2D5416C170EEABD00AB642A /* tmove.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54164170EEAAD00AB642A /* tmove.wav */; };
 		C2D5416D170EEABE00AB642A /* trotate.wav in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2D54165170EEAAD00AB642A /* trotate.wav */; };
-		C2DD4CFB16F2507F005F36B3 /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
 		C2DD4CFC16F2507F005F36B3 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
-		C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CF916F2507F005F36B3 /* SDL_image.framework */; };
-		C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; };
+		C2DD4CFF16F25091005F36B3 /* SDL.framework in Copy Files (4 items) */ = {isa = PBXBuildFile; fileRef = C2DD4CFA16F2507F005F36B3 /* SDL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C2DD4D0216F250E1005F36B3 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD4D0116F250E1005F36B3 /* SDLMain.m */; };
 		C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		C2DD4D4716F62131005F36B3 /* blueblock.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2DD4D3D16F62107005F36B3 /* blueblock.png */; };
@@ -85,17 +85,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2DD4CFD16F2508C005F36B3 /* CopyFiles */ = {
+		C2DD4CFD16F2508C005F36B3 /* Copy Files (4 items) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C2DD4CFE16F25091005F36B3 /* SDL_image.framework in CopyFiles */,
-				C240036C17124305003BF14B /* libSDL_ttf-2.0.0.dylib in CopyFiles */,
-				C2DD4CFF16F25091005F36B3 /* SDL.framework in CopyFiles */,
-				C2D5412617091F2B00AB642A /* SDL_mixer.framework in CopyFiles */,
+				C29E99601CE2E46600627984 /* libSDL_image-1.2.0.dylib in Copy Files (4 items) */,
+				C240036C17124305003BF14B /* libSDL_ttf-2.0.0.dylib in Copy Files (4 items) */,
+				C2DD4CFF16F25091005F36B3 /* SDL.framework in Copy Files (4 items) */,
+				C2D5412617091F2B00AB642A /* SDL_mixer.framework in Copy Files (4 items) */,
 			);
+			name = "Copy Files (4 items)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C2DD4D0316F2D013005F36B3 /* CopyFiles */ = {
@@ -175,6 +176,7 @@
 		C28A47D61728E25700EB2A9C /* SDLAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLAudio.h; sourceTree = "<group>"; };
 		C28A47D71728E25700EB2A9C /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		C28A47D81728E25700EB2A9C /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		C29E995D1CE2E42900627984 /* libSDL_image-1.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_image-1.2.0.dylib"; path = "../../../../../usr/local/Cellar/sdl_image/1.2.10_2/lib/libSDL_image-1.2.0.dylib"; sourceTree = "<group>"; };
 		C2A37D7316F24F1B00ED5820 /* Tetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A37D7616F24F1B00ED5820 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C2A37D7916F24F1B00ED5820 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -191,7 +193,6 @@
 		C2D54164170EEAAD00AB642A /* tmove.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tmove.wav; path = assets/audio/tmove.wav; sourceTree = "<group>"; };
 		C2D54165170EEAAD00AB642A /* trotate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trotate.wav; path = assets/audio/trotate.wav; sourceTree = "<group>"; };
 		C2DD4CF716F25067005F36B3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C2DD4CF916F2507F005F36B3 /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = /Library/Frameworks/SDL_image.framework; sourceTree = "<absolute>"; };
 		C2DD4CFA16F2507F005F36B3 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		C2DD4D0016F250E1005F36B3 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.h"; sourceTree = "<absolute>"; };
 		C2DD4D0116F250E1005F36B3 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = "/Library/Frameworks/SDL.framework/devel-lite/SDLMain.m"; sourceTree = "<absolute>"; };
@@ -211,8 +212,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2DD4D0816F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib in Frameworks */,
-				C2DD4CFB16F2507F005F36B3 /* SDL_image.framework in Frameworks */,
 				C2DD4CFC16F2507F005F36B3 /* SDL.framework in Frameworks */,
+				C29E995F1CE2E44B00627984 /* libSDL_image-1.2.0.dylib in Frameworks */,
 				C2A37D7716F24F1B00ED5820 /* Cocoa.framework in Frameworks */,
 				C2D5412517091EA100AB642A /* SDL_mixer.framework in Frameworks */,
 			);
@@ -264,9 +265,9 @@
 		C2A37D7516F24F1B00ED5820 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C29E995D1CE2E42900627984 /* libSDL_image-1.2.0.dylib */,
 				C2D5412417091EA100AB642A /* SDL_mixer.framework */,
 				C2DD4D0716F2D30C005F36B3 /* libSDL_ttf-2.0.0.dylib */,
-				C2DD4CF916F2507F005F36B3 /* SDL_image.framework */,
 				C2DD4CFA16F2507F005F36B3 /* SDL.framework */,
 				C2A37D7616F24F1B00ED5820 /* Cocoa.framework */,
 				C2A37D7816F24F1B00ED5820 /* Other Frameworks */,
@@ -379,7 +380,7 @@
 				C2A37D6F16F24F1B00ED5820 /* Sources */,
 				C2A37D7016F24F1B00ED5820 /* Frameworks */,
 				C2A37D7116F24F1B00ED5820 /* Resources */,
-				C2DD4CFD16F2508C005F36B3 /* CopyFiles */,
+				C2DD4CFD16F2508C005F36B3 /* Copy Files (4 items) */,
 				C2DD4D0316F2D013005F36B3 /* CopyFiles */,
 				C2DD4D1F16F318C8005F36B3 /* CopyFiles */,
 				C2D5411C17090C1F00AB642A /* CopyFiles */,
@@ -399,7 +400,7 @@
 		C2A37D6B16F24F1B00ED5820 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Fielding Johnston";
 			};
 			buildConfigurationList = C2A37D6E16F24F1B00ED5820 /* Build configuration list for PBXProject "Tetris" */;
@@ -496,7 +497,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -505,6 +505,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -518,7 +519,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -528,7 +529,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -544,7 +544,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -567,7 +567,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/sdl_ttf/2.0.11/lib,
+					"$(PROJECT_DIR)",
+					/usr/local/Cellar/sdl_image/1.2.10_2/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "justFiedling.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -591,7 +594,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/sdl_ttf/2.0.11/lib,
+					"$(PROJECT_DIR)",
+					/usr/local/Cellar/sdl_image/1.2.10_2/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "justFiedling.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
