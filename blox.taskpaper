@@ -1,0 +1,30 @@
+* Look in to Mix_PlayChannelTimed.
+
+Bugs:
+	* Key events don’t update properly if the game is paused and a keyup event happens.
+	* Ghost piece is showing above the top boarder in some instances.
+
+Consider:
+	* Blacking out the board when the game is paused to prevent using pause as an extended thinking period. 
+	* Change the pieces to spawn at y=0 instead of y=2; This causes them to spawn out of view, but is more inline with T-compliance. 
+	* Displaying playTimer ? If I do then float or int?
+	* Creating a renderer service, similar to the audio service and how audio is handled.
+	* Double check the pivot points/pivot algorithm again (already revisted once and corrected some errors)
+	* Tweak following settings for best game play: DAS, ARR, Lock Delay, Force Time and how quickly each level increases the force time.
+
+Someday/Maybe:
+	* T-Spin scoring
+	* Implement a better Menu
+	* Finding work around for shaped windows in SDL. SDL doesn’t currently support SDL_CreateShapedWindow for OS X, afaik. Revisit this when it does, or look at alternative to SDL. This is definitely not a limitation I want any future games to have.
+	* Menu stays visible when MenuState is called while in PauseState. For the time being, I’m disabling MenuState while in PauseState, and forcing menuState when it goes to gameOver state. Will look in to a more elegant solution later, but due to the nature that I implemented drawing/redrawing in each gamestate, I don’t predict an easy solution.
+	* Revamp the sound effects. Here is a list of potential (keyword) sound additions
+		* Different sounds, perhaps just higher pitch, for line clears based on the number of lines cleared.
+		* T-spin sound effect
+		* Wall kick (maybe distinguish wall and floor kicks too) sound effect
+		* Interface sound effects
+		* Level change sound
+		* Hold sound effect
+		* Locking sound effect ( only used on none hardDrop locks)
+		* Pause sound effect
+		* Game Over sound effect
+	* Piece placement mode that helps create scenarios to practice/test wall kicks or t-spins.
