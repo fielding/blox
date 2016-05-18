@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E1CAC4246DF3A0489173CC71F8DA9A77562C73A2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E1CAC4246DF3A0489173CC71F8DA9A77562C73A2" : 0,
+    "92138AF23CC3C1241D31DE59C21E7CDE53EE8914" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8871BED7-674B-4823-99CF-DC0146433EF6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E1CAC4246DF3A0489173CC71F8DA9A77562C73A2" : "Tetris\/",
+    "92138AF23CC3C1241D31DE59C21E7CDE53EE8914" : "Tetris\/Tetris\/elle\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Tetris",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Tetris.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/justfielding\/elle.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "92138AF23CC3C1241D31DE59C21E7CDE53EE8914"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:justfielding\/Tetris.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E1CAC4246DF3A0489173CC71F8DA9A77562C73A2"
+    }
+  ]
+}
